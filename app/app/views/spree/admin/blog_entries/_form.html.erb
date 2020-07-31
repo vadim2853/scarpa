@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="alpha">
+    <%= f.field_container :title do %>
+      <%= f.label :title, Spree.t('admin.title') %>
+      <%= f.text_field :title, :class => 'fullwidth' %>
+      <%= error_message_on :blog_entry, :title %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :preview_text do %>
+      <%= f.label :preview_text, Spree.t('admin.blog_entry.preview_text') %>
+      <%= f.cktext_area :preview_text, :class => 'fullwidth' %>
+      <%= error_message_on :blog_entry, :preview_text %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :full_text do %>
+      <%= f.label :full_text, Spree.t('admin.blog_entry.full_text') %>
+      <%= f.cktext_area :full_text, :class => 'fullwidth' %>
+      <%= f.error_message_on :full_text %>
+    <% end %>
+  </div>
+
+  <div class="field alpha five columns">
+    <%= f.field_container :user do %>
+      <%= f.label :user, Spree.t('admin.blog_entry.user') %>
+      <%= f.select :user_id,
+        options_from_collection_for_select(
+          Spree::User.all,
+          :id,
+          :login,
+          f.object.user.try(:id) || spree_current_user.id
+        ),
+        {},
+        class: 'select2 fullwidth' %>
+      <%= error_message_on :blog_entry, :user %>
+    <% end %>
+  </div>
+
+  <div class="clear"></div>
+
+  <div data-hook="admin_blog_entry_form_posted_on" class="alpha two columns">
+    <%= f.field_container :posted_on do %>
+      <%= f.label :posted_on, Spree.t('admin.blog_entry.posted_on') %>
+      <%= f.error_message_on :posted_on %>
+      <%= f.text_field :posted_on, value: datepicker_field_value(f.object.posted_on || Time.zone.now), class: 'datepicker' %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="tours">
+  <% @tours.each do |tour| %>
+    <div class="tour_item flex">
+      <%= link_to '', wine_tour_path(tour), class: 'tour_item__image', style: "background-image: url('#{tour.first_poster_path}')" %>
+
+      <div class="tour_item__text">
+        <%= link_to tour.name, wine_tour_path(tour), class: 'tour_item__name' %>
+
+        <div class="tour_item__des">
+          <%== tour.short_description %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,46 @@
+<%= form_for @order, url: update_cart_path, html: { id: 'update-cart' } do |order_form| %>
+  <div class="flex right_to_bottom_mobile">
+
+    <% if @order.line_items.empty? %>
+      <div class="checkout_left__empty"></div>
+      <div class="checkout_left_side width_60">
+        <div data-hook="article" class="text_center wrapper_medium">
+          <h2 class="text_center"><%= Spree.t(:your_cart_is_empty) %></h2>
+          <%= link_to Spree.t(:continue_shopping), wines_path, class: 'btn red small continue_shopping' %>
+        </div>
+      </div>
+      <div class="checkout_right_side">
+        <div class="checkout_right__name"><%= Spree.t('shopping_cart') %></div>
+      </div>
+
+    <% else %>
+
+      <div class="checkout_left_side basket">
+        <div data-hook="outside_cart_form">
+          <%= render partial: 'line_item', collection: order_form.object.line_items, locals: { order_form: order_form } %>
+        </div>
+      </div>
+      <div class="checkout_right_side">
+      <div class="checkout_right__name"><%= Spree.t('shopping_cart') %></div>
+
+      <% if @order.line_items.present? %>
+        <div class="checkout_right__bottom">
+          <div class="checkout_right__bottom_text">
+            <div class="checkout_right__bottom_name"><%= Spree.t('price_of_the_order') %></div>
+            <div class="checkout_right__bottom_currency"><%= Spree.t(@order.currency) %></div>
+            <div class="checkout_right__bottom_price"><%= @order.total.to_f %></div>
+          </div>
+
+            <% if spree_current_user.present? %>
+              <%= button_tag Spree.t('checkout'), class: 'btn red small', name: 'checkout' %>
+            <% else %>
+              <%= link_to Spree.t('sign_in_to_continue'), 'javascript:;', class: 'btn red small header_login_call' %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+    <% end %>
+
+  </div>
+<% end %>

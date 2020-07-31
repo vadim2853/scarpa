@@ -1,0 +1,10 @@
+<div class="article__networks flex">
+  <%= social_share_button_tag(
+    title,
+    url: link,
+    image: local_assigns[:image].nil? ? '' : image,
+    desc: strip_tags(description),
+    via: 'scarpawines', # for twitter: posted by @scarpawine
+    popup: true,
+  ) %>
+</div>

@@ -1,0 +1,317 @@
+.club_wrapp {
+  position: relative;
+  min-height: 495px;
+}
+
+.club_left_side {
+  width: 20%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  background: image_url('wines.jpg') no-repeat 15% top;
+  background-size: auto 100%;
+
+  @media screen and (max-width: 1366px) {
+    width: 30%;
+  }
+
+  .btn {
+    position: relative;
+  }
+}
+
+.club_right_side {
+  padding: 0 0 0 20%;
+
+  @media screen and (max-width: 1366px) {
+    padding: 0 0 0 30%;
+  }
+}
+
+.avatar_img {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
+  position: relative;
+
+  img {
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: relative;
+    top: 50%;
+    left: 50%;
+  }
+}
+
+.club_header {
+  padding: 0 20%;
+
+  @media screen and (max-width: 1366px) {
+    padding: 0 30%;
+  }
+
+  @media screen and (max-width: 960px) {
+    padding: 0 0 0 30%;
+  }
+}
+
+.club_name {
+  text-align: center;
+
+  h2 {
+    padding: 40px 0 0;
+    letter-spacing: 5px;
+    font-size: 28px;
+
+    @media screen and (max-width: 1200px) {
+      font-size: 20px;
+    }
+  }
+
+  h5 {
+    letter-spacing: 2px;
+    margin-top: 20px;
+    font-family: 'museo_sans_cyrl300', sans-serif;
+
+    @media screen and (max-width: 1200px) {
+      font-size: 10px;
+    }
+  }
+}
+
+.club_controles {
+  width: 30%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.club_left_bg {
+  background: $black-6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.club_view {
+  padding: 50px 20px 50px 20%;
+  position: relative;
+
+  >div {
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  @media screen and (max-width: 960px) {
+    padding: 50px 20px 50px 15%;
+  }
+}
+
+.club_view__num {
+  color: $white;
+  width: 70px;
+  text-align: left;
+  padding-left: 15px;
+
+  @media screen and (max-width: 960px) {
+    font-size: 14px;
+    padding-left: 10px;
+    width: 50px;
+  }
+}
+
+.club_view__text {
+  color: $grey-999;
+  font-size: 16px;
+  font-family: 'museo_sans_cyrl300', sans-serif;
+  text-transform: uppercase;
+
+  @media screen and (max-width: 960px) {
+    font-size: 14px;
+  }
+}
+
+.club_create_event__left {
+  text-align: center;
+  width: 31.5%;
+
+  @media screen and (max-width: 1366px) {
+    width: 40%;
+  }
+
+  form {
+    padding: 10px 30px 30px;
+
+    ::-webkit-input-placeholder {
+      color: $black;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    ::-moz-placeholder {
+      color: $black;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    :-ms-input-placeholder {
+      color: $black;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .input_wrapp,
+    .type_event,
+    textarea {
+      margin-bottom: 20px;
+    }
+
+    @media screen and (max-width: 960px) {
+      padding: 10px 20px 20px;
+    }
+  }
+
+  .type_event {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    >div {
+      width: 50%;
+      height: 55px;
+      line-height: 45px;
+      padding: 5px;
+      border: 1px solid $black;
+      cursor: pointer;
+      font-family: 'museo_sans_cyrl300', sans-serif;
+
+      &:first-child {
+        border-right: 0;
+      }
+
+      &.active {
+        background: $grey-63;
+        color: $white;
+      }
+    }
+
+    @media screen and (max-width: 960px) {
+      font-size: 10px;
+    }
+  }
+}
+
+.club_create_event__right {
+  background: $ultra-light-grey;
+  width: 68.5%;
+
+  @media screen and (max-width: 1366px) {
+    width: 60%;
+  }
+}
+
+.club_create_event__image {
+  background: $grey_ddd;
+  padding-top: 60%;
+  position: relative;
+  overflow: hidden;
+
+  .btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .club_create_event,
+  .club_wrapp {
+    .btn {
+      padding: 18px 20px;
+      font-size: 13px;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .club_left_side {
+    width: 100%;
+    position: relative;
+  }
+
+  .club_header {
+    padding: 0;
+  }
+
+  .club_view {
+    width: 220px;
+    margin: 0 auto;
+    padding: 20px 0 30px 10%;
+  }
+
+  .club_right_side {
+    padding: 0;
+  }
+
+  .club_create_event {
+    flex-direction: column;
+  }
+
+  .club_create_event__left,
+  .club_create_event__right {
+    width: 100%;
+  }
+
+  .club_create_event__right {
+    height: 700px;
+  }
+
+  .club_create_event__left .type_event {
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+
+  .club_name h2 {
+    letter-spacing: 2px;
+  }
+}

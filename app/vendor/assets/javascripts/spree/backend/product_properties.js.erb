@@ -1,0 +1,37 @@
+$(document).on('ready', function () {
+
+  $('.select2_property_group').select2({minimumResultsForSearch: -1});
+
+  $('.select2_icons_load').select2({
+    width: '100%',
+    formatResult: iconFormat,
+    formatSelection: iconFormat
+  });
+
+  $('.select2_type_of_value_switcher').select2({minimumResultsForSearch: -1});
+  $(document).on('change', '.select2_type_of_value_switcher', function () {
+    var parent = $(this).parents('tr.product_property');
+    var valueTd = parent.find('td.value');
+
+    if (valueTd.data('type') == 'text') {
+      valueTd.data('type', 'icon');
+
+      valueTd.find('input').val('').hide().attr('disabled', true);
+      valueTd.find('select').show().removeAttr('disabled').select2({
+        width: '100%',
+        formatResult: iconFormat,
+        formatSelection: iconFormat
+      });      
+    } else {
+      valueTd.data('type', 'text');
+
+      valueTd.find('input').show().removeAttr('disabled');
+      valueTd.find('select').val('').attr('disabled', true).select2('destroy').hide();
+    }
+  });
+
+  $('.property_group .select2-search-choice-close').remove();
+  $('.type_of_value .select2-search-choice-close').remove();
+});
+
+function iconFormat(args) { return "<div class='mini_box " + args.text + "'></div>"; }

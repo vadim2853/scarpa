@@ -1,0 +1,15 @@
+<div class="cabinet flex order_details">
+  <div class="cabinet_right_side">
+    <div class="order_hist__name_mobile">
+      <div class="order_hist__name_inn">
+        <%= Spree.t('order_history') %>
+        <div class="arrow_black"></div>
+      </div>
+    </div>
+    <%= render 'user_info' %>
+  </div>
+
+  <div class="order_history">
+    <%= render partial: 'order_details', locals: { order: @order } %>
+  </div>
+</div>

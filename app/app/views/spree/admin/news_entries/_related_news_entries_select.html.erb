@@ -1,0 +1,24 @@
+<% if @not_related_news_entries.present? %>
+  <h4>Available for relation:</h4>
+  <div id="relation_ids_box" class="field alpha five columns">
+    <%= select_tag 'related_ids', 
+                    options_from_collection_for_select(
+                      not_related_news_entries, 
+                      'id',
+                      'title',
+                      not_related_news_entries.first
+                    ),
+                    class: 'select2' %>
+  </div>
+  
+  <div id="relation-news-entry-link-box" class="field beta four columns">
+    <%= link_to_with_icon 'plus', 
+                          'Add relation',
+                          'javascript:;',
+                          class: 'button add-related-news-entry-link', 
+                          data: { news_entry_id: @news_entry.id }  %>
+  </div>
+  <div class="clear"></div>
+<% else %>
+  <h4>No news entries available for relation</h4>
+<% end %>

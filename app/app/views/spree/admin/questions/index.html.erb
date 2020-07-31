@@ -1,0 +1,39 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.listing_questions') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.new_question'), new_admin_question_path, icon: 'plus' %>
+  </li>
+<% end %>
+
+<table class="questions_index_table" data-hook="winery_table">
+  <thead>
+    <tr data-hook="questions_header">
+      <th><%= Spree.t('admin.grade') %></th>
+      <th><%= Spree.t('admin.title') %></th>
+      <th><%= Spree.t('admin.description') %></th>
+      <th><%= Spree.t('admin.variants_type') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr data-hook="question_row_<%= question.id %>">
+        <td align="center" data-hook='grade'><%= question.grade.title %></td>
+        <td align="center" data-hook='title'><%= question.title %></td>
+        <td align="center" data-hook='description'><%== question.description %></td>
+        <td align="center" data-hook='description'>
+          <%= Spree.t("admin.#{question.variants_type}") if question.variants_type.present? %>
+        </td>
+        <td class="actions">
+          <%= link_to_with_icon 'edit', Spree.t('actions.edit'), 
+                edit_admin_question_path(question.id), no_text: true, data: { action: 'edit' } %>
+
+          <%= link_to_delete question, { url: admin_question_url(question.id), 
+                no_text: true, id: "del_#{question.id}" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

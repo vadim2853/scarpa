@@ -1,0 +1,48 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.featured_item.list') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.featured_item.new_link_button'), new_admin_featured_item_path, { icon: 'plus', id: 'admin_new_featured_item' } %>
+  </li>
+<% end %>
+
+<table class="featured_items_index_table">
+  <thead>
+  <tr data-hook="featured_items_header">
+    <th align="center"><%= Spree.t('admin.featured_item.position') %></th>
+    <th align="center"><%= Spree.t('admin.featured_item.item_title') %></th>
+    <th align="center"><%= Spree.t('admin.featured_item.item_description') %></th>
+    <th align="center"><%= Spree.t('admin.featured_item.item_size') %></th>
+    <th align="center"><%= Spree.t('admin.featured_item.spree_product') %></th>
+    <th align="center"><%= Spree.t('admin.featured_item.image') %></th>
+    <th align="center"><%= Spree.t('admin.behaviors') %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @featured_items.each do |item| %>
+    <tr data-hook="featured_items_row_<%= item.id %>">
+      <td align="center" data-hook='view_order'><%= item.position %></td>
+      <td align="center" data-hook='item_title'><%= item.item_title %></td>
+      <td align="center" data-hook='item_description'><%= item.item_description %></td>
+      <td align="center" data-hook='item_size'><%= item.item_size %></td>
+      <td align="center" data-hook='spree_product'>
+        <% if item.spree_product.present? %>
+          <%= link_to item.spree_product.name, admin_product_path(item.spree_product) %>
+        <% else %>
+          <p><%= Spree.t('admin.featured_item.no_product_message') %></p>
+        <% end %>
+      </td>
+      <td align="center"><%= image_tag item.image(:icon) %></td>
+      <td align="center">
+        <%= link_to_with_icon 'edit', Spree.t('admin.featured_item.edit_link'),
+                              edit_admin_featured_item_path(item), no_text: true, data: { action: 'edit' } %>
+
+        <%= link_to_delete item, { url: admin_featured_item_url(item),
+                                    no_text: true, id: "del_#{item.id}" } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

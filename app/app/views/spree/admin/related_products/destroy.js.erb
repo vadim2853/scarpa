@@ -1,0 +1,4 @@
+$("<%= "#related-product-#{@deleted_related_product_id}" %>").remove();
+$('.related_products_select').html('<%= j render partial: 'spree/admin/products/related_products_select', locals: { not_related_products: @not_related_products } %>');
+$("#related_ids").select2({ minimumResultsForSearch: Infinity });
+$('.add-related-product-link').click(window.addRelatedProduct);

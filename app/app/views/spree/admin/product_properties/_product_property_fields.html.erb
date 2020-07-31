@@ -1,0 +1,36 @@
+<tr class="product_property fields" id="spree_<%= dom_id(f.object) %>" data-hook="product_property">
+  <td class="no-border">
+    <% if f.object.persisted? && can?(:update_positions, f.object) %>
+      <span class="handle"></span>
+      <%= f.hidden_field :id %>
+    <% end %>
+  </td>
+  <td class='property_group'>
+    <%= f.select :property_group, property_groups, {}, class: 'select2_property_group fullwidth' %>
+  </td>
+  <td>
+    <%= f.text_field :category, class: 'autocomplete' %>
+  </td>
+  <td class='property_name'>
+    <%= f.text_field :property_name, class: 'autocomplete' %>
+  </td>
+  <td class='value' data-type="<%= f.object.type_of_value ? f.object.type_of_value : 'text' %>">
+    <% if f.object.text? %>
+      <%= f.text_field :value %>
+      <%= f.select :value_array, icons_list, {}, 
+            { multiple: true, disabled: true, class: 'fullwidth', style: 'display:none;' } %>
+    <% else %>
+      <%= f.text_field :value, { disabled: true, style: 'display:none;' }  %>
+      <%= f.select :value_array, icons_list, {}, { multiple: true, class: 'select2_icons_load fullwidth' } %>
+    <% end %>
+  </td>
+  <td class='type_of_value'>
+    <%= f.select :type_of_value, Spree::ProductProperty.type_of_values.keys.map { |t| [t, t] }, {}, 
+          class: 'fullwidth select2_type_of_value_switcher' %>
+  </td>
+  <td class="actions">
+    <% if f.object.persisted? && can?(:destroy, f.object) %>
+      <%= link_to_delete f.object, no_text: true %>
+    <% end %>
+  </td>
+</tr>

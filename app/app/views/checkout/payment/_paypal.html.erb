@@ -1,0 +1,7 @@
+<div class="input_wrapp">
+  <%= link_to(
+    '',
+    spree.paypal_express_url(payment_method_id: payment_method.id),
+    method: :post, id: 'paypal_button', class: 'btn red pay_pal'
+  ) %>
+</div>

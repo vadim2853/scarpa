@@ -1,0 +1,61 @@
+<%= render partial: 'spree/admin/shared/product_tabs', locals: { current: 'Audios' } %>
+
+<% content_for :page_actions do %>
+  <% if can?(:create, Spree::Audio) %>
+    <li>
+    <% if @product.audios.size < 2  %>
+      <%= link_to_with_icon('plus', Spree.t('admin.new_audio'), 
+            new_admin_product_audio_url(@product), id: 'new_audio_link', class: 'button') %>
+    <% end %>
+    </li>
+  <% end %>
+<% end %>
+
+<div id="audios" data-hook></div>
+
+<% unless @product.audios.any? %>
+  <div class="no-objects-found">
+    <%= Spree.t('admin.no_audios_found') %>.
+  </div>
+<% else %>
+  <table class="index sortable audios_table" data-hook="audios_table" 
+         data-sortable-link="<%= update_positions_admin_product_audios_url(@product) %>">
+    <thead>
+      <tr data-hook="audios_header">
+        <th colspan="2"><%= Spree.t('admin.image') %></th>
+        <th><%= Spree.t('admin.title') %></th>
+        <th><%= Spree.t('admin.description') %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% (@product.audios).each do |audio| %>
+        <tr id="<%= spree_dom_id audio %>" data-hook="audios_row" class="<%= cycle('odd', 'even')%>">
+          <td class="no-border">
+            <% if can?(:update_positions, Spree::Audio) %>
+              <span class="handle"></span>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to image_tag(audio.image.url(:icon)), audio.image.url(:icon) %>
+          </td>
+          <td>
+            <%= audio.title %>
+          </td>
+          <td>
+            <%= audio.description.html_safe %>
+          </td>
+          <td class="actions">
+            <% if can?(:update, audio) %>
+              <%= link_to_with_icon 'edit', Spree.t(:edit), edit_admin_product_audio_url(@product, audio), no_text: true, data: { action: 'edit' } %>
+            <% end %>
+            <% if can?(:destroy, audio) %>
+              <%= link_to_delete audio, { url: admin_product_audio_url(@product, audio), no_text: true } %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

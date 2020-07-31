@@ -1,0 +1,11 @@
+mkdir key
+openssl genrsa 4096 > key/keyfile.pem
+mkdir output_cert_dir
+
+==== Renew certificates
+
+bundle exec rake letsencrypt_plugin
+
+=== Tests dependencies
+
+* brew install chromedriver

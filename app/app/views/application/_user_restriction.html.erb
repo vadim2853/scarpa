@@ -1,0 +1,18 @@
+<div id='popup_user_restriction' class="pop_up">
+  <div class="popup_inn small popup_restriction_inn">
+    <div class="restriction__text text_center">
+      <div class="restriction__text_inn">
+        <h2>Choose your country</h2>
+        <div class="select_country">
+          <% options = Spree::Country.all.map { |c| [c.name, c.iso] } %>
+          <%= select_tag :country_code, options_for_select(options.unshift(options.delete(['Italy', 'IT']))), class: 'country_with_flag left_align', id: 'country_flag' %>
+        </div>
+        <div class="restriction__descripion"><%= t 'spree.adult_confirmation' %></div>
+      </div>
+    </div>
+    <div class="restriction__buttons flex">
+      <button class="btn adult_true popup_close_btn small white_red color_white" name="Yes">Yes</button>
+      <button class="btn adult_false popup_close_btn small white_red color_white" name="No">No</button>
+    </div>
+  </div>
+</div>

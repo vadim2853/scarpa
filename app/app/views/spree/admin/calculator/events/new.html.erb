@@ -1,0 +1,23 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.new_event') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.back_to_events_list'), spree.admin_calculator_events_path, :icon => 'arrow-left' %>
+  </li>
+<% end %>
+
+<div data-hook="admin_event_new_form_header">
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @event } %>
+</div>
+
+<div data-hook="admin_event_new_form">
+  <%= form_for [:admin, @event], url: admin_calculator_events_url, method: :post do |f| %>
+    <fieldset data-hook="new_event">
+      <legend align="center"><%= Spree.t('admin.new_event') %></legend>
+      <%= render :partial => 'form', :locals => { :f => f } %>
+      <%= render :partial => 'spree/admin/shared/new_resource_links' %>
+    </fieldset>
+  <% end %>
+</div>

@@ -1,0 +1,34 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.update_question') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.back_to_questions_list'), spree.admin_questions_path, :icon => 'arrow-left' %>
+  </li>
+  <li>
+    <%= button_link_to Spree.t('admin.back_to_related_grade'), spree.edit_admin_grade_path(@question.grade), :icon => 'arrow-left' %>
+  </li>
+  <li>
+    <span id="new_add_question" data-hook>
+      <%= link_to_add_fields Spree.t('admin.add_question_variant'), "tbody#question_variants", :class => 'button fa fa-plus' %>
+    </span>
+  </li>
+<% end %>
+
+<div data-hook="admin_questions_new_form_header">
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @question } %>
+</div>
+
+<div data-hook="admin_question_new_form">
+  <%= form_for [:admin, @question], url: admin_question_path(@question.id), method: :put do |f| %>
+    <fieldset data-hook="update_question">
+      <legend align="center"><%= Spree.t('admin.update_question') %></legend>
+      <%= render :partial => 'form', :locals => { :f => f } %>
+      <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+    </fieldset>
+
+    <% partial_name =  (params['f'] || @question.variants_type || 'v_choose_one') %>
+    <%= render partial: "spree/admin/questions/variants_types/#{partial_name}", locals: { f: f } %>
+  <% end %>
+</div>

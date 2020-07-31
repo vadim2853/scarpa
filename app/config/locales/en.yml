@@ -1,0 +1,375 @@
+en:
+  mails:
+    shipment_state: Shipment state
+    payment_state: Payment state
+    state: State
+    your_order_has_been_shipped: your order has been shipped
+    download_tikets: download tikets
+    purchase: purchase
+    the_wines: the wines
+    go_to_the_website_to: Go to the website to
+    your_username: Your username
+    to: to
+    welcome: Welcome
+    thank_you_for_signing_up: Thank you for signing up on SCARPA
+    welcome_to_scarpa: Welcome to Scarpa
+    status_email: Order status has been changed
+    new_status_is: New Status is
+    the_status_of_your_order: the Status of your Order
+    has_been_changed: has been changed
+    order: Order
+    total: Total
+    scarpa_support: SCARPA Support
+    shipping: Shipping
+    subtotal: Subtotal
+    item_total: Item total
+    item_price: Item price
+    quantity: Qty
+    dear: Dear
+    your_order_contains: Your Order contains
+    your_order_number_is: Your order number is
+    thanks_for_order: Thank You for the Order
+    order_confirmation: Order Confirmation
+  or: or
+  activerecord:
+    errors:
+      messages:
+        confirmation: doesn't match with password
+  coming_soon:
+    create_wine_club: Wine clubs are coming soon
+    calendar: Calendar is coming soon
+    clubs: Clubs are coming soon
+    restaurants: Restaurants are coming soon
+    get_direction: Directions are coming soon
+    leave_comment: Comments are coming soon
+    contact_information: Contact information is coming soon
+    tooltip_it: Italiana è in arrivo
+    tooltip_login: Login is coming soon
+    tooltip_linkedin: Linkedin is coming soon
+    tooltip_map: Contacts are coming soon
+  spree:
+    young_wine: Young Wine
+    wine_age: Wine age
+    payments_do_not_cover_order_total: Payments do not cover order total
+    cuisines: Cuisines
+    download_invoice: Download invoice
+    ability_for_download_invoice: You can download invoice on the last step
+    download_tickets: download tickets
+    go_to_the_next_level: Go to the next level
+    download_certificate: Download certificate
+    persons: persons
+    watch: Watch
+    shipping: Shipping
+    subtotal: Subtotal
+    order_history: Order history
+    catalog: Catalog
+    your_order_id: Your order id
+    successful_order: Successful order
+    total_price: Total price
+    euro: euro
+    shipment_state: Shipment state
+    payment_state: Payment state
+    order_numder: Order numder
+    empty_order_history: YOU DON’T HAVE ANY ORDER HISTORY FOR NOW
+    all_your_orders: ALL YOUR ORDERS ARE SHOWN HERE
+    order_history: Order history
+    use_billing: Use billing addresses
+    delivering_addresses: Delivering addresses
+    payment_method: Payment method
+    payment_details: Payment details
+    payment: Payment
+    cvv: CVV
+    card_type: Card type
+    card_number: Card number
+    cardholder_name: Cardholder name
+    pay: Pay
+    adding_to_cart: Adding to cart...
+    sign_in_to_continue: Sign in to continue
+    stock_item_id: Stock item id
+    fulfillable_stock: Fulfillable stock
+    restock_inventory: Restock inventory
+    billing_address: Billing address
+    shipping_method: SHIPPING METHOD
+    personal_data: PERSONAL DATA
+    shipping_address: Shipping address
+    aged_vintages_warning:  Dear Client,
+                            Scarpa's cellar holds over 40 000 bottles of Aged Vintages, so only a part is shown below.
+                            If you are looking for a special vintage, like the year of your birth or wedding,
+                            please contact us and we will get back to you shortly.
+    USD: usd
+    EUR: euro
+    scarpa: Scarpa
+    adult_confirmation: I confirm, that the laws of the country of my current disposition allows me to buy alcohol.
+    quiz_list: Quiz list
+    points: Points
+    profile_photo: Profile photo
+    i_am_a_business_owner: I am a business owner
+    save: Save
+    change_password: Change password
+    password_confirmation: Confirmation of password
+    current_password: Current password
+    select: Select
+    upload: Upload
+    zip_code: Zip code
+    region: Region
+    timezone: Timezone
+    language: Language
+    web_site: Web site address
+    email_address: Email address
+    web_address: Web address
+    joined_on: Joined on
+    create_wine_club: CREATE WINE CLUB
+    another_address: Another address
+    current_address: Current address
+    change_password: Change password
+    profile_settings: Profile settings
+    general_settings: General settings
+    set_your_timezone: Set your timezone, browsing options, profile information, 
+                       change your email address, or update your password
+    user_profile_settings: USER PROFILE SETTING
+    your_current_location: Your current location
+    avatar: Avatar
+    news_archive: News archive
+    blog_archive: Blog archive
+    related_news: Related news
+    top_news: Top news
+    by_scarpa: by SCARPA
+    posted_on: Posted on
+    time_of_work: Time of work
+    leave_comment: Leave comment
+    get_direction: Get direction
+    find_nearest: FIND NEAREST SCARPA
+    scarpa_wine_club: Scarpa wine club
+    scarpa_store: Scarpa store
+    scarpa_restaurant: Scarpa restaurant
+    contacts: Contacts
+    back_to_tax_rates_list: Back to tax rates list
+    currencies: Currencies
+    group: Group
+    perfect_experience: Perfect experience
+    other: Other
+    dominant_flavours: Dominant flavours
+    perfect_temperature: Perfect temperature
+    wine_profile: Wine profile
+    perfect_glass: Perfect glass
+    wine_aeration: Wine aeration
+    technical_data: Technical data
+    organoleptic_data: Organoleptic data
+    hide_video: hide video
+    qty: qty
+    price_of_the_order: PRICE OF THE ORDER
+    shopping_cart: SHOPPING CART
+    add_to_cart: Add to cart
+    bottles: Bottles
+    bottle: Bottle
+    crates: Crates
+    crate: Crate
+    try_virtual_tasting: Try virtual tasting
+    geographic_setting: Geographic setting
+    producer: Producer
+    enter_scarpa: enter_scarpa
+    user_name_email: User name \ E-mail
+    enter_scarpa: Enter Scarpa
+    welcome: Welcome
+    auth_invalid: Invalid email or password
+    checkout_statuses:
+      cart: cart
+      address: address
+      delivery: delivery
+      payment: payment
+      confirmed: confirmed
+      completed: completed
+      canceled: canceled
+      awaiting_return: awaiting return
+      returned: returned
+      resumed: resumed
+      undefined: undefined
+    grade:
+      congrats: CONGRATULATIONS! YOU HAVE SUCCESSFULLY COMPLETED
+      fail: UNFORTUNATELY YOU <br /> DIDN’T SCORE ENOUGH TO GET
+    admin:
+      number_of_grade: Number of grade
+      icon: Icon
+      matching_variant: Matching variant
+      right_variant: Right variant
+      questions_number: Questions number
+      update_nomination: Update nomination
+      add_nomination: Add nomination
+      back_to_nominations_list: Back to nominations list
+      min: Minimum
+      listing_nominations: Listing nominations
+      new_nomination: New nomination
+      grade: Grade
+      level: Level
+      back_to_related_grade: Back to related grade
+      new_grade: New grade
+      listing_grades: Listing grades
+      back_to_grades_list: Back to grades list
+      update_grade: Update grade
+      add_grade: Add grade
+      back_to_related_quiz: Back to related quiz
+      right_question_variant: Right variant
+      add_question_variant: Add question variant
+      update_question: Update question
+      v_choose_one: Choose one
+      v_choose_many: Choose many
+      v_match: Match
+      v_reorder: Reorder
+      variants_type: Variants type
+      back_to_questions_list: Back to questions list
+      presentation: Presentation
+      new_question: New question
+      listing_questions: Listing questions
+      add_question: Add question
+      questions: Questions
+      update_quiz: Update quiz
+      back_to_quizzes_list: Back to quizzes list
+      quiz: Quiz
+      new_quiz: New quiz
+      quizzes_list: Quizzes list
+      red_rate: Red rate
+      white_rate: White rate
+      is_default: Is default background for selected event and month?
+      month: Month
+      update_month: Update month
+      back_to_months_list: Back to months list
+      listing_months: Listing months
+      update_wine_color: Update wine color
+      back_to_wine_colors_list: Back to wine colors list
+      new_wine_color: New wine color
+      listing_wine_colors: Listing wine colors
+      rate: Rate
+      update_background: Update background
+      back_to_backgrounds_list: Back to backgrounds list
+      guests: Guests
+      season: Season
+      event_type: Event type
+      new_background: New background
+      listing_backgrounds: Listing backgrounds
+      update_event: Update event
+      back_to_events_list: Back to events list
+      new_event: New event
+      listing_events: Listing events
+      review_link: Review link
+      dependency: Dependency
+      work_time_it: Italian work time
+      work_time: Work time
+      rating: Rating
+      name_it: Italian name
+      address: Address
+      address_it: Italian address
+      name: Name
+      m_office: Main office
+      m_store: Store
+      m_club: Club
+      m_restaurant: Restaurant
+      map_marker_type: Marker type
+      first_name: First name
+      last_name: Last name
+      update_map_marker: Update map marker
+      marker_name: Marker name (address)
+      back_to_map_markers_list: Back to map markers list
+      map_markers: Map markers
+      new_map_marker: New map marker
+      listing_map_markers: Listing map markers
+      link: Link
+      type_of_value: Type of value
+      handle: Handle
+      title: Title
+      content: Content
+      description: Description
+      description_it: Italian description
+      image: Image
+      new_slide: New slide
+      update_slide: Update slide
+      publishing_status: Publishing status
+      back_to_slides_list: Back to slides list
+      listing_slides: Listing slides
+      behaviors: Behaviors
+      slide_deleted: Slide deleted!
+      topics: Topics
+      new_topic: New topic
+      back_to_topics_list: Back to topics list
+      new_topic: New topic
+      no_topics_found: No topics found
+      product_descriptions: Descriptions
+      new_product_description: New description
+      no_product_descriptions_found: No descriptions found
+      product_description_kind: Kind
+      product_description_body: Description
+      back_to_product_descriptions_list: Back to descriptions list
+      audios: Audios
+      new_audio: New audio
+      no_audios_found: No audios found
+      audio_mp3: Audio format link (mp3)
+      audio_ogg: Audio format link (ogg)
+      audio_wav: Audio format link (wav)
+      back_to_audios_list: Back to audios list
+      is_perfect_match: Is perfect match?
+      wineries: Wineries
+      listing_wineries: Listing wineries
+      show_winery: Show winery
+      new_winery: New winery
+      update_winery: Update winery
+      back_to_wineries_list: Back to wineries list
+      title_it: Title IT
+      videos: Video with different formats
+      video_mp4: Video format (mp4)
+      video_ogg: Video format (ogg)
+      video_webm: Video format (webm)
+      text_color: Text color
+      text_side: Text side
+      times: Times
+      created_at: Created at
+      updated_at: Updated at
+      blog_entry:
+        back_to_list: Back to list
+        full_text: Full text
+        listing: Blog entries
+        new: New blog entry
+        posted_on: Posted on
+        preview_text: Preview text
+        show: View blog entry
+        update: Update blog entry
+        user: Author
+        view_count: View count
+      news_entries: News entries
+      news_entry:
+        back_to_list: Back to news list
+        full_text: Full text
+        listing: News entries
+        new: New news entry
+        posted_on: Posted on
+        preview_text: Preview text
+        show: View news entry
+        update: Update news entry
+        view_count: View count
+      tab:
+        quiz: Quiz
+        slide: Landing slides
+        featured_items: Featured items
+      featured_item:
+        display_mode: Display mode
+        new_featured_item: New featured item
+        self_name: Featured item
+        list: Featured items list
+        new_title: New featured item
+        new_link_button: New featured item
+        edit_title: Edit featured item
+        edit_link: Edit
+        update_item: Update item
+        destroy_link: Delete
+        item_title: Item title
+        item_description: Item description
+        item_size: Item size
+        link_url: Link url
+        spree_product: Product
+        spree_product_list: Product list
+        image: Image
+        spree_product_prompt: Please select product (if you need it)
+        no_product_message: No product
+        back_to_items_list: Back to items list
+        position: Position
+      general_setting:
+        display_coming_soon: Display coming soon
+        display_coming_soon_note: Show coming soon pages

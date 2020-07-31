@@ -1,0 +1,29 @@
+<div class="wrapper flex">
+  <div class="left_side">
+    <% @blog_entries.each do |blog_entry| %>
+      <div class="article">
+        <div class="article__img">
+          <%= image_tag blog_entry.user.avatar_url %>
+        </div>
+        <h2><%= link_to blog_entry.title, blog_path(blog_entry) %></h2>
+        <div class="article__prehead flex">
+          <div class="article__posted">
+            <%= posted_on(blog_entry) %>
+            <span class="article__posted_by">&nbsp;by <%= blog_entry.user.full_name %></span>
+          </div>
+          <div class="article__views"><span class="icon_eye"></span><%= blog_entry.view_count %></div>
+        </div>
+        <div class="article__text">
+          <%== blog_entry.preview_text %>
+        </div>
+        <%= render 'social_shares', title: blog_entry.title,
+                                    description: blog_entry.preview_text,
+                                    link: blog_url(blog_entry) %>
+      </div>
+    <% end %>
+
+    <%= paginate @blog_entries, window: 2 %>
+  </div>
+
+  <%= render 'recent_blogs', blogs: @recent_blogs %>
+</div>

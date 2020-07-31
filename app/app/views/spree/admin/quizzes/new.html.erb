@@ -1,0 +1,23 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.new_quiz') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.back_to_quizzes_list'), spree.admin_quizzes_path, :icon => 'arrow-left' %>
+  </li>
+<% end %>
+
+<div data-hook="admin_quiz_new_form_header">
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @quiz } %>
+</div>
+
+<div data-hook="admin_quiz_new_form">
+  <%= form_for [:admin, @quiz], url: admin_quizzes_url, method: :post do |f| %>
+    <fieldset data-hook="new_quiz">
+      <legend align="center"><%= Spree.t('admin.new_quiz') %></legend>
+      <%= render :partial => 'form', :locals => { :f => f } %>
+      <%= render :partial => 'spree/admin/shared/new_resource_links' %>
+    </fieldset>
+  <% end %>
+</div>

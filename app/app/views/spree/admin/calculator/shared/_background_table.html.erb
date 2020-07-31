@@ -1,0 +1,29 @@
+<table class="backgrounds_table">
+  <thead>
+    <tr data-hook="backgrounds_header">
+      <th><%= Spree.t('admin.event_type') %></th>
+      <th><%= Spree.t('admin.image') %></th>
+      <th><%= Spree.t('admin.season') %></th>
+      <th><%= Spree.t('admin.guests') %></th>
+      <th><%= Spree.t('admin.is_default') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% backgrounds.each do |background| %>
+      <tr data-hook="backgrounds_row_<%= background.id %>">
+        <td align="center" data-hook='event'><%= background.event.name %></td>
+        <td align="center"><%= image_tag background.image(:icon) %></td>
+        <td align="center" data-hook='season'><%= background.month.name %></td>
+        <td align="center" data-hook='guests'><%= background.guests %></td>
+        <td align="center" data-hook='is_default'><%= background.is_default %></td>
+        <td class="actions">
+          <%= link_to_with_icon 'edit', Spree.t('actions.edit'), 
+                edit_admin_calculator_background_path(background.id), no_text: true, data: { action: 'edit' } %>
+
+          <%= link_to_delete background, { url: admin_calculator_background_url(background.id), 
+                no_text: true, id: "del_#{background.id}" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

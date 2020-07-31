@@ -1,0 +1,4 @@
+$('<%= "#related-news-entry-#{@deleted_related_news_entry_id}" %>').remove();
+$('.related_news_entries_select').html('<%= j render partial: "spree/admin/news_entries/related_news_entries_select", locals: { not_related_news_entries: @not_related_news_entries } %>');
+$("#related_ids").select2({ minimumResultsForSearch: Infinity });
+$('.add-related-news-entry-link').click(window.addRelatedNewsEntry);

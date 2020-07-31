@@ -1,0 +1,81 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.update_grade') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.back_to_grades_list'), spree.admin_grades_path, :icon => 'arrow-left' %>
+  </li>
+  <li>
+    <%= button_link_to Spree.t('admin.back_to_related_quiz'), spree.edit_admin_quiz_path(@grade.quiz), :icon => 'arrow-left' %>
+  </li>
+  <li>
+    <span id="new_add_nomination" data-hook>
+      <%= link_to_add_fields Spree.t('admin.add_nomination'), "tbody#nominations", :class => 'button fa fa-plus' %>
+    </span>
+  </li>
+  <li>
+    <span id="new_add_grade" data-hook>
+      <%= link_to_add_fields Spree.t('admin.add_grade'), "tbody#questions", :class => 'button fa fa-plus' %>
+    </span>
+  </li>
+<% end %>
+
+<div data-hook="admin_grades_new_form_header">
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @grade } %>
+</div>
+
+<div data-hook="admin_grade_new_form">
+  <%= form_for [:admin, @grade], url: admin_grade_path(@grade.id), method: :put do |f| %>
+    <fieldset data-hook="update_grade">
+      <legend align="center"><%= Spree.t('admin.update_grade') %></legend>
+      <%= render :partial => 'form', :locals => { :f => f } %>
+      <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+    </fieldset>
+
+    <fieldset data-hook="manage_nominations">
+      <legend>Nominations</legend>
+      <table class="index sortable" data-hook data-sortable-link="<%= update_positions_admin_nominations_url %>">
+        <thead data-hook="nomination_header">
+          <tr>
+            <th><%= Spree.t('admin.handle') %></th>
+            <th><%= Spree::Nomination.human_attribute_name(:title) %></th>
+            <th><%= Spree::Nomination.human_attribute_name(:min) %></th>
+            <th class="actions"></th>
+          </tr>
+        </thead>
+        <tbody id="nominations">
+          <%= f.fields_for :nominations, @nominations do |nominations_form| %>
+            <%= render :partial => 'nominations_fields', :locals => { :f => nominations_form } %>
+          <% end %>
+        </tbody>
+      </table>
+      <span id="new_add_nomination" data-hook>
+        <%= link_to_add_fields Spree.t('admin.add_nomination'), "tbody#nominations", :class => 'button fa fa-plus' %>
+      </span>
+      <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+    </fieldset>
+
+    <fieldset data-hook="manage_questions">
+      <legend>Questions</legend>
+      <table class="index sortable" data-hook data-sortable-link="<%= update_positions_admin_questions_url %>">
+        <thead data-hook="question_header">
+          <tr>
+            <th><%= Spree.t('admin.handle') %></th>
+            <th align="center"><%= Spree::Question.human_attribute_name(:title) %></th>
+            <th class="actions"></th>
+          </tr>
+        </thead>
+        <tbody id="questions">
+          <%= f.fields_for :questions, @questions do |questions_form| %>
+            <%= render :partial => 'questions_fields', :locals => { :f => questions_form } %>
+          <% end %>
+        </tbody>
+      </table>
+      <span id="new_add_question" data-hook>
+        <%= link_to_add_fields Spree.t('admin.add_question'), "tbody#questions", :class => 'button fa fa-plus' %>
+      </span>
+      <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+    </fieldset>
+  <% end %>
+</div>

@@ -1,0 +1,424 @@
+.calculator {
+  text-align: center;
+
+  h2 {
+    font-size: 30px;
+    padding: 0;
+
+    @media screen and (max-width: 640px) {
+      font-size: 24px;
+    }
+  }
+
+  h3 {
+    color: $black;
+    font-size: 15px;
+    display: block;
+    margin: 22px 0;
+    line-height: 1.5;
+
+    @media screen and (max-width: 640px) {
+      font-size: 13px;
+    }
+  }
+}
+
+.calculator_type_wine,
+.calculator_buying {
+  background-size: cover;
+  position: relative;
+  padding: 50px 0;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  h2 {
+    color: $white;
+  }
+
+  h3 {
+    color: $white;
+  }
+
+  .wrapper {
+    position: relative;
+    max-width: 915px;
+    padding: 0 20px;
+  }
+
+  .handle {
+    background: $calculator-handle-red-bg;
+  }
+
+  .wrapper_big {
+    position: relative;
+  }
+}
+
+.party_selecter {
+  max-width: 350px;
+  margin: 0 auto;
+
+  .select2-choice {
+    border-color: $white;
+    border-width: 2px;
+    background-color: $black-3;
+    color: $white;
+    letter-spacing: 2px;
+
+    b {
+      width: 30px;
+      height: 20px;
+
+      &::before {
+        border-top: 4px solid $white;
+        border-left: 4px solid $white;
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    .select2-arrow {
+      width: 60px;
+    }
+  }
+}
+
+.red_bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $calculator-red-bg;
+}
+
+.calculator_range_guests,
+.calculator_range_place,
+.calculator_range_season {
+  position: relative;
+  padding: 0 150px;
+}
+
+.calculator_range_guests {
+  .bar-0 {
+    background: $white;
+  }
+
+  .handle {
+    background-image: image-url('party_range_guests');
+    background-size: 55%;
+    background-repeat: no-repeat;
+    background-position: center 85%;
+  }
+}
+
+.calculator_range_place {
+  .handle {
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+}
+
+.calculator_range_season {
+  .handle {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 62% 62%;
+    text-transform: uppercase;
+  }
+
+  .my-handle {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+
+  .bar-0 {
+    background: $white;
+  }
+}
+
+.calculator__add_more {
+  cursor: pointer;
+  color: $white;
+  width: 64px;
+  height: 64px;
+  box-shadow: 0 0 0 6px $white inset;
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  right: 40px;
+  top: 0;
+  opacity: 1;
+  transition: opacity .3s ease;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: $white;
+  }
+
+  &::before {
+    width: 50%;
+    height: 4px;
+  }
+
+  &::after {
+    height: 50%;
+    width: 4px;
+  }
+
+  &.disable {
+    opacity: .3;
+    cursor: default;
+  }
+}
+
+.calculator_type_wine {
+  background-image: image-url('party_calc_type_wine.jpg');
+}
+
+.calculator_type_wine__red,
+.calculator_type_wine__white,
+.calculator_type_wine__rose {
+  .my-handle {
+    font-size: 16px;
+  }
+
+  .bar-0 {
+    background: $white;
+  }
+}
+
+.calculator_type_wine__red .handle {
+  background: $handle-red-wine;
+}
+
+.calculator_type_wine__white .handle {
+  background: $handle-white-wine;
+}
+
+.calculator_type_wine__rose .handle {
+  background: $handle-rose-wine;
+}
+
+.calculator_result {
+  padding: 70px 0;
+
+  .btn {
+    display: inline-block;
+
+    @media screen and (max-width: 640px) {
+      font-size: 24px;
+      padding: 20px 40px;
+    }
+
+    @media screen and (max-width: 400px) {
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
+  }
+}
+
+.calculator_result_num {
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+
+  >div {
+    margin: 0 30px;
+  }
+
+  @media screen and (max-width: 640px) {
+    justify-content: space-around;
+
+    >div {
+      margin: 0;
+    }
+  }
+}
+
+.calculator_result_amount {
+
+  font-size: 100px;
+  padding-left: 85px;
+  background-repeat: no-repeat;
+  font-family: 'librebaskerville-regular', serif;
+  line-height: 1;
+
+  &.bottle-red {
+    background-image: image_url('bottle-red');
+    background-position: 20px center;
+    background-size: auto 70%;
+  }
+
+  &.bottle-white {
+    background-image: image_url('bottle-white');
+    background-position: 20px center;
+    background-size: auto 70%;
+  }
+
+  &.crate {
+    background-image: image_url('select_product_crate');
+    background-position: 0 center;
+  }
+
+  @media screen and (max-width: 640px) {
+    font-size: 70px;
+    padding-left: 60px;
+  }
+
+  @media screen and (max-width: 400px) {
+    font-size: 50px;
+    padding-left: 50px;
+  }
+}
+
+.calculator_result_glasses {
+  color: $grey-63;
+  font-family: 'museo_sans_cyrl300', sans-serif;
+  text-align: left;
+  align-items: center;
+  line-height: 1.3;
+
+  .glass {
+    background: image_url('glass_icon_black') no-repeat left center;
+    background-size: 100%;
+    width: 40px;
+    height: 80px;
+    margin-right: 20px;
+    color: $black;
+    font-size: 22px;
+    font-family: 'museo_sans_cyrl500', sans-serif;
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  @media screen and (max-width: 640px) {
+    font-size: 13px;
+
+    .glass {
+      margin-right: 10px;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    font-size: 12px;
+
+    .glass {
+      width: 30px;
+      height: 55px;
+      font-size: 16px;
+      padding-top: 5px;
+    }
+  }
+}
+
+.calculator_result_wine {
+  justify-content: center;
+  padding-bottom: 50px;
+}
+
+.calculator_result_wine__block {
+  text-align: center;
+  width: 20%;
+  padding: 20px 10px 0;
+}
+
+.calculator_result_wine__name {
+  font-family: 'librebaskerville-regular', serif;
+  font-size: 16px;
+  margin-top: 30px;
+}
+
+.calculator_result_wine__img {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  img {
+    max-height: 300px;
+    max-width: 100%;
+  }
+}
+
+.calculator_recomend_wine {
+  padding-top: 20px;
+}
+
+@media screen and (max-width: 1366px) {
+  .calculator_range_guests,
+  .calculator_range_place,
+  .calculator_range_season {
+    padding: 0 110px;
+  }
+
+  .calculator__add_more {
+    right: 20px;
+  }
+
+  .calculator_recomend_wine {
+    padding: 20px 20px 0;
+  }
+}
+
+@media screen and (max-width: 640px) {
+
+  .calculator_type_wine,
+  .calculator_buying {
+    .wrapper_big {
+      padding: 0 20px;
+    }
+  }
+
+  .calculator_range_guests,
+  .calculator_range_place,
+  .calculator_range_season {
+    padding: 0 40px;
+  }
+
+  .calculator__add_more {
+    right: 0;
+    top: 6px;
+    width: 30px;
+    height: 30px;
+    box-shadow: 0 0 0 3px $white inset;
+
+    &::before {
+      height: 2px;
+    }
+
+    &::after {
+      width: 2px;
+    }
+  }
+
+  .calculator_range_season .my-handle {
+    font-size: 13px;
+  }
+
+  .party_selecter {
+    font-size: 13px;
+  }
+
+  .calculator_result_wine {
+    flex-flow: row wrap;
+  }
+
+  .calculator_result_wine__block {
+    width: 33%;
+  }
+
+  .calculator_result_wine__name {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .calculator_result_wine__name {
+    font-size: 10px;
+  }
+}

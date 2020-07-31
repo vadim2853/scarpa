@@ -1,0 +1,120 @@
+.coming_soon_wrapper {
+  background: -webkit-linear-gradient(left, $start-gradient-grey, $stop-gradient-grey);
+  background: -o-linear-gradient(right, $start-gradient-grey, $stop-gradient-grey);
+  background: -moz-linear-gradient(right, $start-gradient-grey, $stop-gradient-grey);
+  background: linear-gradient(to right, $start-gradient-grey, $stop-gradient-grey);
+}
+
+.coming_soon_overflow {
+  position: absolute;
+  height: 100%;
+  width: 90%;
+  z-index: 10;
+}
+
+.coming_soon {
+  padding: 75px 0 225px;
+  font-size: 35px;
+  color: $white;
+  text-shadow: 0 3px 7px $black-6;
+  text-align: center;
+  font-family: 'librebaskerville-regular', serif;
+  line-height: 40px;
+  letter-spacing: 3px;
+  background: image-url('coming_soon.png') center center no-repeat;
+  background-size: auto 100%;
+
+  h1 {
+    font-size: 60px;
+    margin-bottom: 80px;
+  }
+
+  &.size_cover {
+    background-size: cover;
+  }
+
+  .small_text {
+    font-size: 18px;
+    line-height: 56px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 3px $black-6;
+  }
+
+  .upper {
+    text-transform: uppercase;
+  }
+
+  .title_white {
+    color: $white;
+    opacity: .6;
+    font-family: 'librebaskerville-regular', serif;
+  }
+
+  .title_red {
+    color: $dark-red;
+    font-family: 'librebaskerville-regular', serif;
+  }
+}
+
+.ui-tooltip {
+  z-index: 1000;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.tooltipster_scarpa {
+  border-radius: 5px;
+  border: 1px solid $dark-red;
+  background: $red;
+  color: $white;
+
+  .tooltipster-content {
+    font-family: 'librebaskerville-regular', serif;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 8px 10px;
+    text-transform: uppercase;
+  }
+}
+
+.tooltipster_scarpa_icons {
+  border-radius: 5px;
+  border: 1px solid $black-6;
+  background: $black;
+  color: $white;
+
+  .tooltipster-content {
+    font-family: 'museo_sans_cyrl500', sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 8px 10px;
+    text-transform: uppercase;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .coming_soon {
+    padding: 50px 0 150px;
+    font-size: 35px;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .coming_soon {
+    font-size: 25px;
+    line-height: 40px;
+    background-size: auto 110%;
+
+    h1 {
+      line-height: 1;
+      font-size: 35px;
+    }
+
+    .small_text {
+      font-size: 14px;
+      line-height: 40px;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+
+#map {
+  width: 100%;
+  height: 500px;
+}
+
+.select2-result-label img,
+.place_box img {
+  width: 20px;
+  height: 20px;
+  margin: 0 5px 0 0;
+}
+
+.place_option {
+  vertical-align: middle !important;
+  display: flex !important;
+  padding: 0 5px 0 0px !important;
+  line-height: 20px !important;
+}

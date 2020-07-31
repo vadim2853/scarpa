@@ -1,0 +1,59 @@
+<div data-hook="admin_calculator_event_form_fields" class="row">
+  <div class="alpha">
+    <%= f.field_container :name do %>
+      <%= f.label :name, Spree.t('admin.name') %>
+      <%= f.text_field :name, class: 'fullwidth' %>
+      <%= error_message_on :calculator_event, :name %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :red_rate do %>
+      <%= f.label :red_rate, Spree.t('admin.red_rate') %>
+      <%= f.number_field :red_rate, class: 'fullwidth', step: 0.01, min: 0 %>
+      <%= error_message_on :calculator_event, :red_rate %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :white_rate do %>
+      <%= f.label :white_rate, Spree.t('admin.white_rate') %>
+      <%= f.number_field :white_rate, class: 'fullwidth', step: 0.01, min: 0 %>
+      <%= error_message_on :calculator_event, :white_rate %>
+    <% end %>
+  </div>
+
+  <div>
+    <h4>Related backgrounds:</h4>
+    <%= render partial: '/spree/admin/calculator/shared/background_table', 
+          locals: { backgrounds: @event.backgrounds } %>
+
+    <%= button_link_to Spree.t('admin.new_background'), new_admin_calculator_background_path, icon: 'plus' %>
+  </div>
+
+  <div data-hook="admin_product_form_related_products">
+    <%= f.field_container :month_products do %>
+      <div class="event_products_select">
+        <%= render partial: 'event_products_select', locals: { not_event_products: @not_event_products } %>
+      </div>
+    <% end %>
+
+    <div class="related_products_box">
+      <h4>Related products list</h4>
+      <table class="event_products" id="listing_event_products">
+        <thead>
+          <tr data-hook="admin_products_index_headers">
+            <th>SKU</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Master Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render partial: 'event_products', collection: @event.products, as: :p %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

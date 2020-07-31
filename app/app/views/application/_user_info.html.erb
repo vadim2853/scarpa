@@ -1,0 +1,69 @@
+<% result = spree_current_user.grades_results.last %>
+
+<div class="cabinet_avatar_wrapp">
+  <div class="cabinet_avatar">
+    <%= image_tag(spree_current_user.avatar_url(:medium)) %>
+  </div>
+  <% if result.present? %>
+    <div data-popupid='popup_certificate_<%= result.id %>' class="cabinet_status_quizz">
+      <%= last_nomination_icon %>
+    </div>
+  <% end %>
+</div>
+
+<h5><%= joined_on(spree_current_user) %></h5>
+
+<% if spree_current_user.first_name.present? %>
+  <h2><%= spree_current_user.first_name %></h2>
+<% else %>
+  <h2 class="email_name"><%= spree_current_user.email %></h2>
+<% end %>
+
+<%= link_to Spree.t(:logout), logout_path, class: 'btn small grey' %>
+
+<h4><%= spree_current_user.spree_roles.take.description %></h4>
+
+<% address = user_address %>
+<% if address.present? %>
+  <h5><%= Spree.t(:shipping_address) %></h5>
+  <%== address %>
+<% end %>
+
+<% if spree_current_user.web_site.present? %>
+  <h5><%= Spree.t(:web_site) %></h5>
+  <div class="cabinet_web-site">
+    <%= link_to spree_current_user.web_site, spree_current_user.web_site, target: '_blank' %>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to 'calendar', 'javascript:;', 
+                          class: 'cabinet_calendar coming_soon_link',
+                          title: t('coming_soon.calendar') %>
+</div>
+
+<div><%= link_to 'settings', settings_path, class: 'cabinet_settings' %></div>
+
+<!-- <button class="btn red small coming_soon_link" title="<%#= t('coming_soon.create_wine_club') %>"> -->
+  <%#= Spree.t(:create_wine_club) %>
+<!-- </button> -->
+
+<% if result.present? %>
+  <% score_text = "#{grade_data(result.grade, 0)[:percent]} #{Spree.t('points')} " \
+                  "#{result.grade.position.ordinalize} #{Spree.t('admin.level')}" %>
+
+  <%= render 'social_meta', {
+      title: result.grade.title,
+      description: score_text,
+      image: asset_url("#{grade_data(result.grade, 0)[:icon]}"),
+      url: grades_url
+    } %>
+
+  <%= render 'certificate',
+             title: result.grade.title,
+             description: score_text,
+             icon: grade_data(result.grade, 0)[:icon],
+             link: grades_url,
+             grade_id: result.grade.id,
+             result_id: result.id %>
+<% end %>

@@ -1,0 +1,21 @@
+<% if @product.wine_glass.present? %>
+  <h4>Wine glass already selected</h4>
+<% elsif @wine_glasses.present? %>
+  <h4>Available wine glasses:</h4>
+  <div id="wine_glasses_ids_box" class="field alpha five columns">
+    <%= select_tag 'wine_glasses_ids', 
+                   options_from_collection_for_select(@wine_glasses, 'id', 'name'),
+                   class: 'select2' %>
+  </div>
+  
+  <div id="wine-glass-link-box" class="field beta four columns">
+    <%= link_to_with_icon 'plus', 
+                          'Add wine glass',
+                          'javascript:;',
+                          class: 'button add-wine-glass-link', 
+                          data: { product_id: @product.id }  %>
+  </div>
+  <div class="clear"></div>
+<% else %>
+  <h4>Wine glasses are not available</h4>
+<% end %>

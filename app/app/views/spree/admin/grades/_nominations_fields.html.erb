@@ -1,0 +1,20 @@
+<tr class="nomination fields" id="spree_<%= dom_id(f.object) %>"  data-hook="nomination" class="<%= cycle('odd', 'even')%>">
+  <% if f.object.persisted? %>
+    <td class="no-border">
+      <span class="handle"></span>
+      <%= f.hidden_field :id %>
+    </td>
+  <% else %>
+    <td class="no-border"><span class="handle"></span></td>
+  <% end %>
+  <td align="center" class="title"><%= f.text_field :title %></td>
+  <td align="center" class="min"><%= f.number_field :min, min: 0 %></td>
+  <% if f.object.persisted? %>
+    <td class="actions">
+      <%= link_to_with_icon 'edit', Spree.t('actions.edit'), 
+                edit_admin_nomination_path(f.object.id), no_text: true, data: { action: 'edit' } %>
+
+      <%= link_to_remove_fields Spree.t('remove'), f, :no_text => true %>
+    </td>
+  <% end %>
+</tr>

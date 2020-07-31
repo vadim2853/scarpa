@@ -1,0 +1,149 @@
+<% content_for :head do %>
+  <script data-turbolinks-track='true' 
+          src='https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.googleKey %>&language=en'></script>
+
+  <%= javascript_include_tag 'contacts/init', 
+                             'data-main-office-placeid' => 'ChIJJfWwQuCFh0cRZmuFgG-z-Sg',
+                             'data-place-details-path' => map_marker_path(' '),
+                             'data-address-autocomplete-path' => address_autocomplete_map_markers_path,
+                             'data-places-path' => map_markers_path,
+                             'data-nearest-path' => nearest_map_markers_path,
+                             'data-user-icon' => image_path('m_user.png'),
+                             'data-office-icon' => image_path('m_office.png'),
+                             'data-club-icon' => image_path('m_club.png'),
+                             'data-store-icon' => image_path('m_store.png'),
+                             'data-restaurant-icon' => image_path('m_restaurant.png') %>
+<% end %>
+
+<section class="wrapper">
+  <%= form_tag 'javascript:;' do %>
+    <div class="flex map_nav_box">
+      <div class="checkboxes flex">
+        <div class="restaurant flex">
+          <%= check_box_tag 'm_restaurant', nil, checked: 'checked' %>
+          <span class="check_map_mask restaurant_mask"></span>
+          <%= label_tag 'm_restaurant', Spree.t('scarpa_restaurant') %>
+        </div>
+
+        <div class="store flex">
+          <%= check_box_tag 'm_store', nil, checked: 'checked' %>
+          <span class="check_map_mask store_mask"></span>
+          <%= label_tag 'm_store', Spree.t('scarpa_store') %>
+        </div>
+
+        <div class="club flex coming_soon_link" title="<%= t('coming_soon.clubs') %>">
+          <%= check_box_tag 'm_club', false, false, disabled: true %>
+          <span class="check_map_mask club_mask"></span>
+          <%= label_tag 'm_club', Spree.t('scarpa_wine_club') %>
+        </div>
+      </div>
+
+      <button class="red btn find_nearest"><%= Spree.t('find_nearest') %></button>
+    </div>
+
+    <div class="visibility_switcher"></div>
+  <% end %>
+</section>
+
+<section class="contacts_box">
+  <div class="info_panel"> <!-- if need backdroud in bottom add class "with_bg" -->
+    <div class="fade_container">
+      <div class="img_box"><img src=""></div>
+      <div class="title"></div>
+      <div class="description"></div>
+
+      <div class="stars_box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
+      <div class="address"></div>
+
+      <div class="time_box">
+        <span class="clock"><%= Spree.t('time_of_work') %></span>
+        <div class="time"></div>
+      </div>
+
+      <div class="red btn get_direction_button">
+        <%= Spree.t('get_direction') %>
+      </div>
+
+      <a class="btn marsh leave_comment_button" target="_blank">
+        <span class="mini_marker"></span><%= Spree.t('leave_comment') %>
+      </a>
+
+      <%#= link_to 'CONTACT INFORMATION', 'javascript:;', class: 'confirmation coming_soon_link', title: t('coming_soon.contact_information') %>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="get_direction">
+      <div class="get_direction__name">GET DIRECTION</div>
+      <div class="tabs">
+        <div class="direction_tab">
+          <div data-travel-mode='WALKING' class="get_direction__men active"></div>
+          <div data-travel-mode='TRANSIT' class="get_direction__bus"></div>
+          <div data-travel-mode='DRIVING' class="get_direction__car"></div>
+        </div>
+        <div class="direction_tab_description active">
+          <h5><%= Spree.t('your_current_location') %></h5>
+          <div class="flex">
+            <div class="current_loc__left flex">
+              <div class="icon_location"></div>
+              <div class="current_loc__way"></div>
+              <div class="current_loc__round"></div>
+            </div>
+
+            <div class="current_loc__right">
+              <input type="text" class="current_address"></input>
+              <ul class="autocomplete"></ul>
+              <div class="target_address"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="direction_tab_description">
+          <h5><%= Spree.t('your_current_location') %></h5>
+          <div class="flex">
+            <div class="current_loc__left flex">
+              <div class="icon_location"></div>
+              <div class="current_loc__way"></div>
+              <div class="current_loc__round"></div>
+            </div>
+            <div class="current_loc__right">
+              <input type="text" class="current_address"></input>
+              <ul class="autocomplete"></ul>
+              <div class="target_address"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="direction_tab_description">
+          <h5><%= Spree.t('your_current_location') %></h5>
+          <div class="flex">
+            <div class="current_loc__left flex">
+              <div class="icon_location"></div>
+              <div class="current_loc__way"></div>
+              <div class="current_loc__round"></div>
+            </div>
+            <div class="current_loc__right">
+              <input type="text" class="current_address"></input>
+              <ul class="autocomplete"></ul>
+              <div class="target_address"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-of-road-path" class="current_loc__to"></div>
+        <div class="close_btn medium get_diraction__close"></div>
+      </div>
+    </div>
+
+  </div>
+  <div id="map" class="map"></div>
+</section>
+
+<div class="clear"></div>

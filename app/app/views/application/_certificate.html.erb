@@ -1,0 +1,37 @@
+<% visible_class = 'visible' if params[:show_certificate].present? %>
+
+<div id='popup_certificate_<%= result_id %>'
+     class="popup_certificate <%= visible_class %> pop_up">
+
+  <div class="popup_inn">
+    <div class="certificate_text">
+      <%= image_tag('certificate_template.svg') %>
+      <div class="certificate_name">“ <%= title %> “</div>
+      <div class="certificate_grade">
+         <%= description %>
+      </div>
+      <div class="certificate_image">
+        <%= image_tag(icon) %>
+      </div>
+      <div class="certificate_address">
+        via Montegrappa, 6 - 14049 Nizza Monferrato AT Tel. +39 0141 721331 - Fax. +39 0141 702872 <br />
+        info@scarpavini.it - export@scarpavini.it
+      </div>
+    </div>
+
+    <div class="quizz_congratulations_bottom flex">
+        <%= link_to 'Retake', grade_path(grade_id), class: 'btn white_red small color_white' %>
+        <div class="flex">
+          <%= render 'social_shares', title: title, image: icon, description: description, link: link %>
+        </div>
+
+        <button data-resultId="<%= result_id %>"
+                data-download-path="<%= certificate_path('_') %>"
+                class="btn red small download_pdf">
+          <i></i>
+          <%= Spree.t('download_certificate') %>
+        </button>
+      </div>
+  </div>
+  <div class="close_btn medium"></div>
+</div>

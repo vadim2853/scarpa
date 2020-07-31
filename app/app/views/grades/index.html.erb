@@ -1,0 +1,88 @@
+<div class="wrapper quizz">
+
+  <div class="crumbs flex">
+    <%= link_to Spree.t('scarpa'), root_path %>
+    <span>/</span>
+    <div class="current_grade"><%= Spree.t('quiz_list') %></div>
+  </div>
+
+  <div class="quizz_list">
+    <% can_pass_next = false %>
+    <% @grades.each_with_index do |grade, index| %>
+      <div class="quizz_list_block flex done">
+        <% if grade_data(grade, index)[:result_id].present? %>
+          <div data-popupid='popup_certificate_<%= grade_data(grade, index)[:result_id] %>' class="quizz_list_grade">
+            <%= image_tag("#{grade_data(grade, index)[:icon]}") %>
+          </div>
+        <% else %>
+          <div class="quizz_list_grade">
+            <%= image_tag("#{grade_data(grade, index)[:icon]}") %>
+          </div>
+        <% end %>
+        <div class="quizz_list_description">
+          <div class="quizz_name quizz_list_name"><%= grade.title %></div>
+          <div class="clear"></div>
+          <div class="quizz_list_des_left">
+            <h4>
+              <%= grade.number.ordinalize %>&nbsp;<%= Spree.t('admin.level') %><br/>
+
+              <% if grade_data(grade, index)[:percent].present? %>
+                <span><%= grade_data(grade, index)[:percent] %>&nbsp;<%= Spree.t('points') %></span>
+              <% end %>
+            </h4>
+          </div>
+          <div class="quizz_list_des_right">
+
+            <% if spree_current_user.present? %>
+
+              <% if can_pass_next == true || index == 0 %>
+                <% can_pass_next = false %>
+                <%= link_to grade_data(grade, index)[:percent].blank? ? 'pass' : 'retake',
+                      grade_path(grade), class: 'btn red small' %>
+
+                <% if grade_data(grade, index)[:result_id].present? %>
+                  <%= render 'certificate',
+                             title: grade.title,
+                             description: "#{grade_data(grade, index)[:percent]} #{Spree.t('points')}",
+                             icon: grade_data(grade, index)[:icon],
+                             link: certificate_url(grade_data(grade, index)[:result_id], v: Time.now.to_i),
+                             grade_id: grade.id,
+                             result_id: grade_data(grade, index)[:result_id] %>
+                <% end %>
+
+              <% elsif grade_data(grade, index)[:percent].present? %>
+                <%= link_to 'retake', grade_path(grade), class: 'btn red small' %>
+                <%= render 'certificate',
+                           title: grade.title,
+                           description: "#{grade_data(grade, index)[:percent]} #{Spree.t('points')}",
+                           icon: grade_data(grade, index)[:icon],
+                           link: certificate_url(grade_data(grade, index)[:result_id], v: Time.now.to_i),
+                           grade_id: grade.id,
+                           result_id: grade_data(grade, index)[:result_id] %>
+
+              <% else %>
+                <%= link_to 'pass', 'javascript:;', class: 'btn disable small' %>
+              <% end %>
+
+            <% else %>
+
+              <% if index == 0 %>
+                <%= link_to session[:grade_score].blank? ? 'pass' : 'retake', grade_path(grade), class: 'btn red small' %>
+              <% else %>
+                <%= link_to 'pass', 'javascript:;', class: 'btn disable small' %>
+              <% end %>
+
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <%
+        if grade_data(grade, index)[:percent].present?
+          can_pass_next = grade_data(grade, index)[:percent] >= Spree::Grade::PASSING_SCORE
+        end
+      %>
+    <% end %>
+  </div>
+
+</div>

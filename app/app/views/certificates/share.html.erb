@@ -1,0 +1,11 @@
+<% 
+  render 'social_meta', {
+    title: @grade.title,
+    description: "#{@data[:percent]} #{Spree.t('points')} " \
+                 "#{@grade.number.ordinalize} #{Spree.t('admin.grade')}",
+    url: certificate_url(params[:id], v: Time.now.to_i),
+    image: @data[:icon].present? ? asset_url(@data[:icon]) : image_url('grade_bg.png'),
+    image_width: 200,
+    image_height: 400
+  }
+%>

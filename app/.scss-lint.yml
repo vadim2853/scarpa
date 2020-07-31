@@ -1,0 +1,29 @@
+scss_files: 'app/assets/**/*.scss'
+
+linters:
+  VendorPrefix:
+    enabled: false
+
+  SelectorFormat:
+    enabled: false
+
+  PropertySortOrder:
+    enabled: false
+
+  NameFormat:
+    enabled: false
+
+  Comment:
+    enabled: false
+
+  NestingDepth:
+    enabled: true
+    max_depth: 4
+    ignore_parent_selectors: false
+
+  SelectorDepth:
+    enabled: true
+    max_depth: 4
+
+  ImportantRule:
+    enabled: false

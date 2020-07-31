@@ -1,0 +1,44 @@
+<fieldset data-hook="manage_variants">
+  <legend>Variants type: "Reorder (put in the correct order)"</legend>
+  <p>After data updating, please, submit this form!</p>
+
+  <table class="index question_variants_sortable">
+    <thead data-hook="question_header">
+      <tr>
+        <th><%= Spree.t('admin.handle') %></th>
+        <th><%= Spree.t('admin.title') %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody id="question_variants">
+
+      <%
+        if !f.object.v_reorder? || (f.object.v_reorder? && f.object.variants.blank?)
+          f.object.variants = [{ title: '' }]
+        end
+      %>
+      <% f.object.variants.each_with_index do |variant, index| %>
+        <%= f.fields_for :variants, OpenStruct.new(variant), index: index do |qv_form| %>
+          <tr class="question_variant fields" data-hook="question_variant" class="<%= cycle('odd', 'even')%>">
+            <td><span class="handle"></span></td>
+
+            <td class="title">
+              <%= qv_form.text_field :title %>
+            </td>
+
+            <td class="actions">
+              <%= link_to '', 'javascript:;', class: 'remove_question_variant fa fa-trash icon_link no-text' %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+
+    </tbody>
+  </table>
+  <span id="new_add_question_variant" data-hook>
+    <%= link_to_add_fields Spree.t('admin.add_question_variant'),
+                           'tbody#question_variants',
+                           class: 'button fa fa-plus' %>
+  </span>
+  <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+</fieldset>

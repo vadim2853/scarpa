@@ -1,0 +1,22 @@
+<div data-hook="admin_topic_form_fields">
+  <div class="alfa">
+    <div data-hook="title" class="field">
+      <%= f.label :title %><br>
+      <%= f.text_field :title, { class: 'fullwidth' } %>
+    </div>
+  </div>
+  <div class="alfa">
+    <div class="field">
+      <%= f.label :image, Spree.t(:filename) %><br>
+      <%= f.file_field :image %>
+    </div>
+  </div>
+  <div class="alfa">
+    <div data-hook="title" class="field">
+      <%= f.label :link %><br>
+      <%= f.text_field :link, { class: 'fullwidth' } %>
+    </div>
+  </div>
+</div>
+
+<div class="clear"></div>

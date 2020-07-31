@@ -1,0 +1,20 @@
+<tr class="grade fields" id="spree_<%= dom_id(f.object) %>"  data-hook="grade" class="<%= cycle('odd', 'even')%>">
+  <% if f.object.persisted? %>
+    <td class="no-border">
+      <span class="handle"></span>
+      <%= f.hidden_field :id %>
+    </td>
+  <% else %>
+    <td class="no-border"><span class="handle"></span></td>
+  <% end %>
+  <td class="title"><%= f.text_field :title %></td>
+  <td class="number"><%= f.number_field :number %></td>
+  <% if f.object.persisted? %>
+    <td class="actions">
+      <%= link_to_with_icon 'edit', Spree.t('actions.edit'), 
+                edit_admin_grade_path(f.object.id), no_text: true, data: { action: 'edit' } %>
+
+      <%= link_to_remove_fields Spree.t('remove'), f, :no_text => true %>
+    </td>
+  <% end %>
+</tr>

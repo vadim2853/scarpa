@@ -1,0 +1,67 @@
+
+<div class="swiper-container index_slider">
+  <div class="swiper-wrapper">
+    <% @slides.each do |slide| %>
+      <div class="swiper-slide">
+        <div class="bg" style="background-image: url('<%= image_url slide.image %>'); ">
+        </div>
+        <div class="text" data-swiper-parallax="-2000">
+          <h2><%= slide.title %></h2>
+          <p><%= slide.description %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="swiper-pagination swiper-pagination-white"></div>
+  <div class="swiper-button-next next"></div>
+  <div class="swiper-button-prev prev"></div>
+</div>
+
+<div class="index_items">
+  <% @featured_items.each do |item| %>
+    <% if item.link_to_product? && item.spree_product.present? %>
+
+      <div class="<%= item.item_size %>_item index-item">
+        <%= link_to image_tag(item.image_url), product_path(item.spree_product.slug) %> 
+      </div>
+
+    <% elsif item.video? %>
+
+      <% if item.video_mp4.present? || item.video_ogg.present? || item.video_webm.present? %>
+        <div class="<%= item.item_size %>_item index-item" 
+             data-video-mp4="<%= item.video_mp4 %>"
+             data-video-ogg="<%= item.video_ogg %>"
+             data-video-webm="<%= item.video_webm %>">
+
+          <% target = item.link_url.include?('http') ? '_blank' : '_self'%>
+          <%= link_to item.link_url, class: 'play_index_video', target: target do %> 
+            <%= image_tag item.image_url %>
+          <% end %>
+
+          <div class="index_video">
+            <div class="index_video_close"></div>
+          </div>
+        </div>
+      <% elsif item.spree_product.present? %>
+        <div class="<%= item.item_size %>_item index-item">
+          <%= link_to image_tag(item.image_url), product_path(item.spree_product.slug) %> 
+        </div>
+      <% end %>
+
+    <% elsif item.external_link? %>
+
+      <% if item.link_url.present? %>
+        <div class="<%= item.item_size %>_item index-item">
+          <% target = item.link_url.include?('http') ? '_blank' : '_self'%>
+          <%= link_to image_tag(item.image_url), item.link_url, target: target %> 
+        </div>
+      <% elsif item.spree_product.present? %>
+        <div class="<%= item.item_size %>_item index-item">
+          <%= link_to image_tag(item.image_url), product_path(item.spree_product.slug) %> 
+        </div>
+      <% end %>
+
+    <% end %>
+  <% end %>
+</div>
+<div class="clear"></div>

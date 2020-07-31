@@ -1,0 +1,12 @@
+<% unless @related_news_entry.errors.present? %>
+  $('.related_news_entries').append('<%= j render partial: "spree/admin/news_entries/related_news_entry", locals: {p: @new_related_news_entry} %>');
+  $('.related_news_entries_select').html('<%= j render partial: "spree/admin/news_entries/related_news_entries_select", locals: { not_related_news_entries: @not_related_news_entries } %>');
+  $("#related_ids").select2({ minimumResultsForSearch: Infinity });
+  $('.add-related-news-entry-link').click(window.addRelatedNewsEntry);
+  $('.delete-related-news-entry-link').click(window.deleteRelatedNewsEntry);
+<% else %>
+  $('.js-flash-wrapper')
+    .html('<div class="flash error">Error occurred! Try to select item again.</div>')
+    .fadeIn('fast')
+  setTimeout(function(){ $('.js-flash-wrapper').fadeOut('slow') }, 3000)
+<% end %>

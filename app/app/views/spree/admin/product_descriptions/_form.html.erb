@@ -1,0 +1,20 @@
+<div data-hook="admin_product_description_form_fields">
+  <div class="row">
+    <div id="kind" class="field alpha five columns">
+      <%= f.field_container :kind do %>
+        <%= f.label :kind, Spree.t('admin.product_description_kind') %>
+        <%= f.select :kind, options_for_select(Spree::ProductDescription.kinds.keys, f.object.kind), {}, class: 'select2' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div id="body" class="alpha">
+      <%= f.field_container :body do %>
+        <%= f.label :body, Spree.t('admin.description') %>
+        <%= f.cktext_area :body, :class => 'fullwidth' %>
+        <%= f.error_message_on :body %>
+      <% end %>
+    </div>
+  </div>
+</div>

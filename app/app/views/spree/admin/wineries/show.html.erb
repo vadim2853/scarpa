@@ -1,0 +1,107 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.show_winery') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.back_to_wineries_list'), spree.admin_wineries_path, :icon => 'arrow-left' %>
+  </li>
+<% end %>
+
+<div class="alpha ten columns">
+ <fieldset class="no-border-bottom">
+    <legend align="center"><span><%= Spree.t(:status) %></span></legend>
+
+    <div class='field'>
+      <p align="center">
+        <strong>
+          <span style="color: <%= @winery.published? ? '#9FC820' : 'red' %>">
+            <%= @winery.status.upcase %>
+          </span>
+        </strong>
+      </p>
+    </div>
+  </fieldset>
+
+  <fieldset class="no-border-bottom">
+    <legend align="center"><span><%= Spree.t('admin.content') %></span></legend>
+    <div class='field-block alpha'>
+      <label><%= Spree.t('admin.title') %></label>
+      <p><%= @winery.title %></p>
+    </div>
+
+    <div class='field-block alpha'>
+      <label><%= Spree.t('admin.description') %></label>
+      <p><%= @winery.description.html_safe %></p>
+    </div>
+
+    <div class='field-block alpha'>
+      <label><%= Spree.t('admin.title_it') %></label>
+      <p><%= @winery.title_it %></p>
+    </div>
+
+    <div class='field-block alpha'>
+      <label><%= Spree.t('admin.description_it') %></label>
+      <p><%= @winery.description_it.html_safe %></p>
+    </div>
+  </fieldset>
+
+  <fieldset class="no-border-bottom">
+    <legend align="center"><span><%= Spree.t(:image) %></span></legend>
+    
+    <% if @winery.image.present? %>
+      <div class='field-block alpha'>
+        <p class="winery_image"><%= image_tag @winery.image(:small) %></p>
+      </div>
+    <% end %>
+  </fieldset>
+</div>
+
+<div class="alpha six columns">
+  <fieldset class="no-border-bottom">
+    <legend align="center"><span>Text settings</span></legend>
+
+    <div class='field alpha three columns'>
+      <label><%= Spree.t('admin.text_side') %></label>
+      <p class="text_side"><%= @winery.text_side %></p>
+    </div>
+
+    <div class='field alpha three columns'>
+      <label><%= Spree.t('admin.text_color') %></label>
+      <p class="text_color"><%= @winery.text_color %></p>
+    </div>
+  </fieldset>
+
+  <fieldset class="no-border-bottom">
+    <legend align="center"><span>Video links</span></legend>
+
+    <div class='field-block alpha'>
+      <label><%= Spree.t('admin.video_mp4') %></label>
+      <p class="video_mp4"><%= @winery.video_mp4 %></p>
+    </div>
+
+    <div class='field-block alpha'>
+      <label><%= Spree.t('admin.video_ogg') %></label>
+      <p class="video_ogg"><%= @winery.video_ogg %></p>
+    </div>
+
+    <div class='field-block alpha'>
+      <label><%= Spree.t('admin.video_webm') %></label>
+      <p class="video_webm"><%= @winery.video_webm %></p>
+    </div>
+  </fieldset>
+
+  <fieldset class="no-border-bottom">
+    <legend align="center"><span><%= Spree.t('admin.times') %></span></legend>
+
+    <div class='field-block alpha'>
+      <label><%= Spree.t('admin.created_at') %></label>
+      <p><%= @winery.created_at %></p>
+    </div>
+
+    <div class='field-block alpha'>
+      <label><%= Spree.t('admin.updated_at') %></label>
+      <p><%= @winery.updated_at %></p>
+    </div>
+  </fieldset>
+</div>

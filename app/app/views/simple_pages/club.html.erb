@@ -1,0 +1,93 @@
+<% content_for :head do %>
+  <script data-turbolinks-track='true'
+          src='https://maps.googleapis.com/maps/api/js'></script>
+
+  <%= javascript_include_tag 'club' %>
+<% end %>
+<div class="club_wrapp">
+  <div class="club_left_side">
+    <div class="club_left_bg"></div>
+    <div class="avatar_img">
+      <%= image_tag('avatar')%>
+    </div>
+    <div class="club_view">
+      <div class="flex">
+        <div class="icon_memebers"></div>
+        <div class="club_view__num">324</div>
+        <div class="club_view__text">Memebers</div>
+      </div>
+      <div class="flex">
+        <div class="icon_events"></div>
+        <div class="club_view__num">32</div>
+        <div class="club_view__text">Events</div>
+      </div>
+      <div class="flex">
+        <div class="icon_messages"></div>
+        <div class="club_view__num">34</div>
+        <div class="club_view__text">Memebers</div>
+      </div>
+    </div>
+    <button type="submit" class="btn red small">Create event</button>
+  </div>
+  <div class="club_header">
+    <div class="club_name">
+      <h2>LONELY HEARTS</h2>
+      <h5>MILANO WINE CLUB EVENT CALENDAR</h5>
+    </div>
+    <div class="club_controles"></div>
+  </div>
+  <div class="club_right_side">
+    <div id="events_calendar">
+      <%= month_calendar do |date| %>
+        <div class="events_4">  <!-- you can add class events_1, events_2, events_3, events_4 for else amount -->
+         <a href="#">
+            <%= image_tag('avatar')%>
+          </a>
+          <a href="#">
+            <%= image_tag('avatar')%>
+          </a>
+          <a href="#">
+            <%= image_tag('avatar')%>
+          </a>
+          <a href="#">
+            <%= image_tag('avatar')%>
+          </a>
+          <span>
+            <%= date.day %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="club_create_event flex">
+  <div class="club_create_event__left">
+    <div class="club_create_event__image">
+      <div class="btn white small">
+        Add picture
+        <input type="file" name="picture" accept="image/jpeg|image/jpg|image/png">
+      </div>
+      <%= image_tag('avatar')%>
+    </div>
+    <form>
+      <h2>Create event</h2>
+      <div class="input_wrapp">
+        <input type="text" placeholder="event name" />
+      </div>
+      <div class="input_wrapp">
+        <input type="text" placeholder="event day" />
+      </div>
+      <div class="input_wrapp">
+        <input type="text" placeholder="event location" class="input_location" />
+      </div>
+      <div class="type_event flex">
+        <div class="open_event">Open event</div>
+        <div class="members_event active">Members event</div>
+      </div>
+      <textarea></textarea>
+      <button class="btn grey small">Create event</button>
+    </form>
+  </div>
+  <div class="club_create_event__right" id="club_map">
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.listing_slides') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.new_slide'), new_admin_slide_path, icon: 'plus' %>
+  </li>
+<% end %>
+
+<table class="slides_index_table">
+  <thead>
+    <tr data-hook="slides_header">
+      <th><%= Spree.t('admin.publishing_status') %></th>
+      <th><%= Spree.t('admin.image') %></th>
+      <th><%= Spree.t('admin.title') %></th>
+      <th><%= Spree.t('admin.description') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @slides.each do |slide| %>
+      <tr data-hook="slides_row_<%= slide.id %>">
+        <td>
+          <strong>
+            <span style="color: <%= slide.published? ? '#9FC820' : 'red' %>">
+              <%= slide.status %>
+            </span>
+          </strong>
+        </td>
+        <td><%= image_tag slide.image(:icon) %></td>
+        <td data-hook='title'><%= slide.title %></td>
+        <td data-hook='description'><%= slide.description %></td>
+        <td class="actions">
+          <%= link_to_with_icon 'edit', Spree.t('actions.edit'), 
+                edit_admin_slide_path(slide.id), no_text: true, data: { action: 'edit' } %>
+
+          <%= link_to_delete slide, { url: admin_slide_url(slide.id), 
+                no_text: true, id: "del_#{slide.id}" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

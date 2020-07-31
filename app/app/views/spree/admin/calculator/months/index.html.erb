@@ -1,0 +1,24 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.listing_months') %>
+<% end %>
+
+<table class="months_index_table">
+  <thead>
+    <tr data-hook="months_header">
+      <th><%= Spree.t('admin.name') %></th>
+      <th><%= Spree.t('admin.rate') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @months.each do |month| %>
+      <tr data-hook="months_row_<%= month.id %>">
+        <td align="center" data-hook='name'><%= month.name %></td>
+        <td align="center" data-hook='rate'><%= month.rate %></td>
+        <td class="actions">
+          <%= link_to_with_icon 'edit', Spree.t('actions.edit'), 
+                edit_admin_calculator_month_path(month.id), no_text: true, data: { action: 'edit' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,147 @@
+<script data-turbolinks-track='true' src='https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.googleKey %>'></script>
+
+<%= javascript_include_tag 'spree/backend/map_markers/init', 'data-icon' => image_path("m_store.png") %>
+
+<div data-hook="admin_map_marker_form_dependency_fields" class="alpha">
+  <%= f.field_container :dependency do %>
+    <strong class="uppercase"><%= Spree.t('admin.dependency') %></strong>
+    <%= f.select :dependency, Spree::MapMarker::dependencies.keys.map { |d| [d.humanize, d] }, {}, 
+          class: 'select2_without_search_and_close' %>
+    <%= f.error_message_on :dependency %>
+  <% end %>
+</div>
+
+<div class="alpha place_box">
+  <%= f.field_container :search_field do %>
+    <%= f.hidden_field :place_id, class: 'fullwidth', 'data-url' => autocomplete_admin_map_markers_path %>
+  <% end %>
+</div>
+
+<%= f.hidden_field :lat %>
+<%= f.hidden_field :lng %>
+
+<div id="map"></div>
+
+<div class="i18n-tabs <%= 'hidden' if @map_marker.google? %>">
+  <ul>
+    <li><a href="#tabs-1">EN</a></li>
+    <li><a href="#tabs-2">IT</a></li>
+  </ul>
+  <div id="tabs-1">
+    <div class="alpha">
+      <%= f.field_container :name do %>
+        <%= f.label :name, Spree.t('admin.name') %>
+        <%= f.text_field :name, class: 'fullwidth' %>
+        <%= f.error_message_on :name %>
+      <% end %>
+    </div>
+
+    <div class="alpha">
+      <%= f.field_container :description do %>
+        <%= f.label :description, Spree.t('admin.description') %>
+        <%= f.cktext_area :description, class: 'fullwidth' %>
+        <%= f.error_message_on :description %>
+      <% end %>
+    </div>
+
+    <div class="alpha">
+      <%= f.field_container :address do %>
+        <%= f.label :address, Spree.t('admin.address') %>
+        <%= f.text_field :address, class: 'fullwidth' %>
+        <%= f.error_message_on :address %>
+      <% end %>
+    </div>
+
+    <div class="alpha">
+      <%= f.field_container :work_time do %>
+        <%= f.label :work_time, Spree.t('admin.work_time') %>
+        <%= f.cktext_area :work_time, class: 'fullwidth' %>
+        <%= f.error_message_on :work_time %>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="tabs-2">
+    <div class="alpha">
+      <%= f.field_container :name_it do %>
+        <%= f.label :name_it, Spree.t('admin.name_it') %>
+        <%= f.text_field :name_it, class: 'fullwidth' %>
+        <%= f.error_message_on :name_it %>
+      <% end %>
+    </div>
+
+    <div class="alpha">
+      <%= f.field_container :description_it do %>
+        <%= f.label :description_it, Spree.t('admin.description_it') %>
+        <%= f.cktext_area :description_it, class: 'fullwidth' %>
+        <%= f.error_message_on :description_it %>
+      <% end %>
+    </div>
+
+    <div class="alpha">
+      <%= f.field_container :address_it do %>
+        <%= f.label :address_it, Spree.t('admin.address_it') %>
+        <%= f.text_field :address_it, class: 'fullwidth' %>
+        <%= f.error_message_on :address_it %>
+      <% end %>
+    </div>
+
+    <div class="alpha">
+      <%= f.field_container :work_time_it do %>
+        <%= f.label :work_time_it, Spree.t('admin.work_time_it') %>
+        <%= f.cktext_area :work_time_it, class: 'fullwidth' %>
+        <%= f.error_message_on :work_time_it %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="alpha image_box <%= 'hidden' if @map_marker.google? %>">
+  <%= f.field_container :image do %>
+    <%= f.label :image, Spree.t('admin.image') %>
+    <%= f.file_field :image, :class => 'fullwidth' %>
+    <%= f.error_message_on :image %>
+  <% end %>
+
+  <% if @map_marker.image.present? %>
+    <%= image_tag @map_marker.image(:medium) %>
+  <% end %>
+</div>
+
+<div class="alpha rating_box <%= 'hidden' if @map_marker.google? %>">
+  <%= f.field_container :rating do %>
+    <%= f.label :rating, Spree.t('admin.rating') %>
+    <%= f.select :rating, [1, 2, 3, 4, 5], {selected: 5}, class: 'select2_without_search_and_close' %>
+    <%= f.error_message_on :rating %>
+  <% end %>
+</div>
+
+<div data-hook="admin_map_marker_form_types_fields" class="alpha">
+  <%= f.field_container :marker_type do %>
+    <strong class="uppercase"><%= Spree.t('admin.map_marker_type') %></strong>
+    <% Spree::MapMarker::marker_types.each_key do |marker_type| %>
+      <%= f.label :marker_type, Spree.t("admin.#{marker_type}") %>
+      <%= f.radio_button :marker_type, marker_type %>
+    <% end %>
+    <%= f.error_message_on :marker_type %>
+  <% end %>
+</div>
+
+<div data-hook="admin_map_marker_form_status_fields" class="alpha">
+  <%= f.field_container :status do %>
+    <strong class="uppercase"><%= Spree.t('admin.publishing_status') %></strong>
+    <% Spree::MapMarker::statuses.each_key do |status| %>
+      <%= f.label :status, status %>
+      <%= f.radio_button :status, status %>
+    <% end %>
+    <%= f.error_message_on :status %>
+  <% end %>
+</div>
+
+<div class="alpha">
+  <%= f.field_container :review_link do %>
+    <%= f.label :review_link, Spree.t('admin.review_link') %>
+    <%= f.text_area :review_link, :class => 'fullwidth' %>
+    <%= f.error_message_on :review_link %>
+  <% end %>
+</div>

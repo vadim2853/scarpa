@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>We're sorry, but something went wrong</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+  <%= stylesheet_link_tag 'errors', media: 'all', 'data-turbolinks-track' => true %>
+
+  <%= favicon_link_tag 'favicon.ico' %>
+</head>
+
+<body>
+  <%= link_to image_tag('logo.svg'), root_path, class: 'error_logo' %>
+
+  <%= yield %>
+</body>
+</html>

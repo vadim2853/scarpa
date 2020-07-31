@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+FORMAT='\n\e[1;34m%-6s\e[m\n\n'
+
+printf $FORMAT 'Running ruby-lint'
+
+bundle exec ruby-lint app config spec lib
+
+printf $FORMAT 'Running Rubocop'
+
+bundle exec rubocop
+
+printf $FORMAT 'Running RSpec'
+
+bundle exec rspec

@@ -1,0 +1,99 @@
+box: lits/docker-ruby-phantomjs:xvfb-chrome-5.8.0n
+services:
+  - id: mdillon/postgis:9.5
+    env:
+      POSTGRES_PASSWORD: $APP_POSTGRES_PASSWORD
+      POSTGRES_USER: $APP_POSTGRES_USER
+      POSTGRES_DB: $APP_POSTGRES_DB
+
+build-dep:
+  steps:
+    - npm-install
+    - script:
+      name: client npm install
+      code: cd client && npm install
+    - script:
+      name: bundle install
+      code: bundle install --deployment
+    - script:
+      name: build client
+      code: |
+        cd client
+        NODE_ENV=production node_modules/webpack/bin/webpack.js --config webpack.client.rails.config.js
+        NODE_ENV=production node_modules/webpack/bin/webpack.js --config webpack.server.rails.config.js
+  
+
+  after-steps:
+    - slack-notifier:
+      url: $SLACK_URL
+      channel: scarpa
+      username: wercker
+      branch: master
+
+
+tests:
+  steps:
+    - script:
+        name: run scss-lint
+        code: gem install scss_lint && scss-lint -c .scss-lint.yml
+    - script:
+        name: run ruby-lint
+        code: gem install ruby-lint && ruby-lint app config spec lib
+    - script:
+        name: run rubocop
+        code: gem install rubocop -v '~> 0.38.0' && rubocop
+    - script:
+        name: run JS lint
+        code: npm run lint
+    - script:
+        name: starting xvfb
+        code: |
+          # Start xvfb which gives the context an virtual display
+          # which is required for tests that require an GUI
+          export DISPLAY=:1
+          start-stop-daemon --start --quiet --pidfile /tmp/xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -screen 0 1280x800x24
+          # Give xvfb time to start. 3 seconds is the default for all xvfb-run commands.
+          sleep 3
+    - script:
+        name: db migrate  
+        code: RAILS_ENV=test bundle exec rake db:migrate
+    - script:
+        name: run rspec
+        code: RAILS_ENV=test bundle exec rspec
+    
+  after-steps:  
+    - slack-notifier:
+      url: $SLACK_URL
+      channel: scarpa
+      username: wercker
+      branch: master
+      
+deploy-staging:
+  steps:
+    - script:
+        name: assets precompile
+        code: bundle exec rake assets:precompile
+    - script:
+        name: remove rvm file
+        code: rm -f .ruby-gemset && rm -f .ruby-version
+    - wouter/setup-ssh:
+        private-key: $DO_SSH_PRIVATE
+        host: $DO_HOST_IP
+        username: $DO_USER
+    - wouter/script-ssh:
+        name: app down
+        code: docker kill zabbix_agent ; docker kill scarpa-backoffice ; docker kill nginx ; docker kill sidekiq
+    - anka-sirota/rsync-deploy:
+        host: $DO_HOST_IP
+        directory: $DO_TARGET_DIR
+        sshkey: $WERCKER_SETUP_SSH_ID_FILE
+        user: $DO_USER
+    - wouter/script-ssh:
+        name: Pull and update docker container
+        code: docker rm sidekiq ; docker rm scarpa-backoffice ; cd $DO_DOCKER_DIR ; docker-compose up -d
+    
+  after-steps:
+    - slack-notifier:
+        url: $SLACK_URL
+        channel: scarpa
+        username: wercker

@@ -1,0 +1,39 @@
+<div class="flex right_to_bottom_mobile">
+  <div class="checkout_left__empty"></div>
+  <div class="checkout_left_side text_center width_60">
+    <%= checkout_progress %>
+    <div class="wrapper_small">
+
+      <h2><%= Spree.t('payment') %></h2>
+
+      <%= label_tag :method, Spree.t(:method) %>
+      <div class="input_wrapp">
+        <%= select_tag 'order[payments_attributes][][payment_method_id]',
+                       options_for_select(available_payment_methods(@order), cookies[:payment_method]),
+                       class: 'payment_method' %>
+      </div>
+
+      <div class="payment_methods_container">
+        <% @order.available_payment_methods.each do |method| %>
+          <div id="payment_method_<%= method.id %>" class="">
+            <%= render partial: "checkout/payment/#{method.method_type}", locals: { payment_method: method } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="checkout_right_side">
+    <div class="checkout_right__name"><%= Spree.t('shopping_cart') %></div>
+    <div class="checkout_right__bottom">
+      <div class="checkout_right__bottom_text">
+        <div class="checkout_right__bottom_name"><%= Spree.t('price_of_the_order') %></div>
+        <div class="checkout_right__bottom_currency"><%= Spree.t(@order.currency) %></div>
+        <div class="checkout_right__bottom_price"><%= @order.total.to_f %></div>
+      </div>
+
+      <%= button_tag Spree.t('continue'), class: 'btn small' %>
+    </div>
+  </div>
+</div>

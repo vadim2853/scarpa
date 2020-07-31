@@ -1,0 +1,4 @@
+$("<%= "#month-product-#{@deleted_month_product_id}" %>").remove();
+$('.month_products_select').html('<%= j render partial: 'spree/admin/calculator/months/month_products_select', locals: { not_month_products: @not_month_products } %>');
+$("#month_products_ids").select2({ minimumResultsForSearch: Infinity });
+$('.add-month-product-link').click(window.addMonthProduct);

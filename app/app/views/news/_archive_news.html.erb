@@ -1,0 +1,26 @@
+<div class="right_side">
+  <div class="archive_news">
+    <h4><%= Spree.t('news_archive') %></h4>
+
+    <select class="selecter second archive" data-path="<%= news_index_path %>">
+      <option value="">ALL</option>
+      <%= options_for_archive(Spree::NewsEntry) %>
+    </select>
+  </div> <!-- .archive_news -->
+
+  <div class="resent_posts">
+    <h4><%= Spree.t('top_news') %></h4>
+
+    <% Spree::NewsEntry.top_news.each do |top_entry| %>
+      <div class="post">
+        <h2><%= link_to top_entry.title, news_path(top_entry) %></h2>
+
+        <div class="recent_article__posted">
+          <%= posted_on(top_entry) %>
+
+          <span class="recent_article__posted_by">&nbsp;<%= Spree.t('by_scarpa') %></span>
+        </div>
+      </div>
+    <% end %>
+  </div> <!-- .resent_posts -->
+</div> <!-- .right_side -->

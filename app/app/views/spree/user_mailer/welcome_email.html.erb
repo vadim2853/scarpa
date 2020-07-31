@@ -1,0 +1,93 @@
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 0; padding: 0; height: 100%; background: #fff;">
+  <tr>
+    <td height="100%" align="center" valign="top" style="padding-top: 20px; padding-bottom: 20px;">
+      <center style="max-width: 640px; width: 100%;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" height="1px;">
+          <tr>
+            <td>
+              <p style="color: #eeeeee; font-size: 1px;"><%= t('mails.thank_you_for_signing_up') %></p>
+            </td>
+          </tr>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 0; padding: 0px; background: #ffffff;">
+          <tr>
+            <td style="padding: 20px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 0; padding: 0px; border: 1px solid #f6af41">
+                <tr>
+                  <td style="padding: 8px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 0; padding: 0px; border: 1px solid #f6af41">
+                      <tr>
+                        <td style="padding: 10px 20px 5px 20px; color: #000000; font-family: Verdana, Geneva, sans-serif; font-size: 16px;">
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 0; padding: 0px;">
+                            <tr>
+                              <td>
+                                <center>
+                                  <%= link_to image_tag(image_url('mails/logo.jpg'),
+                                              width: 200,
+                                              height: 92,
+                                              border: 0,
+                                              style: 'display: block; float: none;'), @store.url %>
+                                </center>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding: 20px 0;; line-height: 1.4; font-size: 14px;">
+                                <center>
+                                  <p style="font-size: 40px; font-family: Georgia, serif; letter-spacing: 3px;     margin: 0 0 30px; text-align: center;">
+                                    <%= t('mails.welcome') %>
+                                  </p>
+
+                                  <p style="margin: 25px 0; text-align: center;">
+                                    <%= t('mails.to') %>
+                                  </p>
+
+                                  <p style="font-size: 26px; font-family: Georgia, serif; letter-spacing: 3px;     margin: 0 0 25px;text-align: center;">
+                                    SCARPA
+                                  </p>
+
+                                  <p style="text-align: center;">
+                                    <strong><%= t('mails.your_username') %>:</strong>
+                                    <%= @user.email %>
+                                  </p>
+
+                                  <p style="text-align: center;">
+                                    <%= t('mails.go_to_the_website_to') %>
+                                    <strong>
+                                      <%= link_to t('mails.purchase'), "#{@store.url}/wines",
+                                            style: 'color: #000000; text-decoration: underline;' %>
+                                    </strong>
+                                    <%= t('mails.the_wines') %>
+                                  </p>
+
+                                  <br /><br />
+
+                                  <p style="text-align: center;"><%= t('mails.mails.scarpa_support') %></p>
+                                </center>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <center style="text-align: center;">
+                                  <%= image_tag(image_url('mails/bottom_img.jpg'),
+                                        width: '250',
+                                        height: '62',
+                                        style: 'display: block; max-width: 250px; width: 100%; float: none; margin: 0 auto;',
+                                        border: '0'
+                                      ) %>
+                                </center>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>

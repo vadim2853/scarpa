@@ -1,0 +1,43 @@
+<%
+  render 'social_meta', {
+    title: @news_entry.title,
+    description: @news_entry.preview_text,
+    url: news_url(@news_entry)
+  }
+%>
+
+<div class="wrapper flex">
+  <div class="left_side">
+    <div class="article">
+      <h2><%= @news_entry.title %></h2>
+      <div class="article__prehead flex">
+        <div class="article__posted">
+          <%= "#{Spree.t('posted_on')} : #{@news_entry.posted_on.strftime('%^B %e, %Y')}" %>
+          <span class="article__posted_by">&nbsp;<%= Spree.t('by_scarpa') %></span>
+        </div>
+        <div class="article__views"><span class="icon_eye"></span><%= @news_entry.view_count %></div>
+      </div>
+      <div class="article__text">
+        <%== @news_entry.full_text %>
+      </div>
+
+      <%= render 'social_shares', title: @news_entry.title,
+                                  description: @news_entry.preview_text,
+                                  link: news_url(@news_entry) %>
+    </div>
+    <div class="article__related">
+      <h4><%= Spree.t('related_news') %></h4>
+      <% @news_entry.random_related_news_entries.each do |related_news_entry| %>
+        <div class="article__related_post">
+          <h2><%= link_to related_news_entry.title, news_path(related_news_entry) %></h2>
+
+          <div class="article__related_posted">
+            <%= "#{Spree.t('posted_on')} : #{related_news_entry.posted_on.strftime('%^B %e, %Y')}" %>
+          </div>
+        </div>
+      <% end %>
+    </div> <!-- .article__related -->
+  </div>
+
+  <%= render 'archive_news' %>
+</div> <!-- .wrapper -->

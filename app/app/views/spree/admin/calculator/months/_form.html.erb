@@ -1,0 +1,39 @@
+<div data-hook="admin_calculator_month_form_fields" class="row">
+  <div class="alpha">
+    <h5>Month:&nbsp;<%= @month.name %></h5>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :rate do %>
+      <%= f.label :rate, Spree.t('admin.rate') %>
+      <%= f.number_field :rate, class: 'fullwidth', step: 0.01, min: 0 %>
+      <%= error_message_on :calculator_month, :rate %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_product_form_related_products">
+    <%= f.field_container :month_products do %>
+      <div class="month_products_select">
+        <%= render partial: 'month_products_select', locals: { not_month_products: @not_month_products } %>
+      </div>
+    <% end %>
+
+    <div class="related_products_box">
+      <h4>Related products list</h4>
+      <table class="month_products" id="listing_month_products">
+        <thead>
+          <tr data-hook="admin_products_index_headers">
+            <th>SKU</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Master Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render partial: 'month_products', collection: @month.products, as: :p %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+default: &default
+  :verbose: true
+  :queues:
+    - urgent
+    - default
+    - low
+    - mailers
+
+development:
+  <<: *default
+  :concurrency: 5
+  :namespace: scarpa_dev
+
+test:
+  <<: *default
+  :namespace: scarpa_tst
+
+production:
+  <<: *default
+  :verbose: false
+  :concurrency: 20
+  :namespace: scarpa_prod
+  :pidfile: /tmp/sidekiq.pid
+  :logfile: ./log/sidekiq.log
+
+staging:
+  <<: *default
+  :verbose: true
+  :concurrency: 20
+  :namespace: scarpa_staging
+  :pidfile: /tmp/sidekiq.pid
+  :logfile: ./log/sidekiq.log

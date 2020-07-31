@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: scarpa_development
+
+test:
+  <<: *default
+  database: scarpa_test
+
+staging:
+  <<: *default
+  database: scarpa_staging
+
+production:
+  <<: *default
+  database: scarpa_production

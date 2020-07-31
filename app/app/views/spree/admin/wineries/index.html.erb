@@ -1,0 +1,63 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.listing_wineries') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.new_winery'), new_admin_winery_path, icon: 'plus' %>
+  </li>
+<% end %>
+
+<table class="winaries_index_table sortable" data-hook="winery_table" 
+         data-sortable-link="<%= update_positions_admin_wineries_url(@product) %>">
+  <thead>
+    <tr data-hook="winaries_header">
+      <th><%= Spree.t('admin.handle') %></th>
+      <th><%= Spree.t('admin.publishing_status') %></th>
+      <th><%= Spree.t('admin.text_color') %></th>
+      <th><%= Spree.t('admin.text_side') %></th>
+      <th><%= Spree.t('admin.image') %></th>
+      <th><%= Spree.t('admin.title') %></th>
+      <th><%= Spree.t('admin.description') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @wineries.each do |winery| %>
+      <tr data-hook="winaries_row_<%= winery.id %>"  id="<%= spree_dom_id winery %>" class="<%= cycle('odd', 'even')%>">
+        <td class="align-center">
+          <% if can?(:update_positions, Spree::Winery) %>
+            <span class="handle"></span>
+          <% end %>
+        </td>
+        <td class="align-center">
+          <strong>
+            <span style="color: <%= winery.published? ? '#9FC820' : 'red' %>">
+              <%= winery.status %>
+            </span>
+          </strong>
+        </td>
+        <td class="align-center">
+           <%= winery.text_color %>
+        </td>
+        <td class="align-center">
+           <%= winery.text_side %>
+        </td>
+        <td class="align-center"><%= image_tag winery.image(:icon) %></td>
+        <td data-hook='title' class="align-center"><%= winery.title %></td>
+        <td data-hook='description' class="align-center">
+          <%= winery.description[0..100].html_safe %>
+        </td>
+        <td class="actions">
+          <%= link_to_with_icon 'eye', Spree.t(:show), admin_winery_path(winery.id), no_text: true, 
+                data: { action: 'green' } %>
+
+          <%= link_to_with_icon 'edit', Spree.t('actions.edit'), 
+                edit_admin_winery_path(winery.id), no_text: true, data: { action: 'edit' } %>
+
+          <%= link_to_delete winery, { url: admin_winery_url(winery.id), 
+                no_text: true, id: "del_#{winery.id}" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,251 @@
+.winery_slider {
+  width: 100%;
+  height: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about_nav {
+  @include flexbox();
+  @include align-items(center);
+  @include flex-direction(column);
+  height: auto;
+  right: 70px;
+  top: 50%;
+  position: fixed;
+  z-index: 3;
+  cursor: pointer;
+
+  a {
+    @include transition(All .4s ease);
+    padding: 12px 0;
+    width: 100%;
+    text-align: center;
+
+    span {
+      @include transition(All .4s ease);
+      @include box-shadow (1px 1px 4px $white-2);
+      background: $white;
+      border-radius: 50%;
+      width: 7px;
+      height: 7px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    &.active {
+      padding: 5px 0;
+
+      span {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    right: 30px;
+  }
+
+  @media screen and (max-width: 600px) {
+    right: 15px;
+  }
+}
+
+.about_item {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 700px;
+  max-height: 700px;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  border-bottom: 1px solid $light-yellow;
+
+  img {
+    @include transform(translate(-50%, -50%));
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+
+  video {
+    @include transform(translate(-50%, -50%));
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+  }
+
+  .about_video {
+    background: $black;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    cursor: pointer;
+    animation: flip 1.4s ease;
+    -webkit-animation: flip 1.4s ease;
+
+    &.close {
+      animation: flip_revers 1.5s ease reverse;
+      -webkit-animation: flip_revers 1.5s ease reverse;
+    }
+  }
+
+  .about_video_close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: $white;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+
+  .about_btn-play {
+    position: relative;
+    display: inline-block;
+    background: $white;
+    border-radius: 25px;
+    line-height: 50px;
+    cursor: pointer;
+    color: $red;
+    padding: 0 18px 0 58px;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'librebaskerville-regular', serif;
+    margin-top: 20px;
+
+    .play-icon {
+      @include transition(left .5s linear);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: $red;
+      position: absolute;
+      top: 6px;
+      left: 6px;
+
+      &::before {
+        @include transform(translate(-50%, -50%));
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 55%;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 10px solid $white;
+      }
+
+      &.to-right {
+        left: calc(100% - 46px);
+      }
+    }
+
+    @media screen and (max-width: 500px) {
+      font-size: 11px;
+      padding: 0 14px 0 55px;
+    }
+  }
+
+  .about_text {
+    width: 50%;
+    position: absolute;
+    top: 140px;
+    font-family: 'museo_sans_cyrl500', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 1.4;
+
+    p {
+      text-indent: 35px;
+      text-align: justify;
+    }
+
+    &.right { /* to right */
+      right: 0;
+      padding-right: 10%;
+    }
+
+    &.left { /* to left */
+      left: 0;
+      padding-left: 10%;
+
+      .about_btn-play {
+        float: right;
+      }
+    }
+
+    &.white {
+      color: $white;
+    }
+
+    &.black {
+      color: $black;
+    }
+
+    @media screen and (max-width: 900px) {
+      width: 100%;
+      padding: 0 10%;
+      text-align: center;
+
+      &.left .about_btn-play {
+        float: none;
+      }
+    }
+
+    @media screen and (max-width: 700px) {
+      @include transform(translateY(-50%));
+      top: 50%;
+    }
+  }
+
+  .about_name {
+    font-size: 85px;
+    font-family: 'librebaskerville-regular', serif;
+    white-space: nowrap;
+    overflow: hidden;
+
+    @media screen and (max-width: 1400px) {
+      font-size: 70px;
+    }
+
+    @media screen and (max-width: 1250px) {
+      font-size: 50px;
+    }
+
+    @media screen and (max-width: 500px) {
+      font-size: 40px;
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    height: 700px;
+  }
+
+  @media screen and (max-height: 700px){
+    height: 100vh;
+
+    .about_text {
+      @include transform(translateY(-50%));
+      top: 50%;
+    }
+  }
+
+  @media screen and (max-height: 500px) {
+    height: 700px;
+  }
+
+  @media screen and (max-width: 600px) {
+    height: 650px;
+    line-height: 1.3;
+  }
+}

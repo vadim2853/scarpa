@@ -1,0 +1,12 @@
+<% unless @event_product.errors.present? %>
+  $('.event_products').append('<%= j render partial: 'spree/admin/calculator/events/event_products', locals: {p: @new_event_product} %>');
+  $('.event_products_select').html('<%= j render partial: 'spree/admin/calculator/events/event_products_select', locals: { not_event_products: @not_event_products } %>');
+  $("#event_products_ids").select2({ minimumResultsForSearch: Infinity });
+  $('.add-event-product-link').click(window.addEventProduct);
+  $('.delete-event-product-link').unbind('click').click(window.deleteEventProduct);
+<% else %>
+  $('.js-flash-wrapper')
+    .html('<div class="flash error">Error occurred! Try to select item again.</div>')
+    .fadeIn('fast')
+  setTimeout(function(){ $('.js-flash-wrapper').fadeOut('slow') }, 3000)
+<% end %>

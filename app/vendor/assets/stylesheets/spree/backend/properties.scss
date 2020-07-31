@@ -1,0 +1,18 @@
+
+.mini_box {
+  height: 30px;
+  width: 30px;
+  margin: 0 auto;
+  &:before {
+    font-size: 30px;
+    top: 10px;
+    left: 0;
+    line-height: 10px;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+.text_to_center {
+  text-align: center;
+}

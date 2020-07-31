@@ -1,0 +1,26 @@
+<div class="right_side">
+  <div class="archive_news">
+    <h4><%= Spree.t('blog_archive') %></h4>
+
+    <select class="selecter second archive" data-path="<%= blogs_path %>">
+      <option value="">ALL</option>
+      <%= options_for_archive(Spree::BlogEntry) %>
+    </select>
+  </div>
+
+  <div class="resent_posts">
+    <h4>RECENT POSTS</h4>
+
+    <% blogs.limit(5).each do |blog_entry| %>
+      <div class="post">
+        <h2><%= link_to blog_entry.title, blog_path(blog_entry) %></h2>
+
+        <div class="recent_article__posted">
+          <%= posted_on(blog_entry) %>
+
+          <span class="recent_article__posted_by">&nbsp;by <%= blog_entry.user.full_name %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

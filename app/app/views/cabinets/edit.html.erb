@@ -1,0 +1,164 @@
+<div class="cabinet flex" data-page="<%= settings_path %>">
+  <div class="cabinet_right_side">
+    <%= render 'user_info' %>
+  </div>
+
+  <div class="cabinet_main address_container">
+    <div class="wrapper_medium">
+      <h2><%= Spree.t(:user_profile_settings) %></h2>
+
+      <h5><%= Spree.t(:set_your_timezone) %></h5>
+
+      <div class="wrapper_small">
+        <%= form_for spree_current_user, url: cabinets_path, method: :put, remote: true, html: { id: 'user_info_form' } do |f| %>
+          <h4><%= Spree.t(:general_settings) %></h4>
+
+          <%= f.label :first_name, Spree.t(:first_name) %>
+          <div class='input_wrapp'>
+            <%= f.text_field :first_name %>
+          </div>
+
+          <%= f.label :last_name, Spree.t(:last_name) %>
+          <div class='input_wrapp'>
+            <%= f.text_field :last_name %>
+          </div>
+
+          <%= f.label :email, Spree.t(:email_address) %>
+          <div class='input_wrapp'>
+            <%= f.text_field :email %>
+          </div>
+
+          <%= f.label :language, Spree.t(:language) %>
+          <div class='input_wrapp'>
+            <%= f.select :language, Spree::User.languages.map { |key, _val| [key, key] }, {}, class: 'language' %>
+          </div>
+
+          <%= f.label :timezone, Spree.t(:timezone) %>
+          <div class='input_wrapp'>
+            <%= f.time_zone_select :timezone, /spree_current_user.timezone/, { default: 'Rome' }, { class: 'timezone' } %>
+          </div>
+
+          <h4><%= Spree.t(:profile_settings) %></h4>
+
+          <label><%= Spree.t(:profile_photo) %></label>
+          <div class="cabinet_upload_image" data-avatar-upload-path="<%= avatar_upload_cabinets_path %>">
+            <% if spree_current_user.avatar.present? %>
+              <div class="cabinet_upload_profile hidden "></div>
+              <div class="circle_container"><%= image_tag(spree_current_user.avatar(:medium)) %></div>
+            <% else %>
+              <div class="cabinet_upload_profile"></div>
+              <div class="circle_container"><img /></div>
+            <% end %>
+            <%= file_field_tag 'picture', accept: 'image/jpeg|image/jpg|image/png' %>
+          </div>
+          <div class="flex justify-sa cabinet_btn">
+            <%= button_tag Spree.t(:select), type: :button, class: 'btn white small select_image_button' %>
+            <%= button_tag Spree.t(:upload), type: :button, class: 'btn grey small upload_image_button' %>
+          </div>
+
+          <div class="flex center-items">
+            <% 
+              roles_list = roles
+              has_role = roles_list.map(&:second).include?(spree_current_user.spree_roles.take.id)
+            %>
+            <%= check_box_tag 'user[role_selected]', nil, has_role, { id: 'checkbox_open', class: 'check_input' } %>
+            <span class="check_mask"></span>
+            <label for="checkbox_open" class="check_label_text"><%= Spree.t(:i_am_a_business_owner) %></label>
+          </div>
+
+          <div class="checkbox_open_select <%= 'visible' if has_role %>">
+            <div class="checkbox_open_select <%= 'visible' if has_role %>">
+              <%= f.select :spree_role_ids, roles_list, {}, { class: 'role selecter second' } %>
+            </div>
+          </div>
+
+          <%= f.label :web_site, Spree.t(:web_site) %>
+          <div class='input_wrapp'>
+            <%= f.text_field :web_site %>
+          </div>
+
+          <h4><%= Spree.t(:current_address) %></h4>
+
+          <%= f.fields_for :default_address, (spree_current_user.default_address || Spree::Address.build_default ) do |addr_f| %>
+            <div class='input_wrapp'>
+              <%= addr_f.label :country_id, Spree.t(:country) %>
+              <span id="country">
+                <%= addr_f.collection_select :country_id, available_countries, :id, :name, {},
+                      { class: 'select2 country', 'data-states-search' => spree.api_states_path } %>
+              </span>
+            </div>
+
+            <div class='input_wrapp'>
+              <%= addr_f.label :state_id, Spree.t(:region) %>
+
+              <span id="state">
+                <%= addr_f.text_field :state_name,
+                      style: "display: #{addr_f.object.country.states.blank? ? 'block' : 'none' };",
+                      disabled: addr_f.object.country.states.present?,
+                      class: 'state_name' %>
+
+                <%= addr_f.collection_select :state_id, addr_f.object.country.states.sort, :id, :name, 
+                      { include_blank: true }, 
+                      {
+                        class: 'region',
+                        style: "display: #{addr_f.object.country.states.empty? ? 'none' : 'block' };",
+                        disabled: addr_f.object.country.states.empty?
+                      } %>
+              </span>
+            </div>
+
+            <%= addr_f.label :city, Spree.t(:city) %>
+            <div class='input_wrapp'>
+              <%= addr_f.text_field :city %>
+            </div>
+
+            <%= addr_f.label :address1, Spree.t(:address1) %>
+            <div class='input_wrapp'>
+              <%= addr_f.text_field :address1 %>
+            </div>
+
+            <%= addr_f.label :zipcode, Spree.t(:zip_code) %>
+            <div class='input_wrapp'>
+              <%= addr_f.text_field :zipcode %>
+            </div>
+          <% end %>
+
+          <div class="cabinet_btn">
+            <%= button_tag Spree.t(:save), type: :submit, class: 'btn red small' %>
+          </div>
+        <% end %>
+
+        <h4><%= Spree.t('change_password') %></h4>
+        <%= form_for spree_current_user, url: passwords_path, method: :put, remote: true,
+              html: { id: 'password_changing' }  do |f_pass| %>
+
+          <%= f_pass.label :current_password, Spree.t(:current_password) %>
+          <div class='input_wrapp'>
+            <%= f_pass.text_field :current_password %>
+          </div>
+
+          <%= f_pass.label :password, Spree.t(:password) %>
+          <div class='input_wrapp'>
+            <%= f_pass.text_field :password %>
+          </div>
+
+          <%= f_pass.label :password_confirmation, Spree.t(:password_confirmation) %>
+          <div class='input_wrapp'>
+            <%= f_pass.text_field :password_confirmation %>
+          </div>
+
+          <div class="cabinet_btn">
+            <%= button_tag Spree.t(:change_password), type: :submit, class: 'btn grey small' %>
+          </div>
+        <% end %>
+      </div>
+      <%= link_to '', cabinet_path, class: 'close_btn medium cabinet_close' %>
+    </div>
+  </div>
+
+  <div class="cabinet_left_side">
+    <div class="text_center cabinet_settings_wrapp">
+      <%= link_to '', cabinet_path, class: 'close_btn medium cabinet_close' %>
+    </div>
+  </div>
+</div>

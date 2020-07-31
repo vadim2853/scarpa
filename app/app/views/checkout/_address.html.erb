@@ -1,0 +1,60 @@
+<div class="flex right_to_bottom_mobile checkout">
+  <div class="checkout_left__empty"></div>
+  <div class="checkout_left_side text_center width_60 shipping_address">
+    <%= checkout_progress %>
+    <h2><%= Spree.t('delivering_addresses') %></h2>
+
+    <div class="wrapper_small">
+      <div class="tabs">
+        <div class="checkout_tabs">
+          <div class="active"><%= Spree.t('billing_address') %></div>
+          <div class="another_address_tab">
+            <%= Spree.t('shipping_address') %>
+          </div>
+        </div>
+
+        <div id="billing" class="checkout_tabs-text active" data-hook="billing_fieldset_wrapper">
+          <%= form.fields_for :bill_address do |bill_form| %>
+            <%
+              if @order.bill_address.present? && @order.bill_address.persisted?
+                bill_form.object = @order.bill_address
+              elsif spree_current_user.default_address.present?
+                bill_form.object = spree_current_user.default_address
+              end
+            %>
+
+            <%= render partial: 'address_form', locals: { form: bill_form, address_type: 'billing' } %>
+          <% end %>
+        </div>
+
+        <div id="shipping" class="checkout_tabs-text" data-hook="shipping_fieldset_wrapper">
+          <%= form.fields_for :ship_address do |ship_form| %>
+            <div class="flex center-items">
+              <%= check_box_tag 'order[use_billing]', nil, {}, class: 'check_input' %>
+              <span class="check_mask"></span>
+              <label for="order_use_billing" class="check_label_text"><%= Spree.t(:use_billing) %></label>
+            </div>
+
+            <%= render partial: 'address_form', locals: { form: ship_form, address_type: 'shipping' } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkout_right_side">
+    <div class="checkout_right__name"><%= Spree.t('shopping_cart') %></div>
+    <div class="checkout_right__bottom">
+      <div class="checkout_right__bottom_text">
+        <div class="checkout_right__bottom_name"><%= Spree.t('price_of_the_order') %></div>
+        <div class="checkout_right__bottom_currency"><%= Spree.t(@order.currency) %></div>
+        <div class="checkout_right__bottom_price"><%= @order.total.to_f %></div>
+      </div>
+
+      <%= hidden_field 'order', 'email', value: spree_current_user.email %>
+      <%= hidden_field_tag 'state', nil, value: @order.state %>
+      <%= hidden_field_tag 'save_user_address', nil, value: 1 %>
+      <%= button_tag Spree.t('continue'), class: 'btn red small' %>
+    </div>
+  </div>
+</div>

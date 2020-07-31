@@ -1,0 +1,11 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.listing_backgrounds') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.new_background'), new_admin_calculator_background_path, icon: 'plus' %>
+  </li>
+<% end %>
+
+<%= render partial: '/spree/admin/calculator/shared/background_table', locals: { backgrounds: @backgrounds } %>

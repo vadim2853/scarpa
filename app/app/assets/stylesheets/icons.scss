@@ -1,0 +1,107 @@
+.icon_location {
+  background: image-url('location.png') no-repeat 0 0;
+  width: 24px;
+  height: 38px;
+}
+
+.icon_fb {
+  background: image-url('fb.svg') no-repeat 0 0;
+  width: 45px;
+  height: 45px;
+}
+
+.icon_tw {
+  background: image-url('tw.svg') no-repeat center center;
+  width: 54px;
+  height: 43px;
+}
+
+.icon_in {
+  background: image-url('in.svg') no-repeat 0 0;
+  width: 45px;
+  height: 45px;
+}
+
+.icon_p {
+  background: image-url('p.svg') no-repeat 0 0;
+  width: 45px;
+  height: 45px;
+}
+
+.icon_fb_black {
+  background: image-url('fb_black.svg') no-repeat 0 0;
+  width: 28px;
+  height: 28px;
+}
+
+.icon_tw_black {
+  background: image-url('tw_black.svg') no-repeat 0 0;
+  width: 28px;
+  height: 22px;
+}
+
+.icon_in_black {
+  background: image-url('in_black.svg') no-repeat 0 0;
+  width: 28px;
+  height: 28px;
+}
+
+.icon_p_black {
+  background: image-url('p_black.svg') no-repeat 0 0;
+  width: 28px;
+  height: 28px;
+}
+
+.icon_bottle {
+  background: image-url('bottle.png') no-repeat 0 0;
+  width: 24px;
+  height: 74px;
+}
+
+.icon_arrow__black {
+  background: image-url('arrow-black_big.png') no-repeat 0 0;
+  width: 15px;
+  height: 9px;
+}
+
+.icon_arrow__white {
+  background: image-url('arrow-white_big.png') no-repeat 0 0;
+  width: 15px;
+  height: 9px;
+}
+
+.icon_eye {
+  background: image-url('icon_eye.png') no-repeat 0 0;
+  width: 21px;
+  height: 14px;
+}
+
+.icon_glass {
+  background: image-url('glass_icon.png') no-repeat 0 0;
+  width: 95px;
+  height: 146px;
+}
+
+.icon_memebers {
+  background: image-url('club_members.png') no-repeat 0 0;
+  width: 23px;
+  height: 25px;
+}
+
+.icon_events {
+  background: image-url('club_events.png') no-repeat 0 0;
+  width: 23px;
+  height: 25px;
+}
+
+.icon_messages {
+  background: image-url('club_messages.png') no-repeat 0 0;
+  width: 23px;
+  height: 25px;
+}
+
+[class^='icon_'] {
+  display: inline-block;
+  vertical-align: middle;
+  background-size: 100%;
+}

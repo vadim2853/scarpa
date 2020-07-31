@@ -1,0 +1,86 @@
+<div data-hook="admin_audio_form_fields">
+  <div id="winery-lang-tabs" class="i18n-tabs">
+    <ul>
+      <li><a href="#tabs-1">EN</a></li>
+      <li><a href="#tabs-2">IT</a></li>
+    </ul>
+    <div id="tabs-1">
+      <div class="alpha">
+        <%= f.field_container :title do %>
+          <%= f.label :title, Spree.t('admin.title') %>
+          <%= f.text_field :title, :class => 'fullwidth' %>
+          <%= error_message_on :winery, :title %>
+        <% end %>
+      </div>
+
+      <div data-hook="admin_winery_form_description_fields" class="alpha">
+        <%= f.field_container :description do %>
+          <%= f.label :description, Spree.t('admin.description') %>
+          <%= f.cktext_area :description, :class => 'fullwidth' %>
+          <%= f.error_message_on :description %>
+        <% end %>
+      </div>
+    </div>
+    <div id="tabs-2">
+      <div class="alpha">
+        <%= f.field_container :title_it do %>
+          <%= f.label :title_it, Spree.t('admin.title_it') %>
+          <%= f.text_field :title_it, :class => 'fullwidth' %>
+          <%= error_message_on :winery, :title_it %>
+        <% end %>
+      </div>
+
+      <div data-hook="admin_winery_form_description_it_fields" class="alpha">
+        <%= f.field_container :description_it do %>
+          <%= f.label :description_it, Spree.t('admin.description_it') %>
+          <%= f.cktext_area :description_it, :class => 'fullwidth' %>
+          <%= f.error_message_on :description_it %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<fieldset data-hook="image">
+  <legend align="center"><%= @audio.image_file_name %></legend>
+
+  <% unless @audio.new_record? %>
+    <div data-hook="thumbnail" class="field alpha three columns align-center">
+      <%= f.label Spree.t(:thumbnail) %><br>
+      <%= link_to image_tag(@audio.image.url(:icon)), @audio.image.url(:icon) %>
+    </div>
+  <% end %>
+
+  <div class="alfa">
+    <div class="field">
+      <%= f.label :image, Spree.t(:filename) %><br>
+      <%= f.file_field :image %>
+    </div>
+  </div>
+</fieldset>
+
+<div class="alpha">
+  <%= f.field_container :audio_mp3 do %>
+    <%= f.label :audio_mp3, Spree.t('admin.audio_mp3') %>
+    <%= f.text_field :audio_mp3, :class => 'fullwidth' %>
+    <%= error_message_on :winery, :audio_mp3 %>
+  <% end %>
+</div>
+
+<div class="alpha">
+  <%= f.field_container :audio_ogg do %>
+    <%= f.label :audio_ogg, Spree.t('admin.audio_ogg') %>
+    <%= f.text_field :audio_ogg, :class => 'fullwidth' %>
+    <%= error_message_on :winery, :audio_ogg %>
+  <% end %>
+</div>
+
+<div class="alpha">
+  <%= f.field_container :audio_wav do %>
+    <%= f.label :audio_wav, Spree.t('admin.audio_wav') %>
+    <%= f.text_field :audio_wav, :class => 'fullwidth' %>
+    <%= error_message_on :winery, :audio_wav %>
+  <% end %>
+</div>

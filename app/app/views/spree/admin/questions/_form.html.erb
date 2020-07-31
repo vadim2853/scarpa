@@ -1,0 +1,37 @@
+<div data-hook="admin_question_form_fields" class="row">
+  <div class="alpha">
+    <%= f.field_container :grade_id do %>
+      <%= f.label :grade_id, Spree.t('admin.grade') %>
+      <%= collection_select(:question, :grade_id, Spree::Grade.all, :id, :title, 
+            { selected: @question.grade_id }, class: 'select2_without_search_and_close') %>
+      <%= error_message_on :question, :grade_id %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :title do %>
+      <%= f.label :title, Spree.t('admin.title') %>
+      <%= f.text_field :title, :class => 'fullwidth' %>
+      <%= error_message_on :question, :title %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_question_form_description_fields" class="alpha">
+    <%= f.field_container :description do %>
+      <%= f.label :description, Spree.t('admin.description') %>
+      <%= f.cktext_area :description, :class => 'fullwidth' %>
+      <%= f.error_message_on :description %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_question_form_description_fields" class="alpha">
+    <%= f.field_container :variants_type do %>
+      <%= f.label :variants_type, Spree.t('admin.variants_type') %>
+      <%= f.select :variants_type,
+            Spree::Question.variants_types.map { |option, inx| [Spree.t("admin.#{option}"), option] },
+            { selected: (params[:f] || @question.variants_type) }, 
+            :class => 'select2_without_search_and_close' %>
+      <%= f.error_message_on :variants_type %>
+    <% end %>
+  </div>
+</div>

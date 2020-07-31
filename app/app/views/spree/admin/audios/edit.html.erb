@@ -1,0 +1,21 @@
+<%= render :partial => 'spree/admin/shared/product_tabs', :locals => { :current => 'Audios' } %>
+
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @audio } %>
+
+<% content_for :page_actions do %>
+  <li><%= button_link_to Spree.t('admin.back_to_audios_list'), admin_product_audios_url(@product), :icon => 'arrow-left' %></li>
+<% end %>
+
+<%= form_for [:admin, @product, @audio], :html => { :multipart => true } do |f| %>
+  <fieldset data-hook="edit_audio">
+    <div class="alfa">
+      <%= render :partial => 'form', :locals => { :f => f } %>
+    </div>
+    <div class="clear"></div>
+    <div class="form-buttons filter-actions actions" data-hook="buttons">
+      <%= button Spree.t('actions.update'), 'refresh' %>
+      <span class="or"><%= Spree.t(:or) %></span>
+      <%= link_to Spree.t('actions.cancel'), admin_product_audios_url(@product), :id => 'cancel_link', :class => 'button remove' %>
+    </div>
+  </fieldset>
+<% end %>

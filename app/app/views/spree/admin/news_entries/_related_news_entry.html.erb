@@ -1,0 +1,10 @@
+<tr id="related-news-entry-<%= p.id %>" data-hook="admin_news_entries_index_rows">
+  <td class="align-center"><%= link_to p.posted_on, admin_news_entry_path(p.id) %></td>
+  <td class="align-center"><%= link_to p.title, admin_news_entry_path(p.id) %></td>
+  <td class="align-center"><%= link_to p.preview_text.html_safe, admin_news_entry_path(p.id) %></td>
+  <td class="align-center">
+    <%= link_to 'Delete relation', 
+                '#', class: 'delete-related-news-entry-link', 
+                data: { news_entry_id: @news_entry.id, related_id: p.id } %>
+  </td>
+</tr>

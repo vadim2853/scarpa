@@ -1,0 +1,294 @@
+<% store_url = Spree::Store.first.url %>
+<% full_name = @order.user.first_name.present? ? @order.user.first_name : @order.user.email %>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 0; padding: 0; height: 100%; background: #ffffff;">
+<tbody>
+  <tr>
+    <td height="100%" align="center" valign="top" style="padding-top: 20px; padding-bottom: 20px;">
+      <center style="max-width: 640px; width: 100%;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" height="1px;">
+        <tbody>
+          <tr>
+            <td>
+              <p style="color: #ffffff; font-size: 1px;"><%= t('mails.order_confirmation') %></p>
+            </td>
+          </tr>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 0; padding: 0px; background: #ffffff;">
+        <tbody>
+          <tr>
+            <td style="padding: 20px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 0; padding: 0px; border: 1px solid #f6af41">
+              <tbody>
+                <tr>
+                  <td style="padding: 8px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 0; padding: 0px; border: 1px solid #f6af41">
+                    <tbody>
+                      <tr>
+                        <td style="padding: 10px 20px 5px 20px; color: #000000; font-family: Verdana, Geneva, sans-serif; font-size: 16px;">
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 0; padding: 0px;">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <center>
+                                  <%= link_to image_tag(image_url('mails/logo.jpg'),
+                                        width: 200,
+                                        height: 92,
+                                        border: 0,
+                                        style: 'display: block; float: none;'), store_url %>
+                                </center>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding: 20px 0; line-height: 1.4; font-size: 14px;">
+                                <center>
+                                  <p style="font-size: 20px; text-align: center;">
+                                    <%= "#{t('mails.dear')} #{full_name}," %>
+                                  </p>
+
+                                  <p style="text-align: center;"><%= t('mails.thanks_for_order') %>!</p>
+
+                                  <p style="text-align: center;">
+                                    <%= t('mails.your_order_number_is') %>
+                                    <strong>
+                                      <%= link_to @order.number,
+                                          "#{store_url}/order_details/#{@order.number}",
+                                          style: 'color: #000000;text-decoration: underline;' %>
+                                    </strong>
+                                  </p>
+
+                                  <br />
+
+                                  <p style="text-align: center;">
+                                    <strong><%= t('mails.your_order_contains') %>:</strong>
+                                  </p>
+
+                                  <table border="0"
+                                         cellspacing="0"
+                                         cellpadding="0"
+                                         width="100%"
+                                         style="font-size: 11px;">
+                                    <thead>
+                                      <tr>
+                                        <td style="padding: 10px 0;border-top: 1px solid #eeeeee;font-size: 11px;">
+                                          &nbsp;
+                                        </td>
+
+                                        <td style="padding: 10px 0; border-top: 1px solid #eeeeee; font-size: 11px;">
+                                          &nbsp;
+                                        </td>
+
+                                        <td style="padding: 10px 5px;border-top: 1px solid #eeeeee; font-size: 11px;">
+                                          <strong><%= t('mails.quantity') %>:</strong>
+                                        </td>
+                                        
+                                        <td style="padding: 10px 5px;border-top: 1px solid #eeeeee; font-size: 11px;">
+                                          <strong><%= t('mails.item_price') %>:</strong>
+                                        </td>
+                                        
+                                        <td style="padding: 10px 5px;border-top: 1px solid #eeeeee; font-size: 11px;">
+                                          <strong><%= t('mails.item_total') %>:</strong>
+                                        </td>
+                                      </tr>
+                                    </thead>
+
+                                    <tbody>
+                                      <% @order.line_items.each do |item| %>
+                                        <% variant = item.variant -%>
+                                        <% is_tour = variant.product.taxons.where(name: CFG.taxons.wine_tour.title).any? -%>
+
+                                        <% if is_tour %>
+                                          <tr>
+                                            <td valign="middle"
+                                                style="padding: 10px 5px; border-top: 1px solid #eeeeee; font-size: 11px;">
+
+                                              <% if variant.images.length == 0 %>
+                                                <%= link_to("#{store_url}/wine_tours/#{variant.product.slug}") do %>
+                                                  <%= image_tag(variant.product.display_image.attachment(:small),
+                                                    style: 'text-align: center; max-width: 100px; width: 100%; min-width: 50px;') %>
+                                                <% end %>
+                                              <% else %>
+                                                <%= link_to("#{store_url}/wine_tours/#{variant.product.slug}") do %>
+                                                  <%= image_tag(variant.images.first.attachment.url(:small),
+                                                        style: 'text-align: center; max-width: 100px; width: 100%; min-width: 50px;') %>
+                                                <% end %>
+                                              <% end %>
+
+                                              <p style="font-size: 10px; margin: 0; padding: 10px 0;">
+                                                <%= item.variant.date_option %>
+                                              </p>
+                                            </td>
+
+                                            <td valign="middle"
+                                            style="padding: 10px 5px;border-top: 1px solid #eeeeee;font-size: 11px;">
+
+                                              <%= link_to variant.product.name,
+                                                          "#{store_url}/wine_tours/#{variant.product.slug}" %>
+
+                                              <br /><br />
+
+                                              <% if @order.payment_state == 'paid' %>
+                                                <%= link_to("#{store_url}/tickets/#{item.id}", 
+                                                      style: 'color: #000000; text-decoration: underline;') do %>
+
+                                                  <strong><%= t('mails.download_tikets') %></strong>
+                                                <% end %>
+                                              <% end %>
+                                            </td>
+
+                                            <td valign="middle"
+                                                align="center"
+                                            style="padding: 10px 5px;border-top: 1px solid #eeeeee;font-size: 11px;">
+
+                                              <%= item.quantity %>
+                                            </td>
+
+                                            <td valign="middle"
+                                                align="center"
+                                            style="padding: 10px 5px;border-top: 1px solid #eeeeee;font-size: 11px;">
+
+                                              <%= item.single_money %>
+                                            </td>
+
+                                            <td valign="middle"
+                                                align="right"
+                                            style="padding: 10px 5px;border-top: 1px solid #eeeeee;font-size: 11px;">
+
+                                              <%= item.display_amount %>
+                                            </td>
+                                          </tr>
+
+                                        <% else %>
+
+                                          <tr>
+                                            <td valign="middle"
+                                            style="padding: 10px 5px;border-top: 1px solid #eeeeee;font-size: 11px;">
+
+                                              <% if variant.images.length == 0 %>
+                                                <%= link_to("#{store_url}/products/#{variant.product.slug}") do %>
+                                                  <%= image_tag(variant.product.display_image.attachment(:small),
+                                                        style: 'text-align: center; max-width: 100px; width: 100%; min-width: 50px;') %>
+                                                <% end %>
+                                              <% else %>
+                                                <%= link_to("#{store_url}/products/#{variant.product.slug}") do %>
+                                                  <%= image_tag(variant.images.first.attachment.url(:small),
+                                                    style: 'text-align: center; max-width: 100px; width: 100%; min-width: 50px;') %>
+                                                <% end %>
+                                              <% end %>
+                                            </td>
+
+                                            <td valign="middle"
+                                                style="padding: 10px 5px; border-top: 1px solid #eeeeee; font-size: 11px;">
+
+                                              <%= link_to variant.product.name, 
+                                                          "#{store_url}/products/#{variant.product.slug}" %>
+                                            </td>
+
+                                            <td valign="middle"
+                                                align="center"
+                                                style="padding: 10px 5px; border-top: 1px solid #eeeeee; font-size: 11px;">
+
+                                              <%= item.quantity %>
+                                            </td>
+
+                                            <td valign="middle"
+                                                align="center"
+                                                style="padding: 10px 5px; border-top: 1px solid #eeeeee; font-size: 11px;">
+
+                                              <%= item.single_money %>
+                                            </td>
+
+                                            <td valign="middle"
+                                                align="right"
+                                                style="padding: 10px 5px; border-top: 1px solid #eeeeee; font-size: 11px;">
+
+                                              <%= item.display_amount %>
+                                            </td>
+                                          </tr>
+                                        <% end %>
+                                      <% end %>
+
+                                      <tr>
+                                        <td colspan="4"
+                                            align="right"
+                                            style="padding: 10px 5px; border-top: 1px solid #eeeeee; font-size: 11px;">
+
+                                          <strong><%= t('mails.subtotal') %>:</strong>
+                                        </td>
+
+                                        <td align="right"
+                                          style="padding: 10px 5px;border-top: 1px solid #eeeeee;font-size: 11px;">
+
+                                          <%= @order.display_item_total %>
+                                        </td>
+                                      </tr>
+
+                                      <% @order.shipments.group_by { |s| s.selected_shipping_rate.try(:name) }.each do |name, shipments| %>
+
+                                        <tr>
+                                          <td colspan="4" align="right" style="padding: 10px 5px; font-size: 11px;">
+                                            <strong><%= t(:shipping) %> <%= name %>:</strong>
+                                          </td>
+
+                                          <td align="right" style="padding: 10px 5px; font-size: 11px;">
+                                            <%= Spree::Money.new(shipments.sum(&:discounted_cost),
+                                                                 currency: @order.currency) %>
+                                          </td>
+                                        </tr>
+                                      <% end %>
+
+                                      <tr>
+                                        <td colspan="4"
+                                            align="right"
+                                            style="padding: 10px 5px; border-bottom: 1px solid #eeeeee; font-size: 11px;">
+
+                                          <strong><%= t('mails.total') %>:</strong>
+                                        </td>
+
+                                        <td align="right"
+                                            style="padding: 10px 5px;border-bottom: 1px solid #eeeeee; font-size: 11px;">
+
+                                          <%= @order.display_total %>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+
+                                  <br /><br />
+
+                                  <p style="text-align: center;"><%= t('mails.scarpa_support') %></p>
+                                </center>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                <center style="text-align: center;">
+                                  <%= image_tag(image_url('mails/bottom_img.jpg'),
+                                        width: '250',
+                                        height: '62',
+                                        style: 'display: block; max-width: 250px; width: 100%; float: none; margin: 0 auto;',
+                                        border: '0'
+                                      ) %>
+                                </center>
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </center>
+    </td>
+  </tr>
+  </tbody>
+</table>

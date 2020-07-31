@@ -1,0 +1,73 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.news_entry.show') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.news_entry.back_to_list'), spree.admin_news_entries_path, :icon => 'arrow-left' %>
+  </li>
+<% end %>
+
+<div class="alpha ten columns">
+ <fieldset class="no-border-bottom">
+    <legend align="center"><span><%= Spree.t(:status) %></span></legend>
+
+    <div class='field'>
+      <p align="center">
+        <strong>
+          <span style="color: <%= @news_entry.published? ? '#9FC820' : 'red' %>">
+            <%= @news_entry.status.upcase %>
+          </span>
+        </strong>
+      </p>
+    </div>
+  </fieldset>
+
+  <fieldset class="no-border-bottom">
+    <legend align="center">
+      <span><%= Spree.t('admin.title') %></span>
+    </legend>
+
+    <div class='field'>
+      <%= @news_entry.title %>
+    </div>
+  </fieldset>
+
+  <fieldset class="no-border-bottom">
+    <legend align="center">
+      <span><%= Spree.t('admin.news_entry.preview_text') %></span>
+    </legend>
+
+    <div class='field'>
+      <%= @news_entry.preview_text.html_safe %>
+    </div>
+  </fieldset>
+
+  <fieldset class="no-border-bottom">
+    <legend align="center">
+      <span><%= Spree.t('admin.news_entry.full_text') %></span>
+    </legend>
+
+    <div class='field'>
+      <%= @news_entry.full_text.html_safe %>
+    </div>
+  </fieldset>
+</div>
+
+<div class="alpha six columns">
+  <fieldset class="no-border-bottom">
+    <legend align="center">
+      <span><%= Spree.t(:other) %></span>
+    </legend>
+
+    <div class='field'>
+      <label><%= Spree.t('admin.news_entry.posted_on') %></label>
+      <p><%= @news_entry.posted_on %></p>
+    </div>
+
+    <div class='field'>
+      <label><%= Spree.t('admin.news_entry.view_count') %></label>
+      <p><%= @news_entry.view_count %></p>
+    </div>
+  </fieldset>
+</div>

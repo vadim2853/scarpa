@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html prefix='og: http://ogp.me/ns#'>
+<head>
+  <title>Scarpa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <script type="text/javascript">
+    DISPLAY_COMING_SOON = <%= display_coming_soon? %>
+  </script>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'favicon.ico' %>
+
+  <% if Rails.env.production? || Rails.env.staging? %>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-78305005-1', 'auto');
+    </script>
+  <% else %>
+    <script>
+      function ga () {
+        var params = Array.prototype.slice.call(arguments, ga.length);
+        console.log("GoogleAnalytics: " + params);
+      };
+    </script>
+  <% end %>
+
+  <%= yield :head %>
+</head>
+<body>
+<header>
+  <div class="bg_menu_mobile"></div>
+  <div class="wrapper">
+    <div class="flex head-m">
+      <div class="header_nav-mobile">
+      </div>
+      <div class="header_left">
+        <div class="header_lang">
+          <%= link_to 'en', 'javascript:;', class: 'active' %>
+          <%= link_to 'it', 'javascript:;', class: 'coming_soon_link', title: t('coming_soon.tooltip_it') %>
+        </div>
+      </div>
+      <div class="logo">
+        <%= link_to image_tag('logo.svg'), root_path %>
+      </div>
+      <div class="header_right">
+        <div class="header_location">
+          <% if spree_current_user %>
+            <%= user_name_or_tooltip %>
+          <% else %>
+            <%= link_to 'Login', 'javascript:;', class: 'header_login' %>
+          <% end %>
+
+          <%= render partial: 'link_to_cart' %>
+
+          <%= link_to ' ', contacts_path, class: 'icon_location', title: Spree.t('contacts') %>
+        </div>
+      </div>
+    </div>
+    <nav class="flex">
+    <%= link_to 'Home', root_path %>
+      <%= link_to 'The winery', winery_path %>
+      <div class="nav_first">
+        <a href="javascript:;">Products</a>
+        <div class="nav_second_mobile flex">
+          <%= link_to 'Wines', wines_path %>
+          <%= link_to 'Aged vintages', aged_vintages_path %>
+          <%= link_to 'Grappa vermouth', grappa_vermouth_path %>
+          <%= link_to 'Wine tours', wine_tours_path %>
+        </div>
+      </div>
+      <div class="nav_first">
+        <a href="javascript:;">The Voice of Scarpa</a>
+        <div class="nav_second_mobile flex">
+          <%= link_to 'News', news_index_path %>
+          <%= link_to 'Blog', blogs_path %>
+        </div>
+      </div>
+      <%= link_to 'Scarpa world', contacts_path %>
+      <!-- <div class="nav_first">
+        <a href="javascript:;">Featured experience</a>
+        <div class="nav_second_mobile flex"> -->
+          <%#= link_to 'Party calculator', party_calculator_path %>
+          <%#= link_to "somelie's quizz", grades_path %>
+        <!-- </div>
+      </div> -->
+      <% if spree_current_user %>
+        <%= user_name_or_tooltip(true) %>
+      <% else %>
+        <%= link_to 'Login', 'javascript:;', class: 'login_menu_mobile' %>
+      <% end %>
+    </nav>
+  </div>
+
+  <%= render partial: 'flash' %>
+</header>
+<% if cookies[:is_adult].nil? %>
+  <%= render 'user_restriction' %>
+<% end %>
+
+<%= yield %>
+
+<div class="clear"></div>
+<footer>
+  <div class="wrapper">
+    <nav class="flex">
+      <%= link_to 'The winery', root_path %>
+      <%= link_to 'Wines', wines_path %>
+      <%= link_to 'Aged vintages', aged_vintages_path %>
+      <%= link_to 'Grappa vermouth', grappa_vermouth_path %>
+      <%= link_to 'News', news_index_path %>
+    </nav>
+    <div class="foot-m">
+      <div class="footer_name">ANTICA CASA VINICOLA SCARPA</div>
+      <div class="footer_adress">
+        via Montegrappa, 6 - 14049 Nizza Monferrato AT<br />
+        Tel. +39 0141 721331 - Fax. +39 0141 702872<br />
+        info@scarpavini.it - export@scarpavini.it<br />
+      </div>
+      <div class="footer_networks" data-no-turbolink="true">
+        <%= link_to '', '//www.facebook.com/Antica-Casa-Vinicola-Scarpa-1462655593952059', class: 'icon_fb', target: '_blank' %>
+        <%= link_to '', '//twitter.com/scarpawines', class: 'icon_tw', target: '_blank' %>
+        <%#= link_to '', 'javascript:;', class: 'icon_in coming_soon_link', title: t('coming_soon.tooltip_linkedin') %>
+        <%= link_to '', '//www.pinterest.com/scarpawines', class: 'icon_p', target: '_blank' %>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<%= render 'login' %>
+
+<% if Rails.env.test? %>
+  <%= render partial: 'spec_performance' %>
+<% end %>
+</body>
+</html>

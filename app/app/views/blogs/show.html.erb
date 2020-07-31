@@ -1,0 +1,48 @@
+<%
+  render 'social_meta', {
+    title: @blog_entry.title,
+    description: @blog_entry.preview_text,
+    url: blog_url(@blog_entry)
+  }
+%>
+
+<div class="wrapper flex">
+  <div class="left_side">
+    <div class="article_detail">
+      <div class="article__img">
+        <%= image_tag @blog_entry.user.avatar_url %>
+      </div>
+
+      <h2><%= @blog_entry.title %></h2>
+
+      <div class="article__prehead flex">
+        <div class="article__posted">
+          <%= posted_on(@blog_entry) %>
+          <span class="article__posted_by">&nbsp;by <%= @blog_entry.user.full_name %></span>
+        </div>
+
+        <div class="article__views"><span class="icon_eye"></span><%= @blog_entry.view_count %></div>
+      </div>
+
+      <div class="article__text">
+        <%== @blog_entry.full_text %>
+      </div>
+
+      <%= render 'social_shares', title: @blog_entry.title,
+                                  description: @blog_entry.preview_text,
+                                  link: blog_url(@blog_entry) %>
+    </div>
+
+    <%= react_component(
+      'CommentsApp',
+      props: {
+        userPresent: spree_current_user.present?,
+        rootApiEndpoint: ui_v1_blog_comments_path(@blog_entry),
+        elementApiEndpoint: ui_v1_comment_comments_path(:comment_id)
+      },
+      prerender: false
+    ) %>
+  </div>
+
+  <%= render 'recent_blogs', blogs: @recent_blogs %>
+</div>

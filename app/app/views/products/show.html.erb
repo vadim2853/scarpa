@@ -1,0 +1,309 @@
+<div class="border_bottom_grey product"
+     data-video-mp4="<%= @product.video_mp4 %>"
+     data-video-ogg="<%= @product.video_ogg %>"
+     data-video-webm="<%= @product.video_webm %>">
+
+  <%= form_for :order, url: populate_orders_path, html: { class: 'wrapper flex' } do |f| %>
+    <div class="product_image">
+      <%= image_tag @product.display_image.attachment(:large) %>
+    </div>
+
+    <div class="product_description">
+      <div class="product_des_text">
+        <div class="product_name">
+          <%= @product.name %>
+        </div>
+
+        <% if @product.video_mp4.present? || @product.video_ogg.present? || @product.video_webm.present? %>
+          <div class="product_play-video flex">
+            <div class="play-video_icon"></div>
+            <%= Spree.t('try_virtual_tasting') %>
+          </div>
+        <% end %>
+
+        <div class="product_producer">
+          <h5><%= Spree.t('producer') %>&nbsp;:</h5>
+          <%= @product.producer %>
+        </div>
+        <div class="product_geo">
+          <h5><%= Spree.t('geographic_setting') %>&nbsp;:</h5>
+          <%= @product.geographic_setting %>
+        </div>
+      </div>
+
+        <% if adult? && @ages.present? %>
+          <div class="flex">
+            <div class="product_age_select">
+              <h5><%= Spree.t('wine_age') %></h5>
+              <%= f.select :age, @ages, { selected: params[:age] },
+                  class: 'age_selector left_align' %>
+            </div>
+          </div>
+        <% end %>
+
+        <% can_add_product = false %>
+        <% if adult? && @product_variants_and_option_values.any? %>
+          <% can_add_product = true %>
+          <div class="flex">
+            <div class="product_price">
+              <h5><%= Spree.t('bottles') %>&nbsp;/&nbsp;<%= Spree.t('crates') %></h5>
+
+              <% price_variants = product_price_variants %>
+              <%= f.select :variant_id, price_variants, {}, class: 'selecter_product left_align' %>
+
+              <% if price_variants.size == 1 %>
+                <%= javascript_tag do %>$('.selecter_product').attr('disabled', true).trigger('change');<% end %>
+                <%= f.hidden_field :variant_id, value: variant_id_from(price_variants: price_variants) %>
+              <% end %>
+            </div>
+
+            <div class="product_qty">
+              <h5><%= Spree.t('qty') %> :</h5>
+              <%= f.number_field :quantity, value: 1, pattern: '[0-9]*', class: 'input_number', min: 1, max: 99 %>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- TODO: For new feature -->
+        <!-- <div class="discount">
+          <div class="discount_row flex">
+            <div class="discount_old">
+              <h5>price:</h5>
+              <div class="discount_old_price">358.0</div>
+            </div>
+            <div class="discount_part">
+              <h5>discount:</h5>
+              30 %
+            </div>
+            <div class="discount_row_for">for CATERING SERVICES / EVENTS ORGANIZATION</div>
+          </div>
+          <div class="discount_row_current flex">
+            <div>
+              <h5>current price:</h5>
+              <div class="discount_current flex">
+                <div class="discount_current_empty"></div>
+                <div class="discount_current_price">358.0</div>
+                <div class="currency">euro</div></div>
+            </div>
+          </div>
+        </div> -->
+
+      <% if can_add_product %>
+        <button class="btn red add_to_cart" type="button">
+          <div class="add_to_cart_inn">
+            <span class="add_to_card__notification"><%= Spree.t('adding_to_cart') %></span>
+            <span class="add_to_card__text"><%= Spree.t('add_to_cart') %></span>
+          </div>
+        </button>
+      <% else %>
+        <button class="btn disable" type="button"><%= Spree.t('add_to_cart') %></button>
+      <% end %>
+    </div>
+    <div class="product_video">
+      <div class="product_video_close"><%= Spree.t('hide_video') %></div>
+    </div>
+  <% end %>
+</div>
+
+<section>
+  <div class="wrapper_big text_center">
+    <h3 data-hook='organoleptic_data' class="product_accordion">
+      <%= Spree.t('organoleptic_data') %>
+      <span class="icon_arrow__black"></span>
+    </h3>
+
+    <div class="flex organoleptic">
+      <% if property_values_by_group(:dominant_flavours, :value_array).present? %>
+        <div>
+          <div class="organoleptic_name"><%= Spree.t('dominant_flavours') %></div>
+          <div class="organoleptic_icon flex">
+            <% property_values_by_group(:dominant_flavours, :value_array).each do |icon| %>
+              <% if ICONS[icon].present? %>
+                <%= content_tag :div, '', class: icon do %>
+                  <div class="organoleptic_icon_title"><%= ICONS[icon] %></div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if property_values_by_group(:perfect_temperature).present? %>
+        <div>
+          <div class="organoleptic_name"><%= Spree.t('perfect_temperature') %></div>
+          <div class="organoleptic_icon flex">
+            <div class="organoleptic_icon-text">
+              <div class="flex">
+                <%= property_values_by_group(:perfect_temperature) %>&deg;С
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if properties_by_group(:wine_profile).present? %>
+        <div>
+          <div class="organoleptic_name"><%= Spree.t('wine_profile') %></div>
+          <div class="organoleptic_icon flex_column flex">
+            <% properties_by_group(:wine_profile).each do |wp_data| %>
+              <div class="organoleptic_name_inn"><%= wp_data.presentation %></div>
+              <div class="wine-prof_<%= value_by_property_and_type(wp_data, :value).to_i %> flex">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if property_values_by_group(:perfect_glass, :value_array).present? %>
+        <div>
+          <div class="organoleptic_name"><%= Spree.t('perfect_glass') %></div>
+          <div class="organoleptic_icon flex">
+            <% property_values_by_group(:perfect_glass, :value_array).each do |icon| %>
+              <%= content_tag :div, '', class: icon %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if property_values_by_group(:wine_aeration).present? %>
+        <div>
+          <div class="organoleptic_name"><%= Spree.t('wine_aeration') %></div>
+          <div class="organoleptic_icon flex">
+            <div class="organoleptic_icon-text">
+              <div class="flex">
+                 <span><%= property_values_by_group(:wine_aeration) %>&nbsp;min.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<% if properties_by_group(:technical_data).present? %>
+  <section class="technical_data">
+    <div class="text_center">
+      <h3 data-hook='technical_data' class="product_accordion">
+        <%= Spree.t('technical_data') %>
+        <span class="icon_arrow__white"></span>
+      </h3>
+      <div class="technical_data_block">
+        <% properties_by_group(:technical_data).each do |t_data| %>
+          <% if value_by_property_and_type(t_data, :value).present? %>
+            <div class="technical_data__name"><%= t_data.presentation %></div>
+            <div class="technical_data__description"><%= value_by_property_and_type(t_data, :value) %></div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<% if @product.wine_glass.present? || @product.audios.present? %>
+  <section>
+    <div class="text_center">
+      <h3 data-hook='perfect_xp' class="product_accordion">
+        <%= Spree.t('perfect_experience') %>
+        <span class="icon_arrow__black"></span>
+      </h3>
+
+      <div>
+      <% if @product.wine_glass.present? %>
+        <div class="wrapper flex product_glass">
+          <div class="product_glass__description">
+            <div class="product_glass__name">
+              <%= @product.wine_glass.name %>
+            </div>
+            <span>
+              <%= @product.wine_glass.description %>
+            </span>
+          </div>
+          <div class="product_glass__image">
+            <%= image_tag @product.wine_glass.display_image.attachment(:large) %>
+          </div>
+          <div class="product_glass__empty"></div>
+        </div>
+      <% end %>
+
+      <% if @product.audios.present? %>
+        <div class="wrapper_big flex product_music <%= 'only-one' if @product.audios.size.odd? %>"> 
+          <% @product.audios.each do |audio| %>
+            <div class="product_music__block flex"
+                 data-audio-mp3="<%= audio.audio_mp3 %>"
+                 data-audio-ogg="<%= audio.audio_ogg %>"
+                 data-audio-wav="<%= audio.audio_wav %>">
+
+              <div class="product_music__track">
+                <div class="product_music__track_inn">
+                  <div class="product_music__track_bg" 
+                       style="background-image: url(<%= audio.image(:medium) %>)">
+
+                    <div class="product_music__play"></div><!-- class "play" for animation play music -->
+                  </div>
+                </div>
+              </div>
+              <div class="product_music__description">
+                <div class="product_music__name"><%= audio.title %></div>
+                <span>
+                  <%= audio.description.html_safe %>
+                </span>
+              </div>
+
+              <div class="product_audio"></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<% if @product.topics.present? %>
+  <section>
+    <div class="flex pslider">
+      <div class="pslider_bg">
+        <h5>THE RIGHT FOOD</h5>
+        <ul>
+          <% @product.topics.each do |topic| %>
+            <%= content_tag :li, topic.title, { 'data-id': topic.id } %>
+          <% end %>
+        </ul>
+        <div class="pslider_arrow"></div>
+      </div>
+      <div class="pslider_image">
+        <% @product.topics.each do |topic| %>
+          <% if topic.link.present? %>
+            <%= link_to image_tag(topic.image(:medium), id: "pslider_image_#{topic.id}"), topic.link %>
+          <% else %>
+            <%= image_tag topic.image(:medium), id: "pslider_image_#{topic.id}" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<% if @product.ordered_related_products.present? %>
+  <section>
+    <div class="wrapper text_center">
+      <h3>YOU MIGHT ALSO LIKE</h3>
+      <div class="flex also_like">
+        <% @product.ordered_related_products.each do |r_product| %>
+          <div>
+            <%= link_to image_tag(r_product.display_image.attachment(:small)), r_product.slug %>
+            <div class="also_like_name">
+              <%= link_to r_product.name, r_product.slug %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>

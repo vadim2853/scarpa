@@ -1,0 +1,40 @@
+@import 'variables';
+
+body {
+  background-color: $white;
+  text-align: center;
+  font-family: 'museo_sans_cyrl500', sans-serif;
+  margin: 0;
+}
+
+.error_logo {
+  max-width: 220px;
+  margin-top: 32px;
+  display: inline-block;
+
+  img {
+    width: 220px;
+    height: 102px;
+  }
+}
+
+.error_404 {
+  font-family: 'librebaskerville-regular', serif;
+  font-size: 140px;
+  padding: 10% 20px 0;
+}
+
+.error_404_text {
+  font-size: 18px;
+  padding: 5% 20px 0;
+}
+
+@media screen and (max-width: 640px) {
+  .error_404 {
+    font-size: 100px;
+  }
+
+  .error_404_text {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,35 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.listing_events') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.new_event'), new_admin_calculator_event_path, icon: 'plus' %>
+  </li>
+<% end %>
+
+<table class="events_index_table">
+  <thead>
+    <tr data-hook="events_header">
+      <th><%= Spree.t('admin.name') %></th>
+      <th><%= Spree.t('admin.red_rate') %></th>
+      <th><%= Spree.t('admin.white_rate') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <tr data-hook="events_row_<%= event.id %>">
+        <td align="center" data-hook='name'><%= event.name %></td>
+        <td align="center" data-hook='red_rate'><%= event.red_rate %></td>
+        <td align="center" data-hook='white_rate'><%= event.white_rate %></td>
+        <td class="actions">
+          <%= link_to_with_icon 'edit', Spree.t('actions.edit'), 
+                edit_admin_calculator_event_path(event.id), no_text: true, data: { action: 'edit' } %>
+
+          <%= link_to_delete event, { url: admin_calculator_event_url(event.id), 
+                no_text: true, id: "del_#{event.id}" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

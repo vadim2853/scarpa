@@ -1,0 +1,35 @@
+common: &common
+  :taxons:
+    :wine:
+      :title: Wine
+      :children:
+        :aged_vintage:
+          :title: Aged Vintage
+        :grappa_vermouth:
+          :title: Grappa Vermouth
+        :regular:
+          :title: Regular
+    :wine_glass:
+      :title: Wine Glass
+    :wine_tour:
+      :title: Wine Tour
+  :tours:
+    :props:
+      :days: tour-days
+      :times: tour-times
+      :minimum: tour-min
+      :maximum: tour-max
+    :options:
+      :time: tour-time
+
+development:
+  <<: *common
+
+production:
+  <<: *common
+
+staging:
+  <<: *common
+
+test:
+  <<: *common

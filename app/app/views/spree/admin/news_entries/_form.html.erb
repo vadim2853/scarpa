@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="alpha">
+    <%= f.field_container :title do %>
+      <%= f.label :title, Spree.t('admin.title') %>
+      <%= f.text_field :title, :class => 'fullwidth' %>
+      <%= error_message_on :news_entry, :title %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :preview_text do %>
+      <%= f.label :preview_text, Spree.t('admin.news_entry.preview_text') %>
+      <%= f.cktext_area :preview_text, :class => 'fullwidth' %>
+      <%= error_message_on :news_entry, :preview_text %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :full_text do %>
+      <%= f.label :full_text, Spree.t('admin.news_entry.full_text') %>
+      <%= f.cktext_area :full_text, :class => 'fullwidth' %>
+      <%= f.error_message_on :full_text %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_news_entry_form_posted_on" class="alpha two columns">
+    <%= f.field_container :posted_on do %>
+      <%= f.label :posted_on, Spree.t('admin.news_entry.posted_on') %>
+      <%= f.error_message_on :posted_on %>
+      <%= f.text_field :posted_on, value: datepicker_field_value(f.object.posted_on || Time.zone.now), class: 'datepicker' %>
+    <% end %>
+  </div>
+
+  <div class="clear"></div>
+
+  <% unless @news_entry.new_record? %>
+    <div data-hook="admin_news_entry_form_related_news_entries" class="alpha">
+      <%= f.field_container :related_news_entries do %>
+        <div class="related_news_entries_select">
+          <%= render partial: 'related_news_entries_select',
+                     locals: { not_related_news_entries: @not_related_news_entries } %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="alpha related_news_entries_box">
+      <h4>Related news entries list</h4>
+      <table class="related_news_entries" id="listing_news_entries">
+        <thead>
+          <tr data-hook="admin_news_entries_index_headers">
+            <th>Posted on</th>
+            <th>Title</th>
+            <th>Preview</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @news_entry.related_news_entries.each do |p| %>
+            <%= render partial: 'related_news_entry', locals: {p: p} %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+
+  <div data-hook="admin_news_entries_form_status_fields" class="alpha">
+    <%= f.field_container :status do %>
+      <strong class="uppercase"><%= Spree.t('admin.publishing_status') %></strong>
+      <% Spree::NewsEntry::statuses.each_key do |status| %>
+        <%= f.label :status, status %>
+        <%= f.radio_button :status, status %>
+      <% end %>
+      <%= f.error_message_on :status %>
+    <% end %>
+  </div>
+</div>

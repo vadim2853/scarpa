@@ -1,0 +1,12 @@
+<% unless @related_product.errors.present? %>
+  $('.related_products').append('<%= j render partial: 'spree/admin/products/related_product', locals: {p: @new_related_product} %>');
+  $('.related_products_select').html('<%= j render partial: 'spree/admin/products/related_products_select', locals: { not_related_products: @not_related_products } %>');
+  $("#related_ids").select2({ minimumResultsForSearch: Infinity });
+  $('.add-related-product-link').click(window.addRelatedProduct);
+  $('.delete-related-product-link').click(window.deleteRelatedProduct);
+<% else %>
+  $('.js-flash-wrapper')
+    .html('<div class="flash error">Error occurred! Try to select item again.</div>')
+    .fadeIn('fast')
+  setTimeout(function(){ $('.js-flash-wrapper').fadeOut('slow') }, 3000)
+<% end %>

@@ -1,0 +1,40 @@
+<div data-hook="admin_slide_form_fields" class="row">
+  <div class="alpha">
+    <%= f.field_container :title do %>
+      <%= f.label :title, Spree.t('admin.title') %>
+      <%= f.text_field :title, :class => 'fullwidth' %>
+      <%= error_message_on :slide, :title %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_slide_form_description_fields" class="alpha">
+    <%= f.field_container :description do %>
+      <%= f.label :description, Spree.t('admin.description') %>
+      <%= f.text_area :description, :class => 'fullwidth' %>
+      <%= f.error_message_on :description %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_slide_form_image_fields" class="alpha">
+    <%= f.field_container :image do %>
+      <%= f.label :image, Spree.t('admin.image') %>
+      <%= f.file_field :image, :class => 'fullwidth' %>
+      <%= f.error_message_on :image %>
+    <% end %>
+
+    <% if @slide.image.present? %>
+      <%= image_tag @slide.image(:small) %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_slide_form_status_fields" class="alpha">
+    <%= f.field_container :status do %>
+      <strong class="uppercase"><%= Spree.t('admin.publishing_status') %></strong>
+      <% Spree::Slide::statuses.each_key do |status| %>
+        <%= f.label :status, status %>
+        <%= f.radio_button :status, status %>
+      <% end %>
+      <%= f.error_message_on :status %>
+    <% end %>
+  </div>
+</div>

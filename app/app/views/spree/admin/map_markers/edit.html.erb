@@ -1,0 +1,23 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.update_map_marker') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.back_to_map_markers_list'), spree.admin_map_markers_path, :icon => 'arrow-left' %>
+  </li>
+<% end %>
+
+<div data-hook="admin_map_marker_edit_form_header">
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @map_marker } %>
+</div>
+
+<div data-hook="admin_map_marker_edit_form">
+  <%= form_for [:admin, @map_marker], url: admin_map_marker_path(@map_marker.id), method: :put do |f| %>
+    <fieldset data-hook="update_map_marker">
+      <legend align="center"><%= Spree.t('admin.update_map_marker') %></legend>
+      <%= render :partial => 'form', :locals => { :f => f } %>
+      <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+    </fieldset>
+  <% end %>
+</div>

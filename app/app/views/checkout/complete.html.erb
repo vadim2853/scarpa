@@ -1,0 +1,27 @@
+<div class="checkout">
+  <div class="wrapper_medium">
+    <div class="order_success">
+      <div class="text_center">
+        <h2><%= Spree.t('successful_order') %>!</h2>
+        <div class="order_success__id">
+          <div class="order_success__id_text"><%= Spree.t('your_order_id') %>:</div>
+          <%= link_to @order.number, order_details_path(@order) %>
+        </div>
+
+        <% payment = @order.payments.valid.last %>
+        <% if payment.present? && payment.response_code == 'invoice'%>
+          <div class="order_success__invoce">
+            <%= link_to invoice_path(@order.number), class: 'download_ticket_pdf load_black', target: '_blank' do %>
+              <i></i><%= Spree.t(:download_invoice) %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="flex order_success__btns">
+        <%= link_to Spree.t(:continue_shopping), wines_path, class: 'btn red small' %>
+        <%= link_to Spree.t(:order_history), cabinet_path, class: 'btn white_red small' %>
+      </div>
+    </div>
+  </div>
+</div>

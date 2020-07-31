@@ -1,0 +1,410 @@
+.tour_item {
+  border-bottom: 1px solid $light-grey;
+
+  >a,
+  >div {
+    width: 50%;
+    height: 50vw;
+    max-height: 500px;
+    position: relative;
+    transition: opacity .2s ease;
+  }
+
+  &:nth-child(even) {
+    .tour_item__image {
+      order: 2;
+      border-left: 1px solid $light-grey;
+    }
+  }
+
+  &:hover .tour_item__image {
+    opacity: .8;
+  }
+}
+
+.tour_item__image {
+  overflow: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border-right: 1px solid $light-grey;
+}
+
+.tour_item__text {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tour_item__name {
+  font-size: 28px;
+  font-family: 'librebaskerville-regular', serif;
+  letter-spacing: 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px;
+}
+
+.tour_item__des {
+  letter-spacing: 1px;
+  font-family: 'museo_sans_cyrl500', sans-serif;
+  padding: 130px 0;
+}
+
+.tour_inn {
+  @media screen and (max-width: 960px) {
+    padding: 0 20px;
+  }
+
+  form {
+    padding: 30px 0 60px;
+  }
+}
+
+.tour_image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 50px;
+    transform: translate(0, -50%);
+  }
+}
+
+.tour_name {
+  font-size: 32px;
+  font-family: 'librebaskerville-regular', serif;
+  margin: 30px 0;
+}
+
+.tour_description {
+  font-family: 'museo_sans_cyrl300', sans-serif;
+  font-size: 16px;
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+
+.tour_form_width {
+  width: 25%;
+}
+
+.tour_form {
+  margin-bottom: 30px;
+  text-align: left;
+
+  h5 {
+    font-family: 'museo_sans_cyrl300', sans-serif;
+  }
+
+  >div {
+    padding-left: 20px;
+
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+}
+
+.tour_price {
+  font-size: 60px;
+  font-family: 'librebaskerville-regular', serif;
+  line-height: 1;
+  text-align: center;
+  margin: 40px 0 30px;
+  position: relative;
+  display: inline-block;
+
+  .euro {
+    font-size: 20px;
+    position: absolute;
+    top: 0;
+    right: -55px;
+  }
+
+  @media screen and (max-width: 1366px) {
+    font-size: 50px;
+
+    .euro {
+      font-size: 16px;
+      right: -50px;
+    }
+  }
+}
+
+.tour_accordion {
+  cursor: pointer;
+  padding: 0 40px;
+
+  .icon_arrow__black {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%) rotate(-180deg);
+    transition: transform .3s ease;
+  }
+
+  &.closed .icon_arrow__black {
+    transform: translateY(-50%) rotate(0deg);
+  }
+
+  @media screen and (max-width: 400px) {
+    padding: 0 30px;
+  }
+}
+
+.tour_accordion_next {
+  padding-bottom: 80px;
+}
+
+.tour_accordion_next_des {
+  padding: 0 20px;
+  line-height: 1.3;
+  font-family: 'museo_sans_cyrl500', sans-serif;
+  letter-spacing: 1px;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    li {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &::before {
+        content: '';
+        background: $black;
+        border-radius: 50%;
+        width: 5px;
+        height: 5px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+
+.tour_remains,
+.tour_min {
+  padding: 5px 0;
+  justify-content: center;
+  font-family: 'museo_sans_cyrl500', sans-serif;
+  letter-spacing: 1px;
+
+  span {
+    padding-left: 10px;
+    font-family: 'museo_sans_cyrl700', sans-serif;
+  }
+}
+
+.swiper-tour {
+  width: 100%;
+  height: 33vw;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid $light-grey;
+
+  .swiper-slide {
+    padding-top: calc(100% / 3);
+    border-left: 1px solid $light-grey;
+    position: relative;
+    overflow: hidden;
+    background: no-repeat center center;
+    background-size: cover;
+
+    &.swiper-slide-active {
+      border-left: 0;
+    }
+
+    @media screen and (max-width: 640px) {
+      padding-top: 50%;
+    }
+  }
+
+  .swiper-pagination-progress .swiper-pagination-progressbar {
+    background: $red;
+  }
+
+  .slider_tour_next,
+  .slider_tour_prev {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: 2;
+    width: 45px;
+    height: 45px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      border-top: 2px solid $white;
+      border-left: 2px solid $white;
+    }
+
+    &.swiper-button-disabled {
+      opacity: .5;
+    }
+
+    @media screen and (max-width: 960px) {
+      width: 30px;
+      height: 30px;
+
+      &::before {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  .slider_tour_next {
+    right: 30px;
+
+    &::before {
+      transform: rotate(135deg);
+    }
+  }
+
+  .slider_tour_prev {
+    left: 30px;
+
+    &::before {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+.tour_comment {
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 960px) {
+  .select_tour {
+    font-size: 13px;
+    font-family: 'museo_sans_cyrl500', sans-serif;
+  }
+
+  .tour_item__name {
+    font-size: 20px;
+  }
+
+  .tour_item__des {
+    font-size: 13px;
+  }
+
+  .tour_image {
+    border-bottom: 1px solid $light-grey;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .tour_form {
+    flex-wrap: wrap;
+
+    >div:nth-child(2) {
+      padding-right: 10px;
+      padding-left: 0;
+    }
+
+    >div:nth-child(3) {
+      padding-left: 10px;
+    }
+
+    .width_50 {
+      width: 100%;
+    }
+
+    .width_25 {
+      width: 50%;
+    }
+  }
+
+  .select2-container.select_tour {
+    .select2-choice .select2-chosen {
+      margin: 0 35px 0 10px;
+    }
+  }
+
+  .tour_item__name {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .tour_description {
+    line-height: 1.3;
+    font-size: 14px;
+  }
+
+  .tour form {
+    padding: 10px 0 30px;
+  }
+
+  .tour_item__image {
+    border: 0;
+  }
+
+  .tour_item {
+    flex-direction: column;
+
+    >a,
+    >div {
+      width: 100%;
+    }
+
+    &:nth-child(even) {
+      .tour_item__image {
+        order: 0;
+        border: 0;
+      }
+    }
+
+    .tour_item__text {
+      height: auto;
+      justify-content: flex-start;
+      padding: 30px 20px;
+    }
+  }
+
+  .tour_item__name {
+    position: relative;
+    padding: 0;
+  }
+
+  .tour_item__des {
+    padding: 30px 0 0;
+  }
+
+  .swiper-tour {
+    height: 80vw;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .tour_form {
+    >div:nth-child(2) {
+      width: 30%;
+    }
+
+    >div:nth-child(3) {
+      width: 70%;
+    }
+  }
+
+  .select_tour {
+    font-size: 12px;
+  }
+}
+

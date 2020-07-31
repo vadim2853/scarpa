@@ -1,0 +1,13 @@
+<ul id="sub_nav" class="admin-subnav" data-hook="admin_wine_calculator_sub_tabs">
+  <% if can? :admin, Spree::Calculator::Event %>
+    <%= tab :events, url: admin_calculator_events_path %>
+  <% end %>
+
+  <% if can? :admin, Spree::Calculator::Background %>
+    <%= tab :backgrounds, url: admin_calculator_backgrounds_path %>
+  <% end %>
+
+  <% if can? :admin, Spree::Calculator::Month %>
+    <%= tab :months, url: admin_calculator_months_path %>
+  <% end %>
+</ul>

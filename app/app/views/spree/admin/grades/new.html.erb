@@ -1,0 +1,23 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.new_grade') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.back_to_grades_list'), spree.admin_grades_path, :icon => 'arrow-left' %>
+  </li>
+<% end %>
+
+<div data-hook="admin_grade_new_form_header">
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @grade } %>
+</div>
+
+<div data-hook="admin_grade_new_form">
+  <%= form_for [:admin, @grade], url: admin_grades_url, method: :post do |f| %>
+    <fieldset data-hook="new_grade">
+      <legend align="center"><%= Spree.t('admin.new_grade') %></legend>
+      <%= render :partial => 'form', :locals => { :f => f } %>
+      <%= render :partial => 'spree/admin/shared/new_resource_links' %>
+    </fieldset>
+  <% end %>
+</div>

@@ -1,0 +1,25 @@
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/
+.sass-cache/
+config/database.yml
+.idea/
+public/test_uploads
+public/ckeditor_assets/*
+public/uploads/*
+public/system/*
+public/spree/*
+config/database.yml
+.byebug_history
+.DS_Store
+
+# React on Rails
+npm-debug.log*
+node_modules
+
+# Generated js bundles
+/app/assets/webpack/*
+
+.ruby-env
+key

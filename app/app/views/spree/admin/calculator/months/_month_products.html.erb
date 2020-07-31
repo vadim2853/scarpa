@@ -1,0 +1,11 @@
+<tr id="month-product-<%= p.id %>" data-hook="admin_products_index_rows">
+  <td class="align-center"><%= link_to p.sku, admin_product_path(p.id) %></td>
+  <td class="align-center"><%= image_tag p.display_image.attachment(:mini) %></td>
+  <td class="align-center"><%= link_to p.name, admin_product_path(p.id) %></td>
+  <td class="align-center"><%= p.display_price.to_html %></td>
+  <td class="align-center">
+    <%= link_to 'Delete relation', 
+                '#', class: 'delete-month-product-link', 
+                data: { product_id: p.id, month_id: @month.id } %>
+  </td>
+</tr>

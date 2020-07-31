@@ -1,0 +1,48 @@
+.selector,
+.selector span,
+.checker span,
+.radio span,
+.uploader, 
+.uploader span.action,
+.button,
+.button span {
+  background-image: image_url('map_check_boxes.png');
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased; 
+}
+
+/* Checkbox */
+.checker {
+  position: relative;
+}
+
+.checker, .checker span, .checker input {
+  width: 100%;
+  max-width: 30px;
+  height: 30px;
+}
+
+.checker span {
+  display: -moz-inline-box;
+  display: inline-block;
+  zoom: 1;
+  text-align: center;
+  background-position: 0 0;
+}
+
+.checker .checked {
+  background-position: 0px -31px;
+}
+
+/* Checkbox */
+div.checker input {
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -moz-opacity: 0;
+  border: none;
+  background: none;
+  display: -moz-inline-box;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+}

@@ -1,0 +1,14 @@
+<%= form_for [:admin, @product, @audio], html: { multipart: true } do |f| %>
+  <fieldset data-hook="new_audio">
+    <legend align="center"><%= Spree.t('admin.new_audio') %></legend>
+
+      <%= render partial: 'form', locals: { f: f } %>
+    
+      <div class="form-buttons filter-actions actions" data-hook="buttons">
+        <%= button Spree.t('actions.create'), 'refresh' %>
+        <span class="or"><%= Spree.t(:or) %></span>
+        <%= link_to_with_icon 'remove', Spree.t('actions.cancel'), 
+              admin_product_audios_url(@product), id: 'cancel_link', class: 'button' %>
+      </div>
+  </fieldset>
+<% end %>

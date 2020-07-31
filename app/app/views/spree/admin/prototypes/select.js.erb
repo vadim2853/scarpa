@@ -1,0 +1,8 @@
+<% @prototype_properties.sort_by{ |prop| -prop[:id] }.each do |prop| %>
+  $('a.spree_add_fields').click();
+  $('.product_property:first .select2-container').remove();
+
+  $('.product_property:first .property_name input').val('<%= prop.name %>');
+  $('.product_property:first .property_group select').val('<%= prop.group %>').select2();
+  $('.product_property:first .type_of_value select').val('text').select2();
+<% end %>

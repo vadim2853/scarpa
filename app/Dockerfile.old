@@ -1,0 +1,8 @@
+FROM seapy/rails-nginx-unicorn:ruby2.3.0-nginx1.8.1
+
+# update nodejs
+RUN npm install -g n && n stable
+RUN cp /pipeline/source/config/database.yml.sample /pipeline/source/config/database.yml
+RUN npm install
+
+EXPOSE 80

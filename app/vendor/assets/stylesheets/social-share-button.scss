@@ -1,0 +1,57 @@
+
+.social-share-button-facebook { 
+  background: image-url('fb_black.svg') no-repeat 0 0;
+  width: 28px;
+  height: 28px;
+}
+
+.social-share-button-pinterest {
+  background: image-url('p_black.svg') no-repeat 0 0;
+  width: 28px;
+  height: 28px;
+}
+
+.social-share-button-twitter {
+  background: image-url('tw_black.svg') no-repeat 0 0;
+  width: 28px;
+  height: 22px;
+}
+
+.social-share-button-linkedin {
+  background: image-url('in_black.svg') no-repeat 0 0;
+  width: 28px;
+  height: 28px;
+}
+
+
+@media only screen and (-webkit-device-pixel-ratio: 2) {
+  .social-share-button-facebook { 
+    background: image-url('fb_black.svg') no-repeat 0 0;
+    width: 28px;
+    height: 28px;
+  }
+
+  .social-share-button-pinterest {
+    background: image-url('p_black.svg') no-repeat 0 0;
+    width: 28px;
+    height: 28px;
+  }
+
+  .social-share-button-twitter {
+    background: image-url('tw_black.svg') no-repeat 0 0;
+    width: 28px;
+    height: 22px;
+  }
+
+  .social-share-button-linkedin {
+    background: image-url('in_black.svg') no-repeat 0 0;
+    width: 28px;
+    height: 28px;
+  }
+}
+
+[class^='social-share-button-'] {
+  display: inline-block;
+  vertical-align: middle;
+  background-size: 100%;
+}

@@ -1,0 +1,44 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.listing_map_markers') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.new_map_marker'), new_admin_map_marker_path, icon: 'plus' %>
+  </li>
+<% end %>
+
+<table class="map_markers_index_table sortable" data-hook="map_marker_table">
+  <thead>
+    <tr data-hook="map_markers_header">
+      <th><%= Spree.t('admin.publishing_status') %></th>
+      <th><%= Spree.t('admin.map_marker_type') %></th>
+      <th><%= Spree.t('admin.marker_name') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @map_markers.each do |map_marker| %>
+      <tr data-hook="map_markers_row_<%= map_marker.id %>"  id="<%= spree_dom_id map_marker %>" class="<%= cycle('odd', 'even')%>">
+        <td class="align-center">
+          <strong>
+            <span style="color: <%= map_marker.published? ? '#9FC820' : 'red' %>">
+              <%= map_marker.status %>
+            </span>
+          </strong>
+        </td>
+        <td align="center">
+          <p><%= image_tag image_path("#{map_marker.marker_type}.png") %></p>
+          <%= Spree.t("admin.#{map_marker.marker_type}") %>
+        </td>
+        <td data-hook='name' class="align-center"><%= "#{map_marker.name} (#{map_marker.address})" %></td>
+        <td class="actions">
+          <%= link_to_with_icon 'edit', Spree.t('actions.edit'), 
+                edit_admin_map_marker_path(map_marker.id), no_text: true, data: { action: 'edit' } %>
+
+          <%= link_to_delete map_marker, { url: admin_map_marker_url(map_marker.id), 
+                no_text: true, id: "del_#{map_marker.id}" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

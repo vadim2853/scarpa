@@ -1,0 +1,18 @@
+<div class="flex right_to_bottom_mobile column2 checkout confirm">
+  <div class="checkout_column2_head text_center">
+    <%= checkout_progress %>
+
+    <h2><%= Spree.t(:confirm) %></h2>
+  </div>
+
+  <div class="checkout_column2_main">
+    <%= render partial: 'order_details', locals: { order: @order } %>
+  </div>
+
+  <div class="checkout_right_side">
+    <div class="checkout_right__name"><%= Spree.t(:shopping_cart) %></div>
+    <div class="checkout_right__bottom">
+      <%= button_tag Spree.t(:place_order), class: 'btn red small' %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<h5><%= Spree.t('payment_details') %></h5>
+
+<% param_prefix = "payment_source[#{payment_method.id}]" %>
+<div class='input_wrapp'>
+  <%= label_tag "name_on_card_#{payment_method.id}", Spree.t(:name_on_card) %>
+  <%= text_field_tag "#{param_prefix}[name]", "#{@order.billing_firstname} #{@order.billing_lastname}",
+        { id: "name_on_card_#{payment_method.id}", autocomplete: 'cc-name' } %>
+</div>
+
+<div class='input_wrapp'>
+  <%= label_tag 'card_number', Spree.t(:card_number) %>
+  <%= text_field_tag "#{param_prefix}[number]", '', { id: 'card_number', class: 'required cardNumber', size: 19, maxlength: 19, autocomplete: 'cc-number', type: 'tel' } %>
+</div>
+
+<div class='input_wrapp'>
+  <%= label_tag 'card_expiry', Spree.t(:expiration) %>
+  <%= text_field_tag "#{param_prefix}[expiry]", '', 
+        id: 'card_expiry', class: 'required cardExpiry', placeholder: 'MM/YYYY', type: 'tel', autocomplete: 'off' %>
+</div>
+
+<div class='input_wrapp'>
+  <%= label_tag 'card_code', Spree.t(:card_code) %>
+  <%= text_field_tag "#{param_prefix}[verification_value]", '',
+      { id: 'card_code', class: 'required cardCode', size: 5, type: 'tel', placeholder: '***', autocomplete: 'off' } %>
+</div>
+
+<% if @order.bill_address %>
+  <%= fields_for "#{param_prefix}[address_attributes]", @order.bill_address do |f| %>
+    <%= render partial: 'checkout/address/form_hidden', locals: { form: f } %>
+  <% end %>
+<% end %>
+
+<%= hidden_field_tag "#{param_prefix}[cc_type]", '', id: 'cc_type', class: 'ccType' %>
+

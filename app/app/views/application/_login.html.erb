@@ -1,0 +1,87 @@
+<div class="login">
+  <div class="wrapper_small">
+    <div class="text_center">
+      <%= link_to image_tag("logo.svg"), root_path, class: 'login_logo' %>
+    </div>
+    <div class="login_name">
+      <%= Spree.t(:welcome) %>
+    </div>
+    <div class="tabs">
+      <div class="login_tabs">
+        <div class="active"><%= Spree.t(:new_user) %></div>
+        <div><%= Spree.t(:login) %></div>
+      </div>
+      <div class="login_tabs-text active">
+        <%= form_for Spree::User.new, as: :spree_user, url: spree_user_registration_path, remote: true do |f| %>
+          <%= f.label :email, Spree.t(:user_name_email) %>
+          <div class="input_wrapp">
+            <%= f.email_field :email, id: 'reg_email' %>
+          </div>
+
+          <%= f.label :password, Spree.t(:password) %>
+          <div class="input_wrapp">
+            <%= f.password_field :password, id: 'reg_password' %>
+          </div>
+
+          <%= f.label :password_confirmation, Spree.t(:confirm_password) %>
+          <div class="input_wrapp">
+            <%= f.password_field :password_confirmation, id: 'reg_password_confirmation' %>
+          </div>
+
+          <div class="flex center-items">
+            <%= check_box_tag 'spree_user[role_selected]', nil, false, { id: 'checkbox_open', class: 'check_input' } %>
+            <span class="check_mask"></span>
+            <label for="checkbox_open" class="check_label_text"><%= Spree.t(:i_am_a_business_owner) %></label>
+          </div>
+
+          <div class="checkbox_open_select">
+            <%= f.select :spree_role_ids, roles, {}, { class: 'role selecter second' } %>
+          </div>
+
+          <%= f.button Spree.t(:enter_scarpa), class: 'btn red sing_up_button' %>
+        <% end %>
+      </div>
+      <div class="login_tabs-text">
+        <%= form_for Spree::User.new, as: :spree_user, url: spree.create_new_session_path, remote: true,
+              html: { id: 'login_spree_user' } do |f| %>
+
+          <%= f.label :email, Spree.t(:user_name_email) %>
+          <div class="input_wrapp">
+            <%= f.email_field :email, id: 'login_email' %>
+          </div>
+
+          <%= f.label :password, Spree.t(:password) %>
+          <div class="input_wrapp">
+            <%= f.password_field :password, id: 'login_password' %>
+          </div>
+          <div class="text_center">
+            <!-- TODO: Forgot password -->
+            <!-- <div class="login_forgot_password">forgot password?</div> -->
+          </div>
+          <%= f.button Spree.t(:enter_scarpa), class: 'btn red sing_in_button' %>
+        <% end %>
+
+        <!-- login reset -->
+        <form id="login_reset" class="login_reset">
+          <label for="">E-mail</label>
+          <div class="input_wrapp">
+            <input id="" type="email" name="">
+          </div>
+          <button name="button" type="submit" class="btn red reset_button">Reset password</button>
+          <div class="text_center">
+            <div class="login_reset_cencel">Cencel</div>
+          </div>
+        </form>
+        <!-- END login reset -->
+
+        <!-- send success -->
+        <div class="text_center login_reset_send">
+          <div class="reset_send_icon"></div>
+          We send you an email with instraction how to reset your password
+        </div>
+        <!-- END send success -->
+
+      </div>
+    </div>
+  <div class="login_close close_btn"></div>
+</div>

@@ -1,0 +1,17 @@
+<ul id="sub_nav" class="admin-subnav" data-hook="admin_quizzes_sub_tabs">
+  <% if can? :admin, Spree::Quiz %>
+    <%= tab :quizzes, url: admin_quizzes_path %>
+  <% end %>
+
+  <% if can? :admin, Spree::Grade %>
+    <%= tab :grades, url: admin_grades_path %>
+  <% end %>
+
+  <% if can? :admin, Spree::Question %>
+    <%= tab :questions, url: admin_questions_path %>
+  <% end %>
+
+  <% if can? :admin, Spree::Nomination %>
+    <%= tab :nominations, url: admin_nominations_path %>
+  <% end %>
+</ul>

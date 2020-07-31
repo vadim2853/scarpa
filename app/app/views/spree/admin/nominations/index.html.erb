@@ -1,0 +1,37 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.listing_nominations') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.new_nomination'), new_admin_nomination_path, icon: 'plus' %>
+  </li>
+<% end %>
+
+<table class="nominations_index_table" data-hook="winery_table">
+  <thead>
+    <tr data-hook="nominations_header">
+      <th><%= Spree.t('admin.grade') %></th>
+      <th><%= Spree.t('admin.icon') %></th>
+      <th><%= Spree.t('admin.title') %></th>
+      <th><%= Spree.t('admin.min') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @nominations.each do |nomination| %>
+      <tr data-hook="nomination_row_<%= nomination.id %>">
+        <td align="center" data-hook='grade'><%= nomination.grade.title %></td>
+        <td align="center" data-hook='icon'><%= image_tag nomination.icon(:small) %></td>
+        <td align="center" data-hook='title'><%= nomination.title %></td>
+        <td align="center" data-hook='min'><%== nomination.min %></td>
+        <td class="actions">
+          <%= link_to_with_icon 'edit', Spree.t('actions.edit'), 
+                edit_admin_nomination_path(nomination.id), no_text: true, data: { action: 'edit' } %>
+
+          <%= link_to_delete nomination, { url: admin_nomination_url(nomination.id), 
+                no_text: true, id: "del_#{nomination.id}" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

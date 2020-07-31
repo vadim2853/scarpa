@@ -1,0 +1,207 @@
+<div class="order_hist__details">
+  <div class="flex order_hist__item_row">
+    <div class="order_hist__id">
+      <h5><%= Spree.t('order_numder') %>:</h5>
+      <%= order.number %>
+    </div>
+
+    <div class="order_hist__status">
+      <h5><%= Spree.t('status') %>:</h5>
+      <%= order_status_tag(order) %>
+    </div>
+  </div>
+
+  <% if order.payments.valid.last.response_code == 'invoice' && order.completed? %>
+    <div class="download_invoice_wrap">
+      <%= link_to "<i></i>#{Spree.t(:download_invoice)}".html_safe,
+              invoice_path(@order.number),
+              class: 'download_invoice download_ticket_pdf load_black',
+              target: '_blank' %>
+    </div>
+  <% end %>
+
+  <div class="tracking-container">
+    <% shipments = @order.shipments.trackable %>
+    <% if shipments.any? %>
+      <div class="tracking_name"><%= Spree.t('tracking') %><div class="arrow_black small"></div></div>
+      <div class="tracking_block">
+        <% shipments.each do |shipment| %>
+          <div class="tracking_link"><%= link_to_tracking_service(shipment) %></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="flex order_hist__details_head">
+
+    <% if order.billing_address.present? %>
+      <div class="order_hist__topinfo">
+        <h5><%= Spree.t('billing_address') %>:</h5>
+
+        <%= order.billing_address.full_name %><br/>
+        <%= order.billing_address.address1 %><br/>
+        <%= "#{order.billing_address.city} #{order.billing_address.zipcode}" %><br/>
+        <%= order.billing_address.country %><br/>
+        <%= "#{Spree.t('phone')}: #{order.billing_address.phone}" %>
+      </div>
+    <% end %>
+
+    <% if order.shipping_address.present? %>
+      <div class="order_hist__topinfo">
+        <h5><%= Spree.t('shipping_address') %>:</h5>
+
+        <%= order.shipping_address.full_name %><br/>
+        <%= order.shipping_address.address1 %><br/>
+        <%= "#{order.shipping_address.city} #{order.shipping_address.zipcode}" %><br/>
+        <%= order.shipping_address.country %><br/>
+        <%= "#{Spree.t('phone')}: #{order.shipping_address.phone}" %>
+      </div>
+    <% end %>
+
+    <div class="order_hist__topinfo">
+      <h5><%= Spree.t('shipments') %>:</h5>
+      <% order.shipments.each do |shipment| %>
+        <div>
+          <i class='fa fa-truck'></i>
+          <%= Spree.t(:shipment_details, stock_location: shipment.stock_location.name, shipping_method: shipment.selected_shipping_rate.name) %>
+        </div>
+      <% end %>
+    </div>
+
+    <% payment = order.payments.valid.last %>
+    <% if payment.present? %>
+      <div class="order_hist__topinfo">
+        <h5><%= Spree.t('payment_information') %>:</h5>
+
+        <% source = payment.source %>
+        <% if payment.source_type == 'Spree::PaypalExpressCheckout' %>
+          <%= content_tag(:span, payment.payment_method.name) %>
+        <% elsif source.try(:name) && source.name == 'Invoice' %>
+          <%= content_tag(:span, source.name) %>
+        <% elsif source.is_a?(Spree::CreditCard) %>
+          <div class="cc-type flex">
+            <% unless (cc_type = source.cc_type).blank? %>
+              <%= image_tag "credit_cards/icons/#{cc_type}.png" %>&nbsp;
+            <% end %>
+
+            <% if source.last_digits %>
+              <%= Spree.t(:ending_in) %> <%= source.last_digits %>
+            <% end %>
+          </div>
+          <div class="full-name"><%= source&.name %></div>
+
+        <% elsif source.is_a?(Spree::StoreCredit) %>
+          <%= content_tag(:span, payment.payment_method.name) %>:
+          <%= content_tag(:span, payment.display_amount) %>
+
+        <% else %>
+          <%= content_tag(:span, payment.payment_method.name) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% order.line_items.each do |item| %>
+  <% is_tour = item.variant.product.taxons.where(name: CFG.taxons.wine_tour.title).any? -%>
+  <div class="item_wrap order_hist__details_list flex">
+    <div class="item_img">
+      <% if is_tour %>
+        <% if item.variant.images.length == 0 %>
+          <%= link_to image_tag(item.variant.product.display_image.attachment(:small)),
+                wine_tour_path(item.variant.product.slug) %>
+        <% else %>
+          <%= link_to image_tag(item.variant.images.first.attachment.url(:small)),
+                wine_tour_path(item.variant.product.slug) %>
+        <% end %>
+
+        <div class="checkout_item__date">
+          <%= item.variant.date_option %>
+        </div>
+
+      <% else %>
+
+        <% if item.variant.images.length == 0 %>
+          <%= link_to image_tag(item.variant.product.display_image.attachment(:small)), item.variant.product %>
+        <% else %>
+          <%= link_to image_tag(item.variant.images.first.attachment.url(:small)), item.variant.product %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="item_des">
+      <div class="item_name">
+        <% if is_tour %>
+          <%= link_to item.name, wine_tour_path(item.variant.product.slug) %>
+        <% else %>
+          <%= link_to item.name, product_path(item.variant.product) %>
+        <% end %>
+      </div>
+
+      <div class="flex item_properties">
+        <div>
+          <% option_name = option_data_from(variant: item.variant)[:option_name] %>
+
+          <h5><%= Spree.t(item.variant.cost_currency) %>&nbsp;PER&nbsp;<%= Spree.t(option_name) %>:</h5>
+          <div class="checkout_item__num <%= option_name %>"><%= item.price.to_f %></div>
+        </div>
+
+        <div>
+          <h5><%= Spree.t('qty') %>:</h5>
+          <div class="checkout_item__num"><%= item.quantity %></div>
+        </div>
+
+        <div class="item_price">
+          <h5><%= Spree.t('price') %>:</h5>
+
+          <div class="checkout_item__num flex">
+            <%= item.amount.to_f unless item.quantity.nil? %>
+            <div class="currency"><%= Spree.t(item.variant.cost_currency) %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% if is_tour && order.payment_state == 'paid' %>
+      <%= link_to "<i></i>#{Spree.t('download_tickets')}".html_safe, ticket_path(item),
+          class: 'order_hist__tikets download_ticket_pdf load_black', target: '_blank' %>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="order_hist__total">
+  <div class="order_hist__subtotal_price">
+    <h5><%= Spree.t('subtotal') %>:</h5>
+    <div class="flex">
+      <%= order.item_total.to_f %>
+      <div class="currency"><%= Spree.t(order.currency) %></div>
+    </div>
+  </div>
+  <% order.shipments.group_by { |s| s.selected_shipping_rate.name }.each do |name, shipments| %>
+    <div class="order_hist__shipping_price">
+      <h5><%= Spree.t('shipping') %>:</h5>
+      <div class="flex">
+        <%= shipments.sum(&:discounted_cost) %>
+        <div class="currency"><%= Spree.t(order.currency) %></div>
+      </div>
+    </div>
+  <% end %>
+  <% if order.all_adjustments.tax.exists? %>
+    <div class="order_hist__tax_price">
+      <h5><%= Spree.t('tax') %>:</h5>
+      <div class="flex">
+        <% order.all_adjustments.tax.group_by(&:label).each do |label, adjustments| %>
+          <%= adjustments.sum(&:amount) %>
+          <div class="currency"><%= Spree.t(order.currency) %></div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="order_hist__total_price">
+    <h5><%= Spree.t('total') %>:</h5>
+    <div class="order_hist__price_num flex">
+      <%= order.total.to_f %>
+      <div class="currency"><%= Spree.t(order.currency) %></div>
+    </div>
+  </div>
+</div>

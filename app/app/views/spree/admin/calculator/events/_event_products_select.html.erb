@@ -1,0 +1,25 @@
+<% if @not_event_products.present? %>
+  <h4>Available for relation:</h4>
+  <div id="event_ids_box" class="field alpha five columns">
+    <% prods = not_event_products %>
+    <%= select_tag 'event_products_ids', 
+                    options_from_collection_for_select(
+                      prods, 
+                      'id',
+                      'name',
+                      prods.first
+                    ),
+                    class: 'select2' %>
+  </div>
+  
+  <div id="event-product-link-box" class="field beta four columns">
+    <%= link_to_with_icon 'plus', 
+                          'Add relation',
+                          'javascript:;',
+                          class: 'button add-event-product-link', 
+                          data: { event_id: @event.id }  %>
+  </div>
+  <div class="clear"></div>
+<% else %>
+  <h4>No products available for relation</h4>
+<% end %>

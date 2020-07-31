@@ -1,0 +1,47 @@
+<div data-hook="admin_calculator_background_form_fields" class="row">
+  <div class="alpha">
+    <%= f.field_container :calculator_event_id do %>
+      <%= f.label :calculator_event_id, Spree.t('admin.event_type') %>
+      <%= collection_select(:calculator_background, :calculator_event_id, Spree::Calculator::Event.all, :id, :name, 
+            { selected: @background.calculator_event_id }, class: 'select2_without_search_and_close') %>
+      <%= error_message_on :calculator_background, :calculator_event_id %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :calculator_month_id do %>
+      <%= f.label :calculator_month_id, Spree.t('admin.month') %>
+      <%= collection_select(:calculator_background, :calculator_month_id, Spree::Calculator::Month.all, :id, :name, 
+            { selected: @background.calculator_month_id }, class: 'select2_without_search_and_close')  %>
+      <%= error_message_on :calculator_background, :calculator_month_id %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :guests do %>
+      <%= f.label :guests, Spree.t('admin.guests') %>
+      <%= f.number_field :guests %>
+      <%= error_message_on :calculator_background, :guests %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_calculator_background_image_fields" class="alpha">
+    <%= f.field_container :image do %>
+      <%= f.label :image, Spree.t('admin.image') %>
+      <%= f.file_field :image, :class => 'fullwidth' %>
+      <%= f.error_message_on :image %>
+    <% end %>
+
+    <% if @background.image.present? %>
+      <%= image_tag @background.image(:small) %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :is_default do %>
+      <%= f.label :is_default, Spree.t('admin.is_default') %>
+      <%= f.check_box :is_default, class: 'fullwidth' %>
+      <%= error_message_on :calculator_event, :is_default %>
+    <% end %>
+  </div>
+</div>

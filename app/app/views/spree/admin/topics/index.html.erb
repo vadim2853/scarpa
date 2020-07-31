@@ -1,0 +1,59 @@
+<%= render partial: 'spree/admin/shared/product_tabs', locals: { current: 'Topics' } %>
+
+<% content_for :page_actions do %>
+  <% if can?(:create, Spree::Topic) %>
+    <li>
+      <%= link_to_with_icon('plus', Spree.t('admin.new_topic'), 
+            new_admin_product_topic_url(@product), id: 'new_topic_link', class: 'button') %>
+    </li>
+  <% end %>
+<% end %>
+
+<div id="topics" data-hook></div>
+
+<% unless @product.topics.any? %>
+  <div class="no-objects-found">
+    <%= Spree.t('admin.no_topics_found') %>.
+  </div>
+<% else %>
+  <table class="index sortable topics_table" data-hook="topics_table" 
+         data-sortable-link="<%= update_positions_admin_product_topics_url(@product) %>">
+    <thead>
+      <tr data-hook="topics_header">
+        <th colspan="2"><%= Spree.t(:thumbnail) %></th>
+        <th><%= Spree.t('admin.title') %></th>
+        <th><%= Spree.t('admin.link') %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% (@product.topics).each do |topic| %>
+        <tr id="<%= spree_dom_id topic %>" data-hook="topics_row" class="<%= cycle('odd', 'even')%>">
+          <td class="no-border">
+            <% if can?(:update_positions, Spree::Topic) %>
+              <span class="handle"></span>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to image_tag(topic.image.url(:icon)), topic.image.url(:icon) %>
+          </td>
+          <td>
+            <%= topic.title %>
+          </td>
+          <td>
+            <%= topic.link %>
+          </td>
+          <td class="actions">
+            <% if can?(:update, topic) %>
+              <%= link_to_with_icon 'edit', Spree.t(:edit), edit_admin_product_topic_url(@product, topic), no_text: true, data: { action: 'edit' } %>
+            <% end %>
+            <% if can?(:destroy, topic) %>
+              <%= link_to_delete topic, { url: admin_product_topic_url(@product, topic), no_text: true } %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

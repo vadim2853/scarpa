@@ -1,0 +1,52 @@
+<% address_id = address_type.chars.first %>
+
+<div class="address_container" data-hook=<%="#{address_type}_inner" %>>
+  <%= form.label :firstname, Spree.t(:first_name) %>
+  <div class="input_wrapp">
+    <%= form.text_field :firstname %>
+  </div>
+
+  <%= form.label :lastname, Spree.t(:last_name) %>
+  <div class="input_wrapp">
+    <%= form.text_field :lastname %>
+  </div>
+
+  <%= form.label :address1, Spree.t(:street_address) %>
+  <div class="input_wrapp">
+    <%= form.text_field :address1 %>
+  </div>
+
+  <%= form.label :city, Spree.t(:city) %>
+  <div class="input_wrapp">
+    <%= form.text_field :city %>
+  </div>
+
+  <%= form.label :country_id, Spree.t(:country) %>
+  <span class=<%="#{address_id}country-selection" %>>
+    <%= form.collection_select :country_id, available_countries, :id, :name, {},
+          { id: "#{address_id}country_id", class: 'country', 'data-states-search' => spree.api_states_path } %>
+  </span>
+
+  <%= form.label :state, Spree.t(:state) %>
+  <%= form.text_field :state_name,
+        style: "display: #{form.object.country.states.blank? ? 'block' : 'none' };",
+        disabled: form.object.country.states.present?,
+        class: 'state_name' %>
+  <%= form.collection_select :state_id, form.object.country.states.sort, :id, :name, 
+        { include_blank: true }, 
+        {
+          class: 'region',
+          style: "display: #{form.object.country.states.empty? ? 'none' : 'block' };",
+          disabled: form.object.country.states.empty?
+        } %>
+
+  <%= form.label :zipcode, Spree.t(:zip) %>
+  <div class="input_wrapp">
+    <%= form.text_field :zipcode %>
+  </div>
+
+  <%= form.label :phone, Spree.t(:phone) %>
+  <div class="input_wrapp">
+    <%= form.phone_field :phone %>
+  </div>
+</div>

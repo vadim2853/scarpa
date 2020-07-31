@@ -1,0 +1,118 @@
+<div class="flex right_to_bottom_mobile checkout column2 delivery">
+  <div class="checkout_column2_head text_center">
+    <%= checkout_progress %>
+    <h2><%= Spree.t('shipping_method') %></h2>
+
+    <div class="wrapper_small">
+      <%= form.fields_for :shipments do |ship_form| %>
+        <%= ship_form.select :selected_shipping_rate_id,
+              shipping_rates(ship_form.object.shipping_rates),
+              {},
+              class: 'selecter shipping_rates',
+              'data-total-without-shipping-rates' => @order.item_total.to_f %>
+      <% end %>
+
+    </div>
+  </div>
+
+  <div class="checkout_column2_main">
+
+  <!-- delivery item-->
+    <div class="delivery_item">
+
+      <!-- product item -->
+      <% @order.line_items.each do |line_item| %>
+        <% is_tour = line_item.variant.product.taxons.where(name: CFG.taxons.wine_tour.title).any? -%>
+
+        <div class="item_wrap checkout_item flex">
+          <div class="item_img">
+            <% if is_tour %>
+              <% if line_item.variant.images.length == 0 %>
+                <%= link_to image_tag(line_item.variant.product.display_image.attachment(:small)),
+                      wine_tour_path(line_item.variant.product.slug) %>
+              <% else %>
+                <%= link_to image_tag(line_item.variant.images.first.attachment.url(:small)),
+                      wine_tour_path(line_item.variant.product.slug) %>
+              <% end %>
+
+              <div class="checkout_item__date">
+                <%= line_item.variant.date_option %>
+              </div>
+
+            <% else %>
+
+              <% if line_item.variant.images.length == 0 %>
+                <%= link_to image_tag(line_item.variant.product.display_image.attachment(:small)),
+                      line_item.variant.product %>
+              <% else %>
+                <%= link_to image_tag(line_item.variant.images.first.attachment.url(:small)),
+                      line_item.variant.product %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <div class="item_des">
+            <div class="item_name">
+              <%= link_to line_item.name, is_tour ? wine_tour_path(line_item.variant.product) : product_path(line_item.variant.product) %>
+            </div>
+
+            <div class="item_properties flex">
+              <div class="checkout_item__per">
+                <% option_name = option_data_from(variant: line_item.variant)[:option_name] %>
+
+                <h5><%= Spree.t(line_item.variant.cost_currency) %>&nbsp;PER&nbsp;<%= Spree.t(option_name, default: 'item') %>:</h5>
+                <div class="checkout_item__num <%= option_name %>"><%= line_item.price.to_f %></div>
+              </div>
+
+              <div class="checkout_item__qty">
+                <% if is_tour %>
+                  <h5><%= Spree.t('persons') %>:</h5>
+                <% else %>
+                  <h5><%= Spree.t('qty') %>:</h5>
+                <% end %>
+                <div class="checkout_item__num">
+                  <%= line_item.quantity %>
+                </div>
+              </div>
+
+              <div class="checkout_item__price">
+                <h5><%= Spree.t('price') %>:</h5>
+                <div class="checkout_item__num flex">
+                  <%= line_item.amount.to_f unless line_item.quantity.nil? %>
+                  <div class="currency"><%= Spree.t(line_item.variant.cost_currency) %></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      <% end %>
+      <!-- END product item -->
+
+      <!-- deliver price -->
+      <div class="delivery_item__price">
+        <h5><%= Spree.t('delivery') %>:</h5>
+        <div class="delivery_item__num flex">
+          <span></span>
+          <div class="currency">euro</div>
+        </div>
+      </div>
+
+    </div>
+    <!-- END delivery item-->
+
+  </div>
+
+  <div class="checkout_right_side">
+    <div class="checkout_right__name"><%= Spree.t('shopping_cart') %></div>
+    <div class="checkout_right__bottom">
+      <div class="checkout_right__bottom_text">
+        <div class="checkout_right__bottom_name"><%= Spree.t('price_of_the_order') %></div>
+        <div class="checkout_right__bottom_currency"><%= Spree.t(@order.currency) %></div>
+        <div class="checkout_right__bottom_price"><%= @order.total.to_f %></div>
+      </div>
+
+      <%= button_tag Spree.t('continue'), class: 'btn red small' %>
+    </div>
+  </div>
+</div>

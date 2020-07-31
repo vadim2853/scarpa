@@ -1,0 +1,141 @@
+<div class="wrapper">
+  <div class="tour_image">
+    <%= image_tag(@tour.first_poster_path) %>
+  </div>
+</div>
+<div class="border_bottom_grey">
+  <div class="wrapper tour_inn">
+    <div class="text_center">
+      <h2><%= @tour.name %></h2>
+    </div>
+    <div class="tour_description">
+      <%== @tour.long_description %>
+    </div>
+    <% variants = @tour.variants_and_option_values(current_currency) %>
+    <% if variants.any? %>
+      <%= form_for :order, url: populate_orders_path, html: { class: 'text_center' } do |f| %>
+        <div class="flex tour_form">
+          <div class="width_50">
+            <h5>type of tour:</h5>
+
+            <%= f.select :variant_id,
+              variants_for_select(variants),
+              {},
+              id: 'select_tour',
+              class: 'selecter select_tour left_align'
+            %>
+          </div>
+
+          <% date_options = TourDatesService.date_options(@tour) %>
+          <% minimum = @tour.property(CFG.tours.props.minimum) || 1 %>
+          <% remains = tickets_left(@tour, date_options.first) %>
+
+          <div class="width_25">
+            <h5><%= Spree.t('persons') %>:</h5>
+
+            <%= f.number_field :quantity,
+              min: minimum,
+              max: remains,
+              value: remains.zero? ? 0 : minimum,
+              class: 'input_number',
+              pattern: '[0-9]*',
+              disabled: remains.zero?
+            %>
+          </div>
+
+          <div class="width_25">
+            <h5>date time:</h5>
+
+            <%= f.select :date_time,
+              date_options,
+              {},
+              id: 'select_tour_date',
+              data: { url: ui_v1_wine_tour_wine_tours_leftover_path(@tour.slug, :date_time) },
+              class: 'selecter select_tour left_align'
+            %>
+          </div>
+        </div>
+
+        <div class="tour_num_persons">
+          <div class="tour_min flex">
+            minimum to buy:
+          <span><%= minimum %></span>
+          </div>
+
+          <div class="tour_remains flex">
+            tickets left:
+            <span id="leftover"><%= remains %></span>
+          </div>
+        </div>
+
+        <div class="tour_price">
+          <span id="price"><%= variants.first.price %></span>
+          <span class="euro">euro</span>
+        </div>
+
+        <div class="clear"></div>
+
+        <button class="btn red add_to_cart" type="button">
+          <div class="add_to_cart_inn">
+            <span class="add_to_card__notification"><%= Spree.t('adding_to_cart') %></span>
+            <span class="add_to_card__text"><%= Spree.t('add_to_cart') %></span>
+          </div>
+        </button>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<section class="border_bottom_grey">
+  <div class="wrapper text_center">
+    <h3 class="tour_accordion">
+      PRICE INCLUDES
+      <span class="icon_arrow__black"></span>
+    </h3>
+    <div class="tour_accordion_next">
+      <div class="tour_accordion_next_des">
+        <ul id="inclusions">
+          <% variants.first.option_values.pluck(:presentation).each do |option| %>
+            <li><%= option %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrapper text_center">
+    <h3 class="tour_accordion">
+      Detailed Itinerary
+      <span class="icon_arrow__black"></span>
+    </h3>
+    <div class="tour_accordion_next">
+      <div class="tour_accordion_next_des"><%== @tour.itinerary_description %></div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="swiper-tour">
+    <div class="swiper-wrapper">
+      <% @tour.images.each do |image| %>
+        <div class="swiper-slide" style="background-image: url('<%= image.attachment(:poster) %>')"></div>
+      <% end %>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="slider_tour_next"></div>
+    <div class="slider_tour_prev"></div>
+  </div>
+</section>
+
+<div class="wrapper flex">
+  <div class="wrapper_x_medium tour_comment">
+    <%= react_component(
+      'CommentsApp',
+      props: {
+        userPresent: spree_current_user.present?,
+        rootApiEndpoint: ui_v1_product_comments_path(@tour.id),
+        elementApiEndpoint: ui_v1_comment_comments_path(:comment_id)
+      },
+      prerender: false
+    ) %>
+  </div>
+</div>

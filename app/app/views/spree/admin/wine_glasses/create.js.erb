@@ -1,0 +1,11 @@
+<% if @new_wine_glass.present? %>
+  $('.wine_glasses').append('<%= j render partial: "spree/admin/products/wine_glass", locals: {p: @new_wine_glass} %>');
+  $('.wine_glass_select').html('<%= j render partial: "spree/admin/products/wine_glass_select", locals: { wine_glasses: @wine_glasses } %>');
+  $('.add-wine-glass-link').click(window.addWineGlass);
+  $('.delete-wine-glass-link').click(window.deleteWineGlass);
+<% else %>
+  $('.js-flash-wrapper')
+    .html('<div class="flash error">Error occurred! Try to select item again.</div>')
+    .fadeIn('fast')
+  setTimeout(function(){ $('.js-flash-wrapper').fadeOut('slow') }, 3000)
+<% end %>

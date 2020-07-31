@@ -1,0 +1,1067 @@
+.product {
+  position: relative;
+  overflow: hidden;
+
+  >.wrapper {
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px 0;
+  }
+
+  h5 {
+    font-family: 'museo_sans_cyrl100', sans-serif;
+  }
+
+  .btn {
+    margin-top: 30px;
+    font-size: 22px;
+
+    @media screen and (max-width: 400px) {
+      font-size: 20px;
+    }
+  }
+}
+
+.product_description {
+  font-family: 'museo_sans_cyrl500', sans-serif;
+  font-size: 20px;
+  max-width: 520px;
+  width: 100%;
+}
+
+.product_image {
+  @include align-self (center);
+
+  img {
+    width: 100%;
+    max-width: 215px;
+  }
+}
+
+.product_des_text {
+  width: 70%;
+}
+
+.product_name {
+  font-size: 32px;
+  font-family: 'librebaskerville-regular', serif;
+}
+
+.product_age_select {
+  width: 35%;
+}
+
+.product_price {
+  width: 70%;
+
+  .select2-container-disabled {
+    .select2-choice {
+      background-color: $white;
+      border-color: $black;
+      text-align: left;
+
+      .select2-chosen {
+        margin: 0 28px 0 5px;
+      }
+    }
+
+    .select2-arrow {
+      display: none;
+    }
+  }
+}
+
+.product_qty {
+  width: 30%;
+  padding-left: 20px;
+
+  input {
+    font-size: 25px;
+    font-family: 'librebaskerville-regular', serif;
+    border-color: $black;
+    border-radius: 0;
+  }
+}
+
+/* selecter */
+.select_product_image {
+  width: 25px;
+  min-height: 40px;
+  text-align: center;
+  position: relative;
+  margin: 0 15px 0 10px;
+
+  img {
+    max-width: 25px;
+    max-height: 35px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.select2-results .select2-highlighted {
+  .select_product_amount,
+  .select_product_item {
+    color: $black;
+  }
+}
+
+.select_product_amount {
+  font-size: 30px;
+  font-family: 'librebaskerville-regular', serif;
+}
+
+.select_product_item {
+  margin-left: 18px;
+  white-space: initial;
+  width: 75px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  font-size: 13px;
+  color: $grey;
+  font-family: 'museo_sans_cyrl100', sans-serif;
+}
+
+.selecter_product .select2-chosen,
+.select2-results .select2-result-label {
+  display: flex !important;
+  align-items: center;
+}
+
+.selecter_product.select2-container .select2-choice .select2-chosen {
+  margin: 0 40px 0 20px;
+
+  @media screen and (max-width: 400px) {
+    margin: 0 30px 0 10px;
+  }
+}
+
+.product_play-video {
+  text-transform: uppercase;
+  font-size: 13px;
+  font-family: 'museo_sans_cyrl700', sans-serif;
+  align-items: center;
+  margin-top: 10px;
+  cursor: pointer;
+  max-width: 210px;
+}
+
+.play-video_icon {
+  @include transition(left .5s linear);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: $red;
+  position: relative;
+  margin-right: 15px;
+
+  &::before {
+    @include transform(translate(-50%, -50%));
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 55%;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 10px solid $white;
+  }
+
+  &::after {
+    top: -2px;
+    left: -2px;
+    padding: 2px;
+    z-index: 0;
+    background: $red;
+    transition: transform .2s, opacity .3s;
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    content: '';
+  }
+
+  &.click::after {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+.product_video {
+  background: $black;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  cursor: pointer;
+  animation: flip 1.4s ease;
+
+  video {
+    @include transform(translate(-50%, -50%));
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+  }
+
+  &.close {
+    animation: flip_revers 1.5s ease reverse;
+  }
+}
+
+.product_video_close {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  color: $white;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.product_accordion {
+  cursor: pointer;
+  padding: 0 40px;
+
+  .icon_arrow__black,
+  .icon_arrow__white {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%) rotate(-180deg);
+    transition: transform .3s ease;
+  }
+
+  &.closed .icon_arrow__black,
+  &.closed .icon_arrow__white {
+    transform: translateY(-50%) rotate(0deg);
+  }
+
+  @media screen and (max-width: 400px) {
+    padding: 0 30px;
+  }
+}
+
+/* organoleptic data */
+.organoleptic {
+  padding-bottom: 100px;
+  justify-content: center;
+
+  >div {
+    width: 20%;
+  }
+}
+
+.border_bottom_grey {
+  border-bottom: 1px solid $grey;
+}
+
+.organoleptic_name,
+.organoleptic_name_inn {
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1.3;
+  font-size: 16px;
+  height: 40px;
+  padding: 0 2vw;
+  text-align: center;
+}
+
+.organoleptic_name_inn {
+  height: inherit;
+  padding: 35px 0 22px;
+}
+
+.organoleptic_icon {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.organoleptic_icon_title {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 12px;
+  font-family: 'museo_sans_cyrl300', sans-serif;
+  text-transform: uppercase;
+}
+
+.organoleptic_icon-text > div,
+[class^="iconfon-"],
+[class*=" iconfon-"] {
+  height: 100px;
+  width: 100px;
+  position: relative;
+}
+
+.organoleptic_icon-text {
+  font-size: 40px;
+  white-space: nowrap;
+
+  >div {
+    font-family: 'museo_sans_cyrl500', sans-serif;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      display: inline-block;
+    }
+  }
+}
+
+.wine-prof_0,
+.wine-prof_1,
+.wine-prof_2,
+.wine-prof_3,
+.wine-prof_4,
+.wine-prof_5 {
+  justify-content: space-around;
+  max-width: 215px;
+  width: 100%;
+
+  >div {
+    width: 20px;
+    height: 20px;
+    background: $more-light-grey;
+    border-radius: 50%;
+  }
+}
+
+.wine-prof_1 {
+  >div:first-child {
+    background: $vinous;
+  }
+}
+
+.wine-prof_2 {
+  >div {
+    &:first-child,
+    &:nth-child(2) {
+      background: $vinous;
+    }
+  }
+}
+
+.wine-prof_3 {
+  >div {
+    &:first-child,
+    &:nth-child(2),
+    &:nth-child(3) {
+      background: $vinous;
+    }
+  }
+}
+
+.wine-prof_4 {
+  >div {
+    &:first-child,
+    &:nth-child(2),
+    &:nth-child(3),
+    &:nth-child(4) {
+      background: $vinous;
+    }
+  }
+}
+
+.wine-prof_5 {
+  >div {
+    &:first-child,
+    &:nth-child(2),
+    &:nth-child(3),
+    &:nth-child(4),
+    &:nth-child(5) {
+      background: $vinous;
+    }
+  }
+}
+
+/* technical data */
+.technical_data {
+  background: image-url('technical_data.jpg') no-repeat top center $technical-data-bg;
+  background-size: cover;
+  color: $white;
+  font-family: 'museo_sans_cyrl300', sans-serif;
+
+  h3 {
+    color: $white;
+  }
+
+  @media screen and (max-width: 960px) {
+    background-size: auto auto;
+  }
+}
+
+.technical_data__name {
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 12px 0;
+}
+
+.technical_data__description {
+  font-size: 22px;
+  padding: 0 0 40px;
+}
+
+.technical_data_block {
+  padding: 0 20px;
+
+  >div:last-child {
+    padding-bottom: 90px;
+  }
+}
+
+/* perfect experience */
+.product_glass {
+  @include align-items(center);
+  padding: 50px 0;
+}
+
+.product_glass__name,
+.product_music__name {
+  font-family: 'librebaskerville-regular', serif;
+  font-size: 38px;
+  padding-bottom: 30px;
+  line-height: 1.2;
+}
+
+.product_glass__description,
+.product_glass__empty {
+  width: 50%;
+}
+
+.product_glass__description,
+.product_music__description {
+  text-align: left;
+
+  span {
+    font-size: 13px;
+    text-transform: uppercase;
+    line-height: 1.7;
+  }
+}
+
+.product_music__description {
+  padding: 0 20px;
+}
+
+.product_glass__image {
+  max-width: 225px;
+  width: 33.33%;
+
+  img {
+    width: 100%;
+    max-width: 225px;
+    max-height: 430px;
+  }
+}
+
+.product_music {
+  justify-content: space-around;
+  padding-bottom: 100px;
+
+  .product_music__block {
+    width: 50%;
+    align-items: center;
+    padding: 20px 20px 0;
+
+    &:first-child {
+      order: 2;
+    }
+
+    &:last-child {
+      order: 1;
+    }
+  }
+
+  &.only-one {
+    justify-content: flex-end;
+
+    .product_music__block:first-child {
+      width: 66.666%;
+    }
+
+    .product_music__play::before {
+      width: 35%;
+      height: 40%;
+    }
+  }
+}
+
+.product_music__track,
+.product_music__description {
+  width: 50%;
+}
+
+.product_music__track_inn {
+  max-width: 405px;
+  max-height: 405px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.product_music__track_bg {
+  position: relative;
+  $width-music: 100%;
+  width: $width-music;
+  padding-bottom: ($width-music * 1);
+  border-radius: 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 1px solid $more-light-grey;
+}
+
+.product_music__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  height: 35%;
+  border-radius: 50%;
+  background: $vinous-8;
+  transition: transform ease-out .1s, background .2s;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%, -45%);
+    background: image_url('music_play_shadow.png') top left;
+    background-size: cover;
+    width: 25px;
+    height: 30px;
+  }
+
+  &.play {
+    transform: translate(-50%, -50%) scale(.93);
+
+    &::after {
+      pointer-events: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      content: '';
+      box-sizing: content-box;
+      top: 0;
+      left: 0;
+      padding: 0;
+      z-index: -1;
+      box-shadow: 0 0 0 2px $white-5;
+      opacity: 0;
+      transform: scale(.9);
+      animation: sonarEffect 1.3s ease-out 75ms infinite;
+    }
+
+    &::before {
+      transform: translate(-50%, -50%);
+      background: image_url('music_pause_shadow.png') top left;
+      background-size: cover;
+    }
+  }
+}
+
+.pslider_wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.pslider {
+  height: 635px;
+  color: $white;
+  overflow: hidden;
+  display: flex;
+  position: relative;
+
+  >div {
+    width: 50%;
+  }
+
+  h5 {
+    color: $white;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    font-family: 'librebaskerville-regular', serif;
+
+    li {
+      list-style: none;
+      padding: 20px 0;
+      cursor: pointer;
+    }
+  }
+}
+
+.pslider_items {
+  height: 100%;
+}
+
+.pslider_bg {
+  background: image-url('prod_slider_bg.jpg') repeat-x top left;
+  background-size: auto 100%;
+  font-size: 32px;
+  padding: 5% 5% 5% 10%;
+  position: relative;
+  height: 100%;
+  z-index: 2;
+
+  @media screen and (max-width: 1500px) {
+    font-size: 25px;
+  }
+
+  @media screen and (max-width: 1120px) {
+    padding: 3% 3% 3% 5%;
+  }
+
+  @media screen and (max-width: 640px) {
+    font-size: 20px;
+  }
+}
+
+.pslider_image {
+  position: relative;
+}
+
+.pslider_arrow {
+  position: absolute;
+  right: 0;
+  border-top: 28px solid transparent;
+  border-bottom: 28px solid transparent;
+  border-right: 30px solid $white;
+}
+
+.also_like {
+  @include justify-content(center);
+  top: 20px;
+  padding: 2% 0 10%;
+
+  >div,
+  >a {
+    padding: 0 2%;
+    width: 290px;
+  }
+}
+
+.also_like_name {
+  font-family: 'librebaskerville-regular', serif;
+  text-transform: uppercase;
+  font-size: 15px;
+  letter-spacing: 1px;
+  margin-top: 20px;
+}
+
+.vintage_text {
+  font-family: 'museo_sans_cyrl300', sans-serif;
+  padding: 70px 20px;
+  line-height: 1.6;
+  background: image_url('checkout_grape') no-repeat 100% 50% $ultra-light-grey;
+  border-bottom: 1px solid $light-grey;
+
+  @media screen and (max-width: 640px) {
+    border-top: 1px solid $light-grey;
+    padding: 50px 20px;
+  }
+
+  @media screen and (max-width: 400px) {
+    padding: 40px 20px;
+    line-height: 1.4;
+    font-size: 14px;
+  }
+}
+
+.add_to_cart {
+  padding: 0;
+
+  .add_to_cart_inn {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 26px 50px;
+    overflow: hidden;
+
+    @media screen and (max-width: 640px) {
+      padding: 16px 30px;
+      font-size: 24px;
+    }
+  }
+
+  .add_to_card__notification {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'museo_sans_cyrl500', sans-serif;
+    font-size: 16px;
+    text-transform: none;
+    letter-spacing: 2px;
+    transition: top .4s ease;
+    opacity: 1;
+
+    @media screen and (max-width: 400px) {
+      font-size: 12px;
+    }
+  }
+
+  .add_to_card__text {
+    position: relative;
+    transition: opacity .4s ease;
+
+    @media screen and (max-width: 400px) {
+      font-size: 16px;
+    }
+  }
+
+  &.click-action {
+    .add_to_card__notification {
+      top: 50%;
+    }
+
+    .add_to_card__text {
+      opacity: 0;
+    }
+  }
+}
+
+/* discount */
+.discount {
+  font-family: 'librebaskerville-regular';
+}
+
+.discount_row {
+  justify-content: space-between;
+}
+
+.discount_old,
+.discount_part {
+  min-width: 35%;
+}
+
+.discount_old_price {
+  position: relative;
+  font-size: 38px;
+  display: inline-block;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    height: 2px;
+    background: $red;
+    width: calc(100% + 20px);
+    transform: rotate(-10deg) translateX(-50%);
+  }
+}
+
+.discount_part {
+  color: $red;
+  text-align: right;
+  font-size: 30px;
+}
+
+.discount_current {
+  font-size: 45px;
+}
+
+.discount_current_empty {
+  display: none;
+}
+
+.discount_for {
+  font-size: 14px;
+  text-transform: lowercase;
+}
+
+.discount_row_for {
+  font-size: 12px;
+  text-transform: lowercase;
+  align-self: flex-end;
+  color: $red;
+  padding: 0 0 15px 20px;
+  line-height: 1.2;
+  text-align: left;
+}
+
+@media screen and (max-width: 960px) and (min-width: 640px) {
+  .organoleptic_name,
+  .organoleptic_name_inn {
+    font-size: 14px;
+  }
+
+  .organoleptic_icon-text {
+    font-size: 30px;
+  }
+
+  [class^="iconfon-"]::before,
+  [class*=" iconfon-"]::before {
+    font-size: 70px;
+  }
+
+  .product_glass__name,
+  .product_music__name {
+    font-size: 26px;
+
+    span {
+      font-size: 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .product_glass {
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 767px) and (min-width: 640px) {
+  .product_name {
+    font-size: 25px;
+  }
+
+  .product_description {
+    font-size: 18px;
+    padding-left: 20px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .product > .wrapper {
+    padding: 50px 20px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  h3 {
+    margin: 40px 0;
+  }
+
+  .product > .wrapper {
+    flex-direction: column;
+  }
+
+  .product_description {
+    text-align: center;
+  }
+
+  .product_des_text {
+    width: 100%;
+  }
+
+  .product_play-video {
+    margin: 20px auto 0;
+  }
+
+  .organoleptic {
+    flex-direction: column;
+    padding-bottom: 50px;
+  }
+
+  .organoleptic > div {
+    width: 100%;
+  }
+
+  .organoleptic_icon {
+    flex-direction: row;
+
+    &.flex_column {
+      flex-direction: column;
+    }
+  }
+
+  .organoleptic_name_inn {
+    font-size: 14px;
+    padding: 30px 0 10px;
+  }
+
+  .organoleptic_name {
+    padding: 5vw 0 1vw;
+    height: 50px;
+  }
+
+  .organoleptic_profile {
+    flex-direction: column;
+    padding-bottom: 30px;
+  }
+
+  .organoleptic_icon-text {
+    padding: 0 20px;
+
+    >div {
+      width: 100%;
+    }
+  }
+
+  .product_glass {
+    flex-direction: column-reverse;
+  }
+
+  .product_glass__name,
+  .product_music__name {
+    text-align: center;
+  }
+
+  .product_glass__image {
+    width: 70vw;
+  }
+
+  .product_glass__description {
+    width: 80vw;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .product_music,
+  .product_music.only-one {
+    flex-direction: column;
+    padding-bottom: 50px;
+
+    .product_music__block,
+    .product_music__block:first-child {
+      width: 100%;
+      flex-direction: column;
+    }
+  }
+
+  .product_music__track,
+  .product_music__description {
+    width: 80vw;
+    text-align: center;
+  }
+
+  .product_music__description {
+    padding: 30px 0;
+  }
+
+  .pslider {
+    width: 100%;
+    height: 100%;
+    overflow-x: scroll;
+    display: block;
+
+    .pslider_items {
+      overflow-x: scroll;
+      width: 180vw;
+      position: relative;
+      top: 0;
+      right: 0;
+      z-index: 2;
+    }
+
+    .pslider_bg {
+      width: 90vw;
+    }
+
+    .pslider_image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      width: 180vw;
+      height: 100%;
+
+      img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+      }
+    }
+  }
+
+  .select_product_amount {
+    font-size: 25px;
+  }
+
+  .select_product_item {
+    margin-left: 10px;
+    font-size: 10px;
+  }
+
+  .product_qty {
+    padding-left: 10px;
+
+    input {
+      padding: 10px;
+    }
+  }
+
+  .also_like a:last-child {
+    display: none;
+  }
+
+  .also_like_name {
+    font-size: 13px;
+  }
+
+  .product_video {
+    height: 100vh;
+    position: fixed;
+  }
+
+  .discount_row {
+    justify-content: space-around;
+    font-size: 28px;
+  }
+
+  .discount_curren {
+    font-size: 35px;
+  }
+
+  .discount_row_current {
+    justify-content: center;
+
+    >div {
+      width: 100%;
+    }
+  }
+
+  .discount_current_empty {
+    display: block;
+  }
+
+  .discount_current_empty,
+  .discount_current .currency {
+    width: 100%;
+    text-align: left;
+  }
+
+  .discount_old {
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .product h5 {
+    margin: 20px 0 10px;
+  }
+
+  .discount_row {
+    flex-direction: column;
+
+    >div {
+      text-align: center;
+
+      &.discount_row_for {
+        align-self: center;
+        padding: 10px 0;
+      }
+    }
+  }
+}

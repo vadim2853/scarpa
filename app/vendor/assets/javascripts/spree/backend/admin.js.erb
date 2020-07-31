@@ -1,0 +1,50 @@
+jQuery(function($) {
+  $(document).ready(function(){
+    var uniqueId = 1;
+    $('.spree_add_fields').unbind('click').click(function(e) {
+      var target = $(this).data("target");
+      var new_table_row = $(target + ' tr:visible:last').clone();
+
+      new_table_row.find('.select2-container').remove();
+      new_table_row.find('.property_group select')
+                   .val('<%= Spree::Property.groups.keys.first %>')
+                   .trigger('change')
+                   .select2({minimumResultsForSearch: -1});
+      new_table_row.find('.type_of_value select')
+                   .val('text')
+                   .select2({minimumResultsForSearch: -1});
+
+      var new_id = new Date().getTime() + (uniqueId++);
+      new_table_row.find("input, select").each(function () {
+        var el = $(this);
+        el.val("");
+        // Replace last occurrence of a number
+        el.prop("id", el.prop("id").replace(/\d+(?=[^\d]*$)/, new_id))
+        el.prop("name", el.prop("name").replace(/\d+(?=[^\d]*$)/, new_id))
+      });
+
+      new_table_row.find('.right_variant input[type="radio"]')
+                   .val('true')
+                   .attr({ checked: false });
+
+      new_table_row.find('.right_variant input[type="checkbox"]')
+                   .val('1')
+                   .attr({ checked: false });
+
+      var match = new_table_row.find('.to_match_box input[type="hidden"]');
+      var tableSide = match.parent();
+      match.val(tableSide.data('match'));
+
+      // When cloning a new row, set the href of all icons to be an empty "#"
+      // This is so that clicking on them does not perform the actions for the
+      // duplicated row
+      new_table_row.find("a").each(function () {
+        var el = $(this);
+        el.prop('href', '#');
+      })
+      $(target).prepend(new_table_row);
+
+      new_table_row.find('.select2-search-choice-close').remove();
+    });
+  });
+});

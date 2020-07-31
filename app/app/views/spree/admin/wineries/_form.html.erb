@@ -1,0 +1,109 @@
+<div data-hook="admin_winery_form_fields" class="row">
+<div id="winery-lang-tabs" class="i18n-tabs">
+  <ul>
+    <li><a href="#tabs-1">EN</a></li>
+    <li><a href="#tabs-2">IT</a></li>
+  </ul>
+  <div id="tabs-1">
+    <div class="alpha">
+      <%= f.field_container :title do %>
+        <%= f.label :title, Spree.t('admin.title') %>
+        <%= f.text_field :title, :class => 'fullwidth', maxlength: 10 %>
+        <%= error_message_on :winery, :title %>
+      <% end %>
+    </div>
+
+    <div data-hook="admin_winery_form_description_fields" class="alpha">
+      <%= f.field_container :description do %>
+        <%= f.label :description, Spree.t('admin.description') %>
+        <%= f.cktext_area :description, :class => 'fullwidth' %>
+        <%= f.error_message_on :description %>
+      <% end %>
+    </div>
+  </div>
+  <div id="tabs-2">
+    <div class="alpha">
+      <%= f.field_container :title_it do %>
+        <%= f.label :title_it, Spree.t('admin.title_it') %>
+        <%= f.text_field :title_it, :class => 'fullwidth', maxlength: 10 %>
+        <%= error_message_on :winery, :title_it %>
+      <% end %>
+    </div>
+
+    <div data-hook="admin_winery_form_description_it_fields" class="alpha">
+      <%= f.field_container :description_it do %>
+        <%= f.label :description_it, Spree.t('admin.description_it') %>
+        <%= f.cktext_area :description_it, :class => 'fullwidth' %>
+        <%= f.error_message_on :description_it %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+  <div class="field alpha five columns">
+    <%= f.field_container :text_side do %>
+      <%= f.label :text_side, Spree.t('admin.text_side') %>
+      <%= f.select :text_side, ['left', 'right'], {}, class: 'select2 fullwidth' %>
+      <%= error_message_on :winery, :text_side %>
+    <% end %>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="field alpha five columns">
+    <%= f.field_container :text_color do %>
+      <%= f.label :text_color, Spree.t('admin.text_color') %>
+      <%= f.select :text_color, ['black', 'white'], {}, class: 'select2_without_empty fullwidth' %>
+      <%= error_message_on :winery, :text_color %>
+    <% end %>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="alpha">
+    <%= f.field_container :video_mp4 do %>
+      <%= f.label :video_mp4, Spree.t('admin.video_mp4') %>
+      <%= f.text_field :video_mp4, :class => 'fullwidth' %>
+      <%= error_message_on :winery, :video_mp4 %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :video_ogg do %>
+      <%= f.label :video_ogg, Spree.t('admin.video_ogg') %>
+      <%= f.text_field :video_ogg, :class => 'fullwidth' %>
+      <%= error_message_on :winery, :video_ogg %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :video_webm do %>
+      <%= f.label :video_webm, Spree.t('admin.video_webm') %>
+      <%= f.text_field :video_webm, :class => 'fullwidth' %>
+      <%= error_message_on :winery, :video_webm %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_winery_form_image_fields" class="alpha">
+    <%= f.field_container :image do %>
+      <%= f.label :image, Spree.t('admin.image') %>
+      <%= f.file_field :image, :class => 'fullwidth' %>
+      <%= f.error_message_on :image %>
+    <% end %>
+
+    <% if @winery.image.present? %>
+      <%= image_tag @winery.image(:small) %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_winery_form_status_fields" class="alpha">
+    <%= f.field_container :status do %>
+      <strong class="uppercase"><%= Spree.t('admin.publishing_status') %></strong>
+      <% Spree::Winery::statuses.each_key do |status| %>
+        <%= f.label :status, status %>
+        <%= f.radio_button :status, status %>
+      <% end %>
+      <%= f.error_message_on :status %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<% if @not_related_products.present? %>
+  <h4>Available for relation:</h4>
+  <div id="relation_ids_box" class="field alpha five columns">
+    <%= select_tag 'related_ids', 
+                    options_from_collection_for_select(
+                      not_related_products, 
+                      'id',
+                      'name',
+                      not_related_products.first
+                    ),
+                    class: 'select2' %>
+  </div>
+  
+  <div id="relation-product-link-box" class="field beta four columns">
+    <%= link_to_with_icon 'plus', 
+                          'Add relation',
+                          'javascript:;',
+                          class: 'button add-related-product-link', 
+                          data: { product_id: @product.id }  %>
+  </div>
+  <div class="clear"></div>
+<% else %>
+  <h4>No products available for relation</h4>
+<% end %>

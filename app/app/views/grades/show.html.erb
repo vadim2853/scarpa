@@ -1,0 +1,57 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'grade', 'data-turbolinks-track': true, 'data-props': @props %>
+<% end %>
+
+<div class="wrapper quizz">
+  <div class="crumbs flex">
+    <%= link_to Spree.t('scarpa'), root_path %>
+    <span>/</span>
+    <%= link_to Spree.t('quiz_list'), grades_path %>
+    <span>/</span>
+    <div class="current_grade"></div>
+  </div>
+
+  <div class="grade_container wrapper_x_medium">
+    <div class="text_center">
+      <div class="quizz_counter"></div>
+      <h2 class="title"></h2>
+    </div>
+
+    <div class="variants text_center">
+      <form><div class="quizz_block"></div></form>
+    </div>
+
+    <div class="quizz_btns flex">
+      <button type="button" class="btn red small">next</button>
+    </div>
+  </div>
+
+  <div class="wrapper_x_medium quizz">
+    <div class="final_display text_center">
+      <h3 class="congrats_or_not"></h3>
+      <div class="quizz_name grade_name"></div>
+
+      <div class="quizz_points"></div>
+      <h4 class="percentage"></h4>
+      <div class="quizz_min_poins"></div>
+
+      <div class="quizz_grade nomination_icon"></div>
+
+      <%= next_grade(params[:id]) %>
+
+      <div class="try_to_login">
+          Congratulations on completing the Quiz!<br />
+          In order to download the certificate with your results, please create an account or sign in to Scarpa.
+      </div>
+
+      <div class="quizz_congratulations_bottom flex">
+        <button class="btn red white_red small retake_grade">Retake</button>
+        <%= render 'social_shares', title: '', description: '', link: '' %>
+        <button data-resultId="" data-download-path="<%= certificate_path('_') %>" class="btn red small download_pdf">
+          <i></i>
+          <%= Spree.t('download_certificate') %>
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

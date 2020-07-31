@@ -1,0 +1,23 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.featured_item.edit_title') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.featured_item.new_link_button'), spree.admin_featured_items_path, icon: 'arrow-left' %>
+  </li>
+<% end %>
+
+<div data-hook="admin_featured_item_new_form_header">
+  <%= render partial: 'spree/shared/error_messages', locals: { target: @featured_item } %>
+</div>
+
+<div data-hook="admin_featured_item_new_form">
+  <%= form_for [:admin, @featured_item], url: admin_featured_item_path(@featured_item), method: :put do |f| %>
+    <fieldset data-hook="update_featured_item">
+      <legend align="center"><%= Spree.t('admin.featured_item.update_item') %></legend>
+      <%= render partial: 'form', locals: { f: f } %>
+      <%= render partial: 'spree/admin/shared/edit_resource_links' %>
+    </fieldset>
+  <% end %>
+</div>

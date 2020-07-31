@@ -1,0 +1,95 @@
+<fieldset data-hook="manage_variants">
+  <legend>Variants type: "Matching table rows"</legend>
+  <p>After data updating, please, submit this form!</p>
+
+  <% 
+    if f.object.v_match? && f.object.variants.present?
+      left_variants  = []
+      right_variants = []
+      f.object.variants.each { |v| Spree::Question.to_bool(v['to_match']) ? right_variants << v : left_variants << v }
+    else
+      f.object.variants = []
+      match_id = SecureRandom.hex(7)
+      left_variants  = [{ title: '', to_match: false, match_id: match_id }]
+      right_variants = [{ title: '', to_match: true, match_id: match_id }]
+    end
+  %>
+
+  <div class="left seven columns left_table_box">
+    <table class="index question_variants_sortable">
+      <thead data-hook="question_header">
+        <tr>
+          <th><%= Spree.t('admin.handle') %></th>
+          <th><%= Spree.t('admin.title') %></th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody class="table_side left_variants">
+
+        <% left_variants.each do |variant| %>
+          <%= f.fields_for :variants, OpenStruct.new(variant), index: rand(Time.now.to_i) do |qv_form| %>
+            <tr class="question_variant fields" data-hook="question_variant" class="<%= cycle('odd', 'even')%>">
+              <td class="to_match_box" data-match="false">
+                <span class="handle"></span>
+                <%= qv_form.hidden_field :to_match, value: false, class: 'to_match_field' %>
+                <%= qv_form.hidden_field :match_id, class: 'match_id_field' %>
+              </td>
+
+              <td class="title">
+                <%= qv_form.text_field :title %>
+              </td>
+
+              <td class="actions">
+                <%= link_to '', 'javascript:;', class: 'remove_question_variant fa fa-trash icon_link no-text' %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+
+      </tbody>
+    </table>  
+    <span id="new_add_question_variant" data-hook>
+      <%= link_to Spree.t('admin.add_question_variant'), 'javascript:;',
+            class: 'button fa fa-plus spree_add_variants' %>
+    </span>
+  </div>
+
+  <div class="right seven columns right_table_box">
+    <table class="index question_variants_sortable">
+      <thead data-hook="question_header">
+        <tr>
+          <th><%= Spree.t('admin.handle') %></th>
+          <th><%= Spree.t('admin.title') %></th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody class="table_side right_variants">
+
+      <% right_variants.each do |variant| %>
+        <%= f.fields_for :variants, OpenStruct.new(variant), index: rand(Time.now.to_i) do |qv_form| %>
+          <tr class="question_variant fields" data-hook="question_variant" class="<%= cycle('odd', 'even')%>">
+            <td class="to_match_box" data-match="true">
+              <span class="handle"></span>
+              <%= qv_form.hidden_field :to_match, value: true, class: 'to_match_field' %>
+              <%= qv_form.hidden_field :match_id, class: 'match_id_field' %>
+            </td>
+
+            <td class="title">
+              <%= qv_form.text_field :title %>
+            </td>
+
+            <td class="actions">
+              <%= link_to '', 'javascript:;', class: 'remove_question_variant fa fa-trash icon_link no-text' %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="clear"></div>
+  
+  <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+</fieldset>

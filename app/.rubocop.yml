@@ -1,0 +1,37 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'node_modules/**/*'
+    - 'db/**/*'
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+    - 'client/node_modules/**/*'
+    - 'bin/**/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+  DisplayStyleGuide: true
+
+Metrics/AbcSize:
+  Max: 25
+
+Metrics/ClassLength:
+  Max: 300
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/LineLength:
+  Max: 120
+
+Style/Documentation:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

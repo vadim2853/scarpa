@@ -1,0 +1,55 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.news_entry.listing') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.news_entry.new'), new_admin_news_entry_path, icon: 'plus' %>
+  </li>
+<% end %>
+
+<table>
+  <thead>
+    <tr data-hook="news_entries_header">
+      <th><%= Spree.t('admin.publishing_status') %></th>
+      <th><%= Spree.t('admin.news_entry.posted_on') %></th>
+      <th><%= Spree.t('admin.title') %></th>
+      <th><%= Spree.t('admin.news_entry.preview_text') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @news_entries.each do |resource| %>
+      <tr data-hook="news_entries_row_<%= resource.id %>"
+          id="<%= spree_dom_id resource %>"
+          class="<%= cycle('odd', 'even')%>">
+
+        <td class="align-center">
+          <strong>
+            <span style="color: <%= resource.published? ? '#9FC820' : 'red' %>">
+              <%= resource.status %>
+            </span>
+          </strong>
+        </td>
+        <td data-hook='preview_text' class="align-center">
+          <%= resource.posted_on %>
+        </td>
+        <td data-hook='title' class="align-center">
+          <%= resource.title %>
+        </td>
+        <td data-hook='preview_text'>
+          <%= resource.preview_text.html_safe %>
+        </td>
+        <td class="actions">
+          <%= link_to_with_icon 'eye', Spree.t(:show), admin_news_entry_path(resource.id), no_text: true,
+                data: { action: 'green' } %>
+
+          <%= link_to_with_icon 'edit', Spree.t('actions.edit'),
+                edit_admin_news_entry_path(resource.id), no_text: true, data: { action: 'edit' } %>
+
+          <%= link_to_delete resource, { url: admin_news_entry_url(resource.id),
+                no_text: true, id: "del_#{resource.id}" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

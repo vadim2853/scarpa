@@ -1,0 +1,32 @@
+{
+  "name": "scarpa-vini",
+  "version": "1.1.1",
+  "description": "Built using the react_on_rails generator. Allows you to run npm install from root.",
+  "main": "server.js",
+  "engines": {
+    "node": "5.5.0",
+    "npm": "3.3.12"
+  },
+  "scripts": {
+    "test": "npm run scss-lint && npm run lint && ruby-lint app config spec lib && rubocop && rspec",
+    "postinstall": "cd client && npm install",
+    "lint": "cd client && npm run lint",
+    "scss-lint": "scss-lint -c .scss-lint.yml",
+    "start": "echo 'visit http://localhost:4000' && cd client && npm start",
+    "rails-server": "foreman start -f Procfile.dev",
+    "webpack-server": "foreman start -f Procfile.dev-webpack -t 10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/logicitsolutions/scarpa.git"
+  },
+  "keywords": [
+    "react",
+    "scarpa"
+  ],
+  "author": "LITS",
+  "homepage": "https://bitbucket.org/logicitsolutions/scarpa/overview",
+  "dependencies": {
+    "jquery.uniform": "2.1.3"
+  }
+}

@@ -1,0 +1,4 @@
+$('<%= "#wine-glass-#{@deleted_wine_glass_id}" %>').remove();
+$('.wine_glass_select').html('<%= j render partial: "spree/admin/products/wine_glass_select" %>');
+$("#wine_glasses_ids").select2({ minimumResultsForSearch: Infinity });
+$('.add-wine-glass-link').click(window.addWineGlass);

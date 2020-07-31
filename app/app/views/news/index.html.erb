@@ -1,0 +1,27 @@
+<div class="wrapper flex">
+  <div class="left_side">
+    <% @news.each do |news_entry| %>
+      <div class="article">
+        <h2><%= link_to news_entry.title, news_path(news_entry) %></h2>
+        <div class="article__prehead flex">
+          <div class="article__posted">
+            <%= posted_on(news_entry) %>
+            <span class="article__posted_by">&nbsp;<%= Spree.t('by_scarpa') %></span>
+          </div>
+          <div class="article__views"><span class="icon_eye"></span><%= news_entry.view_count %></div>
+        </div>
+        <div class="article__text">
+          <%= news_entry.preview_text.html_safe %>
+        </div>
+
+        <%= render 'social_shares', title: news_entry.title,
+                                    description: news_entry.preview_text,
+                                    link: news_url(news_entry) %>
+      </div>
+    <% end %>
+
+    <%= paginate @news, window: 2 %>
+  </div>
+
+  <%= render 'archive_news' %>
+</div> <!-- .wrapper -->

@@ -1,0 +1,55 @@
+.errorExplanation {
+  padding: 5px;
+  border: 1px solid very-light($red, 12);
+  background-color: very-light($red, 6);
+  border-radius: 3px;
+  color: very-light($red, 30);
+  margin-bottom: 15px;
+
+  h2 {
+    font-size: 140%;
+    color: very-light($red, 30);
+    margin-bottom: 5px;
+  }
+
+  p {
+    padding: 10px 0;
+  }
+
+  ul {
+    list-style-position: inside;
+
+    li {
+      font-weight: bold;
+    }
+  }
+}
+
+.flash-wrapper {
+  z-index: 1000;
+}
+
+.flash {
+  padding: 20px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.3;
+  color: $black;
+  font-family: 'museo_sans_cyrl300', sans-serif;
+  border-top: 1px solid $light-grey;
+
+  &.notice { background-color: $more-light-grey; }
+  &.success { background-color: rgba($green, .4); }
+  &.error { background-color: rgba($red, .4); }
+}
+
+.alert {
+  position: relative;
+  font-weight: normal !important;
+
+  a {
+    text-decoration: underline;
+  }
+
+  &.error a { color: very-light($red, 10); }
+}

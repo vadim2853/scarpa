@@ -1,0 +1,107 @@
+<div class="cabinet flex">
+  <div class="cabinet_right_side">
+    <div class="order_hist__name_mobile">
+      <div class="order_hist__name_inn">
+        <%= Spree.t('order_history') %>
+        <div class="arrow_black"></div>
+      </div>
+    </div>
+    <%= render 'user_info' %>
+  </div>
+
+  <div class="order_history list_of_orders">
+
+    <% if @orders.present? %>
+
+      <div class="order_hist__head">
+        <div class="order_hist__head_name">
+          <div class="order_hist__main_name"><%= Spree.t('order_history') %></div>
+          <div class="order_hist__sub_name"><%= Spree.t('all_your_orders') %></div>
+        </div>
+
+        <div class="cabinet_history_date flex">
+          <%= select_tag 'year', options_for_select(@years, params[:year]), class: 'selecter selecter_data' %>
+          <%= select_tag 'month',
+                options_for_select(@months.map{ |m| [Date::MONTHNAMES[m], m] }, params[:month]),
+                class: 'selecter selecter_month' %>
+        </div>
+      </div>
+
+      <div class="order_hist__main">
+        <% @orders.each do |order| %>
+          <div class="order_hist__item">
+            <div class="flex order_hist__item_row">
+              <div class="order_hist__id">
+                <h5><%= Spree.t('order_numder') %>:</h5>
+                <%= link_to order.number, order_details_path(order) %>
+              </div>
+              <div class="order_hist__status">
+                <h5><%= Spree.t('status') %>:</h5>
+                <%= order_status_tag(order) %>
+              </div>
+            </div>
+
+            <div class="tracking-container">
+              <% shipments = order.shipments.trackable %>
+              <% if shipments.any? %>
+                <div>
+                  <div class="tracking_name"><%= Spree.t('tracking') %><div class="arrow_black small"></div></div>
+                  <div class="tracking_block">
+                    <% shipments.each do |shipment| %>
+                      <div class="tracking_link"><%= link_to_tracking_service(shipment) %></div>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="flex order_hist__item_row">
+              <div>
+                <h5><%= Spree.t('date') %>:</h5>
+                <%= order.updated_at.strftime('%d.%m.%Y') %>
+              </div>
+
+              <% if order.payment_state.present? %>
+                <div>
+                  <h5><%= Spree.t('payment_state') %>:</h5>
+                  <%= Spree.t("payment_states.#{order.payment_state}") %>
+                </div>
+              <% end %>
+
+              <% if order.shipment_state.present? %>
+                <div>
+                  <h5><%= Spree.t('shipment_state') %>:</h5>
+                  <%= Spree.t("shipment_states.#{order.shipment_state}") %>
+                </div>
+              <% end %>
+
+              <div class="order_hist__price">
+                <h5><%= Spree.t('total_price') %>:</h5>
+                <div class="order_hist__price_num flex">
+                  <%= order.total %>
+                  <span class="currency"><%= Spree.t(order.currency) %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    <% else %>
+
+      <div class="order_hist__head">
+        <div class="order_hist__head_name">
+          <div class="order_hist__main_name"><%= Spree.t('order_history') %></div>
+          <div class="order_hist__sub_name"><%= Spree.t('all_your_orders') %></div>
+
+          <div class="cabinet_no-order">
+            <div class="icon_glass"></div>
+            <div class="order_hist__sub_name"><%= Spree.t('empty_order_history') %></div>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

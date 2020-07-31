@@ -1,0 +1,34 @@
+<div class="about">
+  <div class="about_nav">
+    <% @wineries.each do |winery| %>
+      <%= link_to '<span></span>'.html_safe, "#block_#{winery.id}" %>
+    <% end %>
+  </div>
+  <% @wineries.each do |winery| %>
+    <div class="about_item"
+         style="background-image: url(<%= winery.image.url(:medium) %>)"
+         id="<%= "block_#{winery.id}" %>"
+         data-video-mp4="<%= winery.video_mp4 %>"
+         data-video-ogg="<%= winery.video_ogg %>"
+         data-video-webm="<%= winery.video_webm %>">
+
+      <div class="about_text <%= winery.text_side %> <%= winery.text_color %>">
+        <div class="about_name"><%= winery.title %></div>
+        <%= winery.description.html_safe %>
+
+        <% if winery.video_mp4.present? || winery.video_ogg.present? || winery.video_webm.present? %>
+          <div class="about_btn-play">
+            <div class="play-icon"></div>
+            <div class="play-text">SHOW ME <%= winery.title %></div>
+          </div>
+        <% end %>
+      </div>
+
+      <% if winery.video_mp4.present? || winery.video_ogg.present? || winery.video_webm.present? %>
+        <div class="about_video">
+          <div class="about_video_close">hide video</div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,95 @@
+<div data-hook="admin_featured_item_form_fields" class="row">
+  <div class="alpha">
+    <%= f.field_container :item_title do %>
+      <%= f.label :item_title, Spree.t('admin.featured_item.item_title') %>
+      <%= f.text_field :item_title, class: 'fullwidth' %>
+      <%= error_message_on :featured_item, :item_title %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_featured_item_form_position_fields" class="alpha">
+    <%= f.field_container :position do %>
+      <%= f.label :position, Spree.t('admin.featured_item.position') %>
+      <%= f.number_field :position, class: 'fullwidth' %>
+      <%= f.error_message_on :position %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_featured_item_form_item_description_fields" class="alpha">
+    <%= f.field_container :item_description do %>
+      <%= f.label :item_description, Spree.t('admin.featured_item.item_description') %>
+      <%= f.text_area :item_description, class: 'fullwidth' %>
+      <%= f.error_message_on :item_description %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_featured_item_form_image_fields" class="alpha">
+    <%= f.field_container :image do %>
+      <%= f.label :image, Spree.t('admin.featured_item.image') %>
+      <%= f.file_field :image, class: 'fullwidth' %>
+      <%= f.error_message_on :image %>
+    <% end %>
+
+    <% if @featured_item.image.present? %>
+      <%= image_tag @featured_item.image(:small) %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_featured_item_form_link_url_fields" class="alpha">
+    <%= f.field_container :link_url do %>
+      <%= f.label :link_url, Spree.t('admin.featured_item.link_url') %>
+      <%= f.text_field :link_url, class: 'fullwidth' %>
+      <%= f.error_message_on :link_url %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_featured_item_form_display_mode_fields" class="alpha">
+    <%= f.field_container :display_mode do %>
+      <%= f.label :display_mode, Spree.t('admin.featured_item.display_mode') %>
+      <%= f.select :display_mode, Spree::FeaturedItem.display_modes.keys.collect {|e| [e.titleize, e] }, {},
+            class: 'select2_without_search_and_close' %>
+      <%= f.error_message_on :display_mode %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_featured_item_form_item_size_fields" class="alpha">
+    <%= f.field_container :item_size do %>
+      <%= f.label :item_size, Spree.t('admin.featured_item.item_size') %>
+      <%= f.select :item_size, Spree::FeaturedItem.item_sizes.keys.collect {|e| [e.titleize, e] }, {},
+            class: 'select2_without_search_and_close'  %>
+      <%= f.error_message_on :item_size %>
+    <% end %>
+  </div>
+
+  <div data-hook="admin_featured_item_form_spree_product_fields" class="alpha">
+    <%= f.field_container :spree_product do %>
+      <%= f.label :spree_product, Spree.t('admin.featured_item.spree_product') %>
+      <%= f.collection_select :spree_product_id, Spree::Product.all, :id, :name, { include_blank: Spree.t('admin.featured_item.spree_product_prompt') }, class: 'select2' %><br>
+      <%= f.error_message_on :spree_product %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :video_mp4 do %>
+      <%= f.label :video_mp4, Spree.t('admin.video_mp4') %>
+      <%= f.text_field :video_mp4, :class => 'fullwidth' %>
+      <%= error_message_on :featured_item, :video_mp4 %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :video_ogg do %>
+      <%= f.label :video_ogg, Spree.t('admin.video_ogg') %>
+      <%= f.text_field :video_ogg, :class => 'fullwidth' %>
+      <%= error_message_on :featured_item, :video_ogg %>
+    <% end %>
+  </div>
+
+  <div class="alpha">
+    <%= f.field_container :video_webm do %>
+      <%= f.label :video_webm, Spree.t('admin.video_webm') %>
+      <%= f.text_field :video_webm, :class => 'fullwidth' %>
+      <%= error_message_on :featured_item, :video_webm %>
+    <% end %>
+  </div>
+</div>

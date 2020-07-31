@@ -1,0 +1,23 @@
+<% content_for :page_title do %>
+  <%= Spree.t('admin.new_nomination') %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t('admin.back_to_nominations_list'), spree.admin_nominations_path, :icon => 'arrow-left' %>
+  </li>
+<% end %>
+
+<div data-hook="admin_nomination_new_form_header">
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @nomination } %>
+</div>
+
+<div data-hook="admin_nomination_new_form">
+  <%= form_for [:admin, @nomination], url: admin_nominations_url, method: :post do |f| %>
+    <fieldset data-hook="new_nomination">
+      <legend align="center"><%= Spree.t('admin.new_nomination') %></legend>
+      <%= render :partial => 'form', :locals => { :f => f } %>
+      <%= render :partial => 'spree/admin/shared/new_resource_links' %>
+    </fieldset>
+  <% end %>
+</div>
